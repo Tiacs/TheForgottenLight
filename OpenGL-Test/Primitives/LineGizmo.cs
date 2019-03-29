@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -6,29 +7,28 @@ using Microsoft.Xna.Framework.Graphics;
 namespace OpenGL_Test.Primitives {
     class LineGizmo : Gizmo {
         
-        private Vector2 direction;
+        private Vector2 end;
+        private int lineWidth;
         private Color color;
 
-        public LineGizmo(Vector2 start, Vector2 direction, Color color) : base(start) {
-            this.direction = direction;
+        public LineGizmo(Vector2 start, Vector2 end, int lineWidth, Color color) : base(start) {
+            this.end = end;
+            this.lineWidth = lineWidth;
+            this.color = color;
         }
 
         public override void Draw(SpriteBatch spriteBatch) {
-            DrawLine(this.Position, this.direction, 1, color, spriteBatch);
+            DrawLine(Position, end, lineWidth, color, spriteBatch);
         }
 
         public static void DrawLine(Vector2 start, Vector2 end, int lineWidth, Color color, SpriteBatch spriteBatch) {
             Vector2 edge = end - start;
-            // calculate angle to rotate line
-            float angle = (float)System.Math.Atan2(edge.Y, edge.X);
-
-            spriteBatch.Draw(Gizmos.Instance.PlainColor,
-                new Rectangle(
-                    (int)start.X - lineWidth/2,
-                    (int)start.Y,
-                    (int)edge.Length(),
-                    lineWidth/2),
-                null, color, angle, new Vector2(0, 0), SpriteEffects.None, 0);
+            float angle = (float) Math.Atan2(edge.Y, edge.X); // calculate angle to rotate line
+            spriteBatch.Draw(Gizmos.Instance.PlainColor, new Rectangle((int) start.X, (int) start.Y, (int) edge.Length(), lineWidth), null, 
+                color, // set specific color
+                angle, // rotate
+                new Vector2(0,0.5f), // set origin point inside of line (ratio; lineWidth = 1.0f -> lineWidth/2 = 0.5f)
+                SpriteEffects.None, 0); 
         }
     }
 }

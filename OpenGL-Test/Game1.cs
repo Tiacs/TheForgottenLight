@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Input;
 
 using OpenGL_Test.Entities;
 using OpenGL_Test.Primitives;
+using System;
 using System.Collections.Generic;
 
 namespace OpenGL_Test {
@@ -155,6 +156,16 @@ namespace OpenGL_Test {
             spriteBatch.End();
 
             spriteBatch.Begin();
+
+            Vector2 origin = new Vector2(100, 100);
+            float x = (float) (Math.Cos(0.001f * gameTime.TotalGameTime.TotalMilliseconds));
+            float y = (float) (Math.Sin(0.001f * gameTime.TotalGameTime.TotalMilliseconds));
+
+            Console.WriteLine("{2} {0} {1}", x,y, gameTime.TotalGameTime.TotalMilliseconds);
+
+            Gizmos.Instance.DrawGizmo(new LineGizmo(origin, origin + 50 * new Vector2(x,y), 10, Color.Blue));
+            Gizmos.Instance.DrawGizmo(new LineGizmo(origin, origin + 50 * new Vector2(x,y), 1, Color.Red));
+            Gizmos.Instance.DrawGizmo(new CrossGizmo(new Vector2(300, 300), 10, 2, Color.Pink));
 
             // Draw all gizmos for this frame
             Gizmos.Instance.Draw(spriteBatch);

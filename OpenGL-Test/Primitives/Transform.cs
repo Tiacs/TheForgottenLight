@@ -101,7 +101,7 @@ namespace OpenGL_Test.Primitives {
             if (needsPositionUpdate) UpdatePosition();
 
             if(GizmosEnabled) {
-                Gizmos.Instance.DrawGizmo(new CrossGizmo(this.position, 20, 2, Color.Red));
+                Gizmos.Instance.DrawGizmo(new CrossGizmo(this.position, 10, 1, Color.Red));
             }
         }
         

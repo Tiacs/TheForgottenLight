@@ -25,7 +25,7 @@ namespace OpenGL_Test.Primitives {
 
         private List<Gizmo> list;
         
-        public Gizmos() {
+        private Gizmos() {
             list = new List<Gizmo>();
         }
 
