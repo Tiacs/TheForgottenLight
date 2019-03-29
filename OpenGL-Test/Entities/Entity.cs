@@ -17,15 +17,20 @@ namespace OpenGL_Test.Entities {
             get; set;
         }
 
-        public Entity(Transform transform) {
+        public Level Level {
+            get; private set;
+        }
+
+        public Entity(Transform transform, Level level) {
             this.Transform = transform;
+            this.Level = level;
         }
 
-        public Entity(Vector2 position, Vector2 scale) : this(new Transform(position, scale)) {
+        public Entity(Vector2 position, Vector2 scale, Level level) : this(new Transform(position, scale), level) {
 
         }
 
-        public Entity(Vector2 position) : this(new Transform(position)) {
+        public Entity(Vector2 position, Level level) : this(new Transform(position), level) {
 
         }
 

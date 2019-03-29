@@ -12,29 +12,32 @@ namespace OpenGL_Test {
     /// This is the main type for your game.
     /// </summary>
     public class Game1 : Game {
-        GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
+        private GraphicsDeviceManager graphics;
+        private SpriteBatch spriteBatch;
 
         // Textures
-        Texture2D friesTexture;
-        Texture2D iceTexture;
-        Texture2D fishTexture;
-        Texture2D lightTexture;
+        private Texture2D friesTexture;
+        private Texture2D iceTexture;
+        private Texture2D fishTexture;
+        private Texture2D lightTexture;
         
         // Render Targets
-        RenderTarget2D mainTarget;
-        RenderTarget2D lightningTarget;
+        private RenderTarget2D mainTarget;
+        private RenderTarget2D lightningTarget;
 
         // Effects
-        Effect lightningEffect;
+        private Effect lightningEffect;
 
         // Light pos
-        Vector2 mousePos;
+        private Vector2 mousePos;
 
-        float t;
+        private float t;
 
         // Game Objects
-        Player player;
+        private Player player;
+        private Ghost ghost;
+
+        private Level level;
 
         private bool lightningEnabled = true;
 
@@ -58,7 +61,8 @@ namespace OpenGL_Test {
 
             // Content will be loaded after base.Initialize() statement
 
-            this.player = new Player(100, 100, Content);
+            this.level = new Level(Content);
+            this.level.Initialize();
         }
 
         /// <summary>
@@ -100,7 +104,7 @@ namespace OpenGL_Test {
 
             t += gameTime.ElapsedGameTime.Milliseconds * 0.005f;
 
-            player.Update(gameTime, keyboardState, mouseState);
+            level.Update(gameTime, keyboardState, mouseState);
 
             base.Update(gameTime);
         }
@@ -136,7 +140,7 @@ namespace OpenGL_Test {
             spriteBatch.Draw(this.friesTexture, new Vector2(200, 300), Color.White);
             spriteBatch.Draw(this.iceTexture, new Vector2(400, 150), Color.White);
 
-            player.Draw(spriteBatch, gameTime);
+            level.Draw(spriteBatch, gameTime);
 
             spriteBatch.End();
 

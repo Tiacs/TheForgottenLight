@@ -28,12 +28,16 @@ namespace OpenGL_Test.Entities {
 
         private Input keyboardEventHandler;
 
+        private BoxCollider collider;
+
         public bool Flipped {
             get; set;
         }
 
 
-        public Player(Vector2 position, ContentManager content) : base(position) {
+        public Player(Vector2 position, ContentManager content, Level level) : base(position, level) {
+
+            this.collider = new BoxCollider(32, 32, new Vector2(.5f, 1), Transform, level);
 
             this.Transform.Scale = Vector2.One * 1.5f;
             this.LoadContent(content);
@@ -41,7 +45,7 @@ namespace OpenGL_Test.Entities {
             this.Transform.GizmosEnabled = true;
         }
         
-        public Player(float x, float y, ContentManager content) : this(new Vector2(x, y), content) {
+        public Player(float x, float y, ContentManager content, Level level) : this(new Vector2(x, y), content, level) {
         }
 
         private void LoadContent(ContentManager content) {
@@ -85,27 +89,38 @@ namespace OpenGL_Test.Entities {
         }
 
         private void UpdateMovement(GameTime gameTime, KeyboardState keyboardState) {
+
+            Vector2 movement = new Vector2();
+
             this.isWalking = false;
             if (keyboardState.IsKeyDown(Keys.D)) {
-                this.Transform.Position += Vector2.UnitX * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                movement += Vector2.UnitX * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
                 this.Flipped = false;
                 this.isWalking = true;
             }
 
             if (keyboardState.IsKeyDown(Keys.A)) {
-                this.Transform.Position += -Vector2.UnitX * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                movement += -Vector2.UnitX * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
                 this.Flipped = true;
                 this.isWalking = true;
             }
 
             if (keyboardState.IsKeyDown(Keys.S)) {
-                this.Transform.Position += Vector2.UnitY * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                movement += Vector2.UnitY * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
                 this.isWalking = true;
             }
 
             if (keyboardState.IsKeyDown(Keys.W)) {
-                this.Transform.Position += -Vector2.UnitY * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                movement += -Vector2.UnitY * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
                 this.isWalking = true;
+            }
+
+            Transform.Position += movement;
+
+            this.collider.Update(gameTime);
+
+            if (collider.Intersects(Level.Ghost.Collider)) {
+                Transform.Position -= movement;
             }
         }
 

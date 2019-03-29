@@ -49,9 +49,12 @@
     <Compile Include="Events\Input.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="Entities\Player.cs" />
+    <Compile Include="Level.cs" />
+    <Compile Include="Primitives\BoxCollider.cs" />
     <Compile Include="Primitives\CrossGizmo.cs" />
     <Compile Include="Primitives\Gizmo.cs" />
     <Compile Include="Primitives\Gizmos.cs" />
+    <Compile Include="Primitives\BoxGizmo.cs" />
     <Compile Include="Primitives\LineGizmo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
