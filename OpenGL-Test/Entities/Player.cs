@@ -119,7 +119,11 @@ namespace OpenGL_Test.Entities {
 
             this.collider.Update(gameTime);
 
-            if (collider.Intersects(Level.Ghost.Collider)) {
+            bool intersects = false;
+            Level.Walls.ForEach(wall => intersects |= collider.Intersects(wall));
+            intersects |= collider.Intersects(Level.Ghost.Collider);
+
+            if (intersects) {
                 Transform.Position -= movement;
             }
         }
