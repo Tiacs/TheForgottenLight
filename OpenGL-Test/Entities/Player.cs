@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -12,9 +8,10 @@ using Microsoft.Xna.Framework.Input;
 using OpenGL_Test.Animations;
 using OpenGL_Test.Events;
 using OpenGL_Test.Primitives;
+using OpenGL_Test.Levels;
 
 namespace OpenGL_Test.Entities {
-    class Player : Entity {
+    class Player : Entity, ICollidable {
         
         private AnimationPlayer animationPlayer;
 
@@ -26,20 +23,21 @@ namespace OpenGL_Test.Entities {
         
         private bool isWalking;
 
-        private Input keyboardEventHandler;
+        public BoxCollider Collider {
+            get; private set;
+        }
 
-        private BoxCollider collider;
+        private Input keyboardEventHandler;
 
         public bool Flipped {
             get; set;
         }
-
-
+        
         public Player(Vector2 position, ContentManager content, Level level) : base(position, level) {
 
-            this.collider = new BoxCollider(32, 32, new Vector2(.5f, 1), Transform, level);
+            this.Collider = new BoxCollider(32, 32, new Vector2(.5f, 1), Transform, level);
 
-            this.Transform.Scale = Vector2.One * 1.5f;
+            this.Transform.Scale = Vector2.One * 1f;
             this.LoadContent(content);
 
             this.Transform.GizmosEnabled = true;
@@ -117,13 +115,8 @@ namespace OpenGL_Test.Entities {
 
             Transform.Position += movement;
 
-            this.collider.Update(gameTime);
-
-            bool intersects = false;
-            Level.Walls.ForEach(wall => intersects |= collider.Intersects(wall));
-            intersects |= collider.Intersects(Level.Ghost.Collider);
-
-            if (intersects) {
+            this.Collider.Update(gameTime);
+            if(movement != Vector2.Zero && Entity.IsColliding(this)) { // if position has changed -> check colliding
                 Transform.Position -= movement;
             }
         }

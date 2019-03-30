@@ -1,9 +1,8 @@
-﻿using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
+
+using Microsoft.Xna.Framework;
+
+using OpenGL_Test.Levels;
 
 namespace OpenGL_Test.Primitives {
     class BoxCollider {
@@ -27,8 +26,6 @@ namespace OpenGL_Test.Primitives {
             get;set;
         }
 
-        private bool colliding;
-
         public BoxCollider(int width, int height, Vector2 pivot, Transform transform, Level level) {
             this.Width = width;
             this.Height = height;
@@ -43,8 +40,7 @@ namespace OpenGL_Test.Primitives {
                 (int) (Width * transform.Scale.X), 
                 (int) (Height * transform.Scale.Y)
             );
-            Console.WriteLine(Rectangle);
-
+            
             Gizmos.Instance.DrawGizmo(new BoxGizmo(Rectangle, 1, Color.Green));
         }
 

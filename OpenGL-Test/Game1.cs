@@ -1,11 +1,14 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using System.Collections.Generic;
+
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
 using OpenGL_Test.Entities;
+using OpenGL_Test.Events;
 using OpenGL_Test.Primitives;
-using System;
-using System.Collections.Generic;
+using OpenGL_Test.Levels;
 
 namespace OpenGL_Test {
     /// <summary>
@@ -61,7 +64,11 @@ namespace OpenGL_Test {
 
             // Content will be loaded after base.Initialize() statement
 
-            this.level = new Level(Content);
+            // register lightning key event
+            Input.Instance.RegisterOnKeyDownEvent(Keys.F2, this.OnLightningKeyPressed);
+
+            // initialize level
+            this.level = new Level_Test(Content);
             this.level.Initialize();
         }
 
@@ -165,8 +172,6 @@ namespace OpenGL_Test {
             float x = (float) (Math.Cos(0.001f * gameTime.TotalGameTime.TotalMilliseconds));
             float y = (float) (Math.Sin(0.001f * gameTime.TotalGameTime.TotalMilliseconds));
 
-            Console.WriteLine("{2} {0} {1}", x,y, gameTime.TotalGameTime.TotalMilliseconds);
-
             Gizmos.Instance.DrawGizmo(new LineGizmo(origin, origin + 50 * new Vector2(x,y), 10, Color.Blue));
             Gizmos.Instance.DrawGizmo(new LineGizmo(origin, origin + 50 * new Vector2(x,y), 1, Color.Red));
             Gizmos.Instance.DrawGizmo(new CrossGizmo(new Vector2(300, 300), 10, 2, Color.Pink));
@@ -177,6 +182,10 @@ namespace OpenGL_Test {
             spriteBatch.End();
 
             base.Draw(gameTime);
+        }
+
+        private void OnLightningKeyPressed() {
+            this.lightningEnabled = !this.lightningEnabled; // toggle
         }
     }
 }

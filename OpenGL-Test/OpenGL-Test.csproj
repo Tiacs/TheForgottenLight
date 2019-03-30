@@ -46,10 +46,13 @@
     <Compile Include="Animations\AnimationPlayer.cs" />
     <Compile Include="Entities\Entity.cs" />
     <Compile Include="Entities\Ghost.cs" />
+    <Compile Include="Entities\ICollidable.cs" />
+    <Compile Include="Entities\Wall.cs" />
     <Compile Include="Events\Input.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="Entities\Player.cs" />
-    <Compile Include="Level.cs" />
+    <Compile Include="Levels\Level.cs" />
+    <Compile Include="Levels\Level_Test.cs" />
     <Compile Include="Primitives\BoxCollider.cs" />
     <Compile Include="Primitives\CrossGizmo.cs" />
     <Compile Include="Primitives\Gizmo.cs" />

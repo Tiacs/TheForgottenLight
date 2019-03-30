@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -11,9 +7,10 @@ using Microsoft.Xna.Framework.Input;
 
 using OpenGL_Test.Animations;
 using OpenGL_Test.Primitives;
+using OpenGL_Test.Levels;
 
 namespace OpenGL_Test.Entities {
-    class Ghost : Entity {
+    class Ghost : Entity, ICollidable {
 
         private Animation idleAnimation;
 

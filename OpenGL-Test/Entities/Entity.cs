@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
 using OpenGL_Test.Primitives;
+using OpenGL_Test.Levels;
 
 namespace OpenGL_Test.Entities {
     abstract class Entity {
@@ -40,6 +41,25 @@ namespace OpenGL_Test.Entities {
 
         public virtual void Draw(SpriteBatch spriteBatch, GameTime gameTime) {
 
+        }
+
+
+        public static bool IsColliding(Entity e1) {
+            if(!(e1 is ICollidable)) {
+                return false;
+            }
+
+            ICollidable entitiy = (ICollidable) e1;
+
+            foreach(Entity e2 in e1.Level.Entities) {
+                if (e2 is ICollidable && e1 != e2) {
+                    ICollidable entity2 = (ICollidable) e2;
+                    if(entitiy.Collider.Intersects(((ICollidable)e2).Collider)) {
+                        return true;
+                    }
+                }
+            }
+            return false;
         }
 
     }
