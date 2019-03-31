@@ -88,33 +88,42 @@ namespace OpenGL_Test.Entities {
 
         private void UpdateMovement(GameTime gameTime, KeyboardState keyboardState) {
 
+            // create movement direction vector
             Vector2 movement = new Vector2();
 
             this.isWalking = false;
             if (keyboardState.IsKeyDown(Keys.D)) {
-                movement += Vector2.UnitX * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                movement += Vector2.UnitX;
                 this.Flipped = false;
                 this.isWalking = true;
             }
 
             if (keyboardState.IsKeyDown(Keys.A)) {
-                movement += -Vector2.UnitX * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                movement += -Vector2.UnitX;
                 this.Flipped = true;
                 this.isWalking = true;
             }
 
             if (keyboardState.IsKeyDown(Keys.S)) {
-                movement += Vector2.UnitY * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                movement += Vector2.UnitY;
                 this.isWalking = true;
             }
 
             if (keyboardState.IsKeyDown(Keys.W)) {
-                movement += -Vector2.UnitY * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                movement += -Vector2.UnitY;
                 this.isWalking = true;
             }
 
+            // Normalize vector to prevent faster vertical movement
+            if(movement.Length() > 0) movement.Normalize();
+            Gizmos.Instance.DrawGizmo(new LineGizmo(Transform.Position, Transform.Position + 35 * movement, 1, Color.Blue)); // draw normalized movement vector
+
+            movement *= speed * (float)gameTime.ElapsedGameTime.TotalSeconds; // change direction to movement vector
+
+            // add movement to current position
             Transform.Position += movement;
 
+            // update collider to current position and check colliding -> if so reset position TODO: FIXME Position should not be reset
             this.Collider.Update(gameTime);
             if(movement != Vector2.Zero && Entity.IsColliding(this)) { // if position has changed -> check colliding
                 Transform.Position -= movement;

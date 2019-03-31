@@ -54,15 +54,10 @@ namespace OpenGL_Test.Levels {
 
         public virtual void Update(GameTime gameTime, KeyboardState keyboardState, MouseState mouseState) {
             this.Walls.ForEach(wall => wall.Update(gameTime));
-
-            // this.Player.Update(gameTime, keyboardState, mouseState);
-            // this.Ghost.Update(gameTime, keyboardState, mouseState);
             this.Entities.ForEach(entity => entity.Update(gameTime, keyboardState, mouseState));
         }
 
         public virtual void Draw(SpriteBatch spriteBatch, GameTime gameTime) {
-            // this.Player.Draw(spriteBatch, gameTime);
-            // this.Ghost.Draw(spriteBatch, gameTime);
             this.Entities.ForEach(entity => entity.Draw(spriteBatch, gameTime));
         }
 
