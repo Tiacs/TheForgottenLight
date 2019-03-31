@@ -44,21 +44,24 @@ namespace OpenGL_Test.Entities {
         }
 
 
-        public static bool IsColliding(Entity e1) {
-            if(!(e1 is ICollidable)) {
+        public static bool IsColliding(Entity e1, out Vector2 offset) {
+            if(!(e1 is ICollidable)) { // TODO: Maybe throw exception?
+                offset = Vector2.Zero;
                 return false;
             }
 
             ICollidable entitiy = (ICollidable) e1;
-
+            Vector2 o = Vector2.Zero;
             foreach(Entity e2 in e1.Level.Entities) {
                 if (e2 is ICollidable && e1 != e2) {
                     ICollidable entity2 = (ICollidable) e2;
-                    if(entitiy.Collider.Intersects(((ICollidable)e2).Collider)) {
+                    if(entitiy.Collider.Intersects(((ICollidable)e2).Collider, out o)) {
+                        offset = o;
                         return true;
                     }
                 }
             }
+            offset = o;
             return false;
         }
 

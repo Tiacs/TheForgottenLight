@@ -125,7 +125,8 @@ namespace OpenGL_Test.Entities {
 
             // update collider to current position and check colliding -> if so reset position TODO: FIXME Position should not be reset
             this.Collider.Update(gameTime);
-            if(movement != Vector2.Zero && Entity.IsColliding(this)) { // if position has changed -> check colliding
+            if(movement != Vector2.Zero && Entity.IsColliding(this, out Vector2 offset)) { // if position has changed -> check colliding
+                Gizmos.Instance.DrawGizmo(new LineGizmo(Transform.Position, Transform.Position + offset, 1, Color.Orange)); // draw normalized movement vector   
                 Transform.Position -= movement;
             }
         }
