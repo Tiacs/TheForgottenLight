@@ -16,6 +16,12 @@ namespace OpenGL_Test.Entities {
 
         private AnimationPlayer animationPlayer;
 
+        private const float speed = 50f;
+
+        private Vector2 waypoint;
+
+        private Random random;
+
         public BoxCollider Collider {
             get; private set;
         }
@@ -27,6 +33,9 @@ namespace OpenGL_Test.Entities {
 
             this.Transform.Scale = Vector2.One * 1.5f;
             this.Transform.GizmosEnabled = true;
+
+            this.random = new Random();
+            this.waypoint = new Vector2(random.Next(0, 800), random.Next(0,400));
         }
 
         public Ghost(float x, float y, ContentManager contentManager, Level level) : this(new Vector2(x,y), contentManager, level) {
@@ -50,7 +59,27 @@ namespace OpenGL_Test.Entities {
 
         public override void Update(GameTime gameTime, KeyboardState keyboardState, MouseState mouseState) {
             base.Update(gameTime, keyboardState, mouseState);
+
+            Gizmos.Instance.DrawGizmo(new LineGizmo(Transform.Position, waypoint, 2, Color.Orange));
+            
+            Vector2 movement = waypoint - Transform.Position;
+            movement.Normalize();
+            movement *= speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+            Transform.Position += movement;
+
             this.Collider.Update(gameTime);
+
+            // Check collision
+            bool collide = Entity.IsColliding(this);
+            
+            if(collide) {
+                Transform.Position -= movement;
+            }
+
+            if (collide || (waypoint - Transform.Position).Length() <= 10) {
+                this.waypoint = new Vector2(random.Next(0, 800), random.Next(0, 400));
+            }
         }
     }
 }
