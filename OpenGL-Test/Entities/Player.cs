@@ -19,7 +19,7 @@ namespace OpenGL_Test.Entities {
         private Animation attackAnimation;
         private Animation walkAnimation;
 
-        private float speed = 200.0f;
+        private const float speed = 200.0f;
         
         private bool isWalking;
 
@@ -120,14 +120,28 @@ namespace OpenGL_Test.Entities {
 
             movement *= speed * (float)gameTime.ElapsedGameTime.TotalSeconds; // change direction to movement vector
 
+            // Movement X
+
             // add movement to current position
-            Transform.Position += movement;
+            Transform.Position += movement * Vector2.UnitX;
 
             // update collider to current position and check colliding -> if so reset position TODO: FIXME Position should not be reset
             this.Collider.Update(gameTime);
-            if(movement != Vector2.Zero && Entity.IsColliding(this, out Vector2 offset)) { // if position has changed -> check colliding
-                Gizmos.Instance.DrawGizmo(new LineGizmo(Transform.Position, Transform.Position + offset, 1, Color.Orange)); // draw normalized movement vector   
-                Transform.Position -= movement;
+            if(movement.X != 0 && Entity.IsColliding(this)) { // if position has changed -> check colliding
+                Transform.Position -= movement * Vector2.UnitX;
+                
+            }
+
+            // Movement Y
+
+            // add movement to current position
+            Transform.Position += movement * Vector2.UnitY;
+
+            // update collider to current position and check colliding -> if so reset position TODO: FIXME Position should not be reset
+            this.Collider.Update(gameTime);
+            if (movement.Y != 0 && Entity.IsColliding(this)) { // if position has changed -> check colliding
+                Transform.Position -= movement * Vector2.UnitY;
+
             }
         }
 

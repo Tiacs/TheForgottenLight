@@ -44,13 +44,11 @@ namespace OpenGL_Test.Primitives {
             Gizmos.Instance.DrawGizmo(new BoxGizmo(Rectangle, 1, Color.Green));
         }
 
-        public bool Intersects(BoxCollider boxCollider, out Vector2 offset) {
-            return Intersects(this, boxCollider, out offset);
+        public bool Intersects(BoxCollider boxCollider) {
+            return Intersects(this, boxCollider);
         }
 
-        public static bool Intersects(BoxCollider b1, BoxCollider b2, out Vector2 offset) {
-            // offset = (b1.Rectangle.Center.ToVector2() - b2.Rectangle.Center.ToVector2()) - b1.CalcIntersectionLength(b2.Rectangle.Center.ToVector2()) - b2.CalcIntersectionLength(b1.Rectangle.Center.ToVector2()); ;
-            offset = b2.Rectangle.Center.ToVector2() - b1.Rectangle.Center.ToVector2();
+        public static bool Intersects(BoxCollider b1, BoxCollider b2) {
             return b1.Rectangle.Intersects(b2.Rectangle);
         }
 
