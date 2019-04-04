@@ -8,9 +8,11 @@ using Microsoft.Xna.Framework.Input;
 using OpenGL_Test.Animations;
 using OpenGL_Test.Primitives;
 using OpenGL_Test.Levels;
+using OpenGL_Test.Pathfinding;
+using System.Collections.Generic;
 
 namespace OpenGL_Test.Entities {
-    class Ghost : Entity, ICollidable {
+    class Ghost : Entity {
 
         private Animation idleAnimation;
 
@@ -26,19 +28,29 @@ namespace OpenGL_Test.Entities {
             get; private set;
         }
 
-        public Ghost(Vector2 position, ContentManager contentManager, Level level) : base(position, level) {
+        private Pathfinder pathfinder;
+
+        private List<Vector2> waypoints;
+
+        private int currentWaypoint;
+
+        public Ghost(Vector2 position, ContentManager contentManager, Pathfinder pathfinder, Level level) : base(position, level) {
+
+            this.pathfinder = pathfinder;
 
             this.LoadContent(contentManager);
             this.Collider = new BoxCollider(22, 25, new Vector2(.5f, 1), Transform, level);
 
             this.Transform.Scale = Vector2.One * 1.5f;
             this.Transform.GizmosEnabled = true;
-
+            
             this.random = new Random();
             this.waypoint = new Vector2(random.Next(0, 800), random.Next(0,400));
+
+            this.waypoints = new List<Vector2>();
         }
 
-        public Ghost(float x, float y, ContentManager contentManager, Level level) : this(new Vector2(x,y), contentManager, level) {
+        public Ghost(float x, float y, ContentManager contentManager, Pathfinder pathfinder, Level level) : this(new Vector2(x,y), contentManager, pathfinder, level) {
 
         }
 
@@ -62,24 +74,41 @@ namespace OpenGL_Test.Entities {
 
             Gizmos.Instance.DrawGizmo(new LineGizmo(Transform.Position, waypoint, 2, Color.Orange));
             
-            Vector2 movement = waypoint - Transform.Position;
-            movement.Normalize();
-            movement *= speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+            if(waypoints.Count > 0 && currentWaypoint < waypoints.Count) {
+                
+                for (int i = 0; i < waypoints.Count - 1; i++) {
+                    Gizmos.Instance.DrawGizmo(new LineGizmo(waypoints[i], waypoints[i + 1], 4, Color.Red));
+                }
 
-            Transform.Position += movement;
+                Vector2 movement = waypoints[currentWaypoint] - Transform.Position;
+                movement.Normalize();
+                movement *= speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-            this.Collider.Update(gameTime);
+                Transform.Position += movement;
 
-            // Check collision
-            bool collide = Entity.IsColliding(this);
-            
-            if(collide) {
-                Transform.Position -= movement;
-            }
+                //this.Collider.Update(gameTime);
 
-            if (collide || (waypoint - Transform.Position).Length() <= 10) {
+                // Check collision
+                bool collide = false; // Entity.IsColliding(this);
+
+                /*if (collide) {
+                    Transform.Position -= movement;
+                }*/
+
+                if((waypoints[currentWaypoint] - Transform.Position).Length() <= 10) {
+                    currentWaypoint++;
+                }
+
+            } else {
                 this.waypoint = new Vector2(random.Next(0, 800), random.Next(0, 400));
+                // this.waypoint = new Vector2(Level.Player.Transform.Position.X, Level.Player.Transform.Position.Y);
+                waypoints = pathfinder.FindPath(this.Transform.Position, waypoint);
+                currentWaypoint = 0;
             }
+
+            /*if (collide || (waypoint - Transform.Position).Length() <= 10) {
+                this.waypoint = new Vector2(random.Next(0, 800), random.Next(0, 400));
+            }*/
         }
     }
 }

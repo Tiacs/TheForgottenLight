@@ -34,7 +34,18 @@ namespace OpenGL_Test.Levels {
             get; protected set;
         }
         
-        public Level(ContentManager contentManager) {
+        public float Width {
+            get; protected set;
+        }
+
+        public float Height {
+            get; protected set;
+        }
+
+        public Level(ContentManager contentManager, float width, float height) {
+            this.Width = width;
+            this.Height = height;
+
             this.contentManager = contentManager;
             this.LoadContent(contentManager);
 

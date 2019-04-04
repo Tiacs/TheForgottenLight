@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
 using OpenGL_Test.Entities;
+using OpenGL_Test.Pathfinding;
 using OpenGL_Test.Primitives;
 
 namespace OpenGL_Test.Levels {
@@ -17,7 +18,9 @@ namespace OpenGL_Test.Levels {
 
         private Texture2D levelBackground;
 
-        public Level_Test(ContentManager contentManager) : base(contentManager) {
+        private Pathfinder pathfinder;
+
+        public Level_Test(ContentManager contentManager) : base(contentManager, 800, 480) {
 
         }
 
@@ -28,8 +31,10 @@ namespace OpenGL_Test.Levels {
         public override void Initialize() {
             base.Initialize();
 
+            this.pathfinder = new Pathfinder(4*16,  4*9, this);
+
             this.Player = new Player(100, 100, contentManager, this);
-            this.Ghost = new Ghost(300, 100, contentManager, this);
+            this.Ghost = new Ghost(250, 100, contentManager, pathfinder, this);
 
             this.Entities.Add(Player);
             this.Entities.Add(Ghost);
@@ -56,6 +61,8 @@ namespace OpenGL_Test.Levels {
 
         public override void Update(GameTime gameTime, KeyboardState keyboardState, MouseState mouseState) {
             base.Update(gameTime, keyboardState, mouseState);
+
+            pathfinder.Update(gameTime);
         }
 
         public override void Draw(SpriteBatch spriteBatch, GameTime gameTime) {
