@@ -63,15 +63,21 @@ namespace OpenGL_Test.Pathfinding {
             this.Y = y;
             this.Pathfinder = pathFinder;
 
-            this.Collider = new BoxCollider((int)width, (int)height, new Vector2(0.5f, 0.5f), new Transform(position), pathFinder.Level);
+            if(Pathfinder.Entity is ICollidable) {
+                ICollidable entity = (ICollidable)Pathfinder.Entity;
+                this.Collider = new BoxCollider((int)(width + entity.Collider.Width * 2), (int)(height + entity.Collider.Height), new Vector2(0.5f, 1f), new Transform(position), pathFinder.Entity.Level);
+            } else {
+                this.Collider = new BoxCollider((int)width, (int)height, new Vector2(0.5f, 0.5f), new Transform(position), pathFinder.Entity.Level);
+            }
+
             this.Collider.Debug = false;
         }
 
         public void UpdateCollision(GameTime gameTime) {
             this.Collided = false;
             this.Collider.Update(gameTime);
-            foreach (Entity e2 in Pathfinder.Level.Entities) {
-                if (e2 is ICollidable) {
+            foreach (Entity e2 in Pathfinder.Entity.Level.Entities) {
+                if (e2 != Pathfinder.Entity && e2 is ICollidable) {
                     ICollidable entity2 = (ICollidable)e2;
                     if (Collider.Intersects(((ICollidable)e2).Collider)) {
                         this.Collided = true;

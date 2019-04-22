@@ -1,18 +1,20 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
-using OpenGL_Test.Entities;
-using OpenGL_Test.Levels;
-using OpenGL_Test.Primitives;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
+
+using OpenGL_Test.Entities;
+using OpenGL_Test.Levels;
+using OpenGL_Test.Primitives;
+
 namespace OpenGL_Test.Pathfinding {
     class Pathfinder {
         
-        public Level Level {
+        public Entity Entity {
             get; private set;
         }
 
@@ -21,28 +23,43 @@ namespace OpenGL_Test.Pathfinding {
         private PathNode[,] nodes;
 
         private bool initialized;
-
-        public Pathfinder(int horizontalDivision, int verticalDivision, Level level) {
+    
+        public Pathfinder(int horizontalDivision, int verticalDivision, Entity entity) {
             this.horizontalDivision = horizontalDivision;
             this.verticalDivision = verticalDivision;
-            this.Level = level;
+            this.Entity = entity;
 
             this.nodes = new PathNode[verticalDivision, horizontalDivision];
             this.CreateNodes();
         }
 
         private PathNode FindNearestNode(Vector2 position) {
-            int x = (int) (position.X / Level.Width * horizontalDivision);
-            int y = (int)(position.Y / Level.Height * verticalDivision);
+            int x = (int) (position.X / Entity.Level.Width * horizontalDivision);
+            int y = (int)(position.Y / Entity.Level.Height * verticalDivision);
             if (y < 0 || y >= nodes.GetLength(0) || x < 0 || x >= nodes.GetLength(1)) {
                 return null;
             }
-            return nodes[y, x];
+
+            PathNode node = nodes[y, x];
+            if(node.F >= 0) {
+                return node;
+            }
+
+            List<PathNode> neighbours = GetNeighbours(node);
+            foreach(PathNode neigbour in neighbours) {
+                if(neigbour.F >= 0) {
+                    return neigbour;
+                }
+            }
+            return node;
         }
 
         public List<Vector2> FindPath(Vector2 start, Vector2 end) {
             List<PathNode> nodes = FindPath(FindNearestNode(start), FindNearestNode(end));
-
+            foreach (PathNode node in nodes) {
+                if (node.Parent != null)
+                    Gizmos.Instance.DrawGizmo(new LineGizmo(node.Parent.Position, node.Position, 4, Color.Orange));
+            }
             List<Vector2> path = new List<Vector2>();
             if (nodes.Count <= 0) return path;
             
@@ -133,8 +150,8 @@ namespace OpenGL_Test.Pathfinding {
         }
 
         private void CreateNodes() {
-            float cellWidth = Level.Width / horizontalDivision;
-            float cellHeight = Level.Height / verticalDivision;
+            float cellWidth = Entity.Level.Width / horizontalDivision;
+            float cellHeight = Entity.Level.Height / verticalDivision;
 
             for (int y = 0; y < nodes.GetLength(0); y++) {
                 for(int x = 0; x < nodes.GetLength(1); x++) {
@@ -150,13 +167,7 @@ namespace OpenGL_Test.Pathfinding {
 
             //PathNode startNode = nodes[2, 2];
             //PathNode endNode = nodes[1, 13];
-
-            /*List<PathNode> p = FindPath(startNode, endNode);
-
-           foreach(PathNode node in p) {
-               if(node.Parent != null)
-                   Gizmos.Instance.DrawGizmo(new LineGizmo(node.Parent.Position, node.Position, 4, Color.Orange));
-           }*/
+            
             /*
             if (p.Count > 0) {
                 PathNode curr = p.Last();
@@ -190,17 +201,17 @@ namespace OpenGL_Test.Pathfinding {
         }
 
         private void DrawGrid() {
-            float cellWidth = Level.Width / horizontalDivision;
-            float cellHeight = Level.Height / verticalDivision;
+            float cellWidth = Entity.Level.Width / horizontalDivision;
+            float cellHeight = Entity.Level.Height / verticalDivision;
 
             // columns
             for (int i = 0; i < horizontalDivision; i++) {
-                Gizmos.Instance.DrawGizmo(new LineGizmo(new Vector2(i * cellWidth, 0), new Vector2(i * cellWidth, Level.Height), 1, Color.Pink));
+                Gizmos.Instance.DrawGizmo(new LineGizmo(new Vector2(i * cellWidth, 0), new Vector2(i * cellWidth, Entity.Level.Height), 1, Color.Pink));
             }
 
             // rows
             for (int i = 0; i < verticalDivision; i++) {
-                Gizmos.Instance.DrawGizmo(new LineGizmo(new Vector2(0, i * cellHeight), new Vector2(Level.Width, i * cellHeight), 1, Color.Pink));
+                Gizmos.Instance.DrawGizmo(new LineGizmo(new Vector2(0, i * cellHeight), new Vector2(Entity.Level.Width, i * cellHeight), 1, Color.Pink));
             }
 
         }

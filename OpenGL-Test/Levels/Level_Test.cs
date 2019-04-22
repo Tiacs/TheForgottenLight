@@ -31,13 +31,16 @@ namespace OpenGL_Test.Levels {
         public override void Initialize() {
             base.Initialize();
 
-            this.pathfinder = new Pathfinder(4*16,  4*9, this);
+            //this.pathfinder = new Pathfinder(4*16,  4*9, this.Ghost);
 
             this.Player = new Player(100, 100, contentManager, this);
-            this.Ghost = new Ghost(250, 100, contentManager, pathfinder, this);
+            this.Ghost = new Ghost(250, 100, contentManager, this);
 
             this.Entities.Add(Player);
             this.Entities.Add(Ghost);
+            this.Entities.Add(new Ghost(400, 100, contentManager, this));
+            this.Entities.Add(new Ghost(480, 100, contentManager, this));
+            this.Entities.Add(new Ghost(400, 200, contentManager, this));
         }
 
         protected override void CreateWalls() {
@@ -62,7 +65,7 @@ namespace OpenGL_Test.Levels {
         public override void Update(GameTime gameTime, KeyboardState keyboardState, MouseState mouseState) {
             base.Update(gameTime, keyboardState, mouseState);
 
-            pathfinder.Update(gameTime);
+            //pathfinder.Update(gameTime);
         }
 
         public override void Draw(SpriteBatch spriteBatch, GameTime gameTime) {
