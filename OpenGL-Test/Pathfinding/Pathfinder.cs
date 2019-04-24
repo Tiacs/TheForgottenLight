@@ -62,8 +62,8 @@ namespace OpenGL_Test.Pathfinding {
             watch.Stop();
             Console.WriteLine("Pathfinding<{0}>: {1}", Entity, watch.ElapsedMilliseconds);
             foreach (PathNode node in nodes) {
-                //if (node.Parent != null)
-                    //Gizmos.Instance.DrawGizmo(new LineGizmo(node.Parent.Position, node.Position, 4, Color.Orange));
+                if (node.Parent != null)
+                    Gizmos.Instance.DrawGizmo(new LineGizmo(node.Parent.Position, node.Position, 4, Color.Orange));
             }
             List<Vector2> path = new List<Vector2>();
             if (nodes.Count <= 0) return path;
@@ -131,7 +131,6 @@ namespace OpenGL_Test.Pathfinding {
             }
         }
 
-
         private int GetHCosts(PathNode node, PathNode end) {
             int costX = Math.Abs(end.X - node.X);
             int costY = Math.Abs(end.Y - node.Y);
@@ -167,30 +166,8 @@ namespace OpenGL_Test.Pathfinding {
         }
         
         public void Update(GameTime gameTime) {
-            UpdateNodes(gameTime); // TODO: Fix -> calculate collision for all, afterwards copy node into each instance of pathinfder; algorithm edits nodes -> influences other calcs
-                                        /// MAYBE WILL NOT WORK -> COULD NEED COLISSION CALC FOR EACH PATH
-            // DrawGrid();
-
-            //PathNode startNode = nodes[2, 2];
-            //PathNode endNode = nodes[1, 13];
-            
-            /*
-            if (p.Count > 0) {
-                PathNode curr = p.Last();
-                while (curr.Parent != null) {
-                    Gizmos.Instance.DrawGizmo(new LineGizmo(curr.Parent.Position, curr.Position, 4, Color.Red));
-                    curr = curr.Parent;
-                }
-            }*/
-
-            /*List<Vector2> path = FindPath(new Vector2(100, 100), Mouse.GetState().Position.ToVector2());
-
-            for(int i = 0; i < path.Count - 1; i++) {
-                Gizmos.Instance.DrawGizmo(new LineGizmo(path[i], path[i+1], 4, Color.Red));
-            }*/
-
+            UpdateNodes(gameTime);
             this.initialized = true;
-
         }
 
         private void UpdateNodes(GameTime gameTime) {
@@ -203,27 +180,11 @@ namespace OpenGL_Test.Pathfinding {
                     nodes[y, x].H = 0;
 
                     nodes[y, x].UpdateCollision(gameTime);
-                    Gizmos.Instance.DrawGizmo(new LineGizmo(nodes[y, x].Position - Vector2.One, nodes[y, x].Position, 2, nodes[y, x].DebugColor));
+                    //Gizmos.Instance.DrawGizmo(new LineGizmo(nodes[y, x].Position - Vector2.One, nodes[y, x].Position, 2, nodes[y, x].DebugColor)); // do not draw -> will create too much gizmos
                 }
             }
             watch.Stop();
             Console.WriteLine("updatenodes<{0}>:{1}", Entity, watch.ElapsedMilliseconds);
-        }
-
-        private void DrawGrid() {
-            float cellWidth = Entity.Level.Width / horizontalDivision;
-            float cellHeight = Entity.Level.Height / verticalDivision;
-
-            // columns
-            for (int i = 0; i < horizontalDivision; i++) {
-                Gizmos.Instance.DrawGizmo(new LineGizmo(new Vector2(i * cellWidth, 0), new Vector2(i * cellWidth, Entity.Level.Height), 1, Color.Pink));
-            }
-
-            // rows
-            for (int i = 0; i < verticalDivision; i++) {
-                Gizmos.Instance.DrawGizmo(new LineGizmo(new Vector2(0, i * cellHeight), new Vector2(Entity.Level.Width, i * cellHeight), 1, Color.Pink));
-            }
-
         }
         
         public static T Clamp<T>(T val, T min, T max) where T : IComparable<T> {
