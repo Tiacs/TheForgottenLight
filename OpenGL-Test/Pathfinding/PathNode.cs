@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace OpenGL_Test.Pathfinding {
-    class PathNode : IComparable<PathNode> {
+    class PathNode : IHeapItem<PathNode> {
 
         public Vector2 Position {
             get; private set;
@@ -54,7 +54,10 @@ namespace OpenGL_Test.Pathfinding {
         public PathNode Parent {
             get; set;
         }
-        
+        public int HeapIndex {
+            get;set;
+        }
+
         public PathNode(float width, float height, int h, int g, Vector2 position, int x, int y, Pathfinder pathFinder) {
             this.H = h;
             this.G = g;
@@ -77,7 +80,7 @@ namespace OpenGL_Test.Pathfinding {
             this.Collided = false;
             this.Collider.Update(gameTime);
             foreach (Entity e2 in Pathfinder.Entity.Level.Entities) {
-                if (e2 != Pathfinder.Entity && e2 is ICollidable) {
+                if (e2 != Pathfinder.Entity && e2 is ICollidable && !(e2 is Player)) {
                     ICollidable entity2 = (ICollidable)e2;
                     if (Collider.Intersects(((ICollidable)e2).Collider)) {
                         this.Collided = true;
@@ -87,7 +90,11 @@ namespace OpenGL_Test.Pathfinding {
         }
 
         public int CompareTo(PathNode secondNode) {
-            return this.F.CompareTo(secondNode.F);
+            int compare = this.F.CompareTo(secondNode.F);
+            if(compare == 0) {
+                compare = this.H.CompareTo(secondNode.H);
+            }
+            return -compare;
         }
     }
 }
