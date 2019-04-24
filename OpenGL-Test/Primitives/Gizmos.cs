@@ -26,14 +26,14 @@ namespace OpenGL_Test.Primitives {
             get; private set;
         }
 
-        private List<Gizmo> list;
+        private Queue<Gizmo> list;
         
         private Gizmos() {
-            list = new List<Gizmo>();
-            Input.Instance.RegisterOnKeyDownEvent(Microsoft.Xna.Framework.Input.Keys.F1, new Input.KeyboardEvent(toggleGizmosPressed));
+            list = new Queue<Gizmo>();
+            Input.Instance.RegisterOnKeyDownEvent(Microsoft.Xna.Framework.Input.Keys.F1, new Input.KeyboardEvent(ToggleGizmosPressed));
         }
 
-        private void toggleGizmosPressed() {
+        private void ToggleGizmosPressed() {
             this.gizmosEnabled = !gizmosEnabled;
         }
 
@@ -44,7 +44,10 @@ namespace OpenGL_Test.Primitives {
         }
 
         public void DrawGizmo(Gizmo gizmo) {
-            this.list.Add(gizmo);
+            if (!gizmosEnabled) {
+                return;
+            }
+            this.list.Enqueue(gizmo);
         }
 
         public void Draw(SpriteBatch spriteBatch) {
@@ -52,8 +55,10 @@ namespace OpenGL_Test.Primitives {
                 return;
             }
             if (PlainColor == null) LoadColor(spriteBatch);
-            list.ForEach(gizmo => gizmo.Draw(spriteBatch));
-            list.Clear();
+
+            while(list.Count > 0) {
+                list.Dequeue().Draw(spriteBatch);
+            }
         }
 
     }
