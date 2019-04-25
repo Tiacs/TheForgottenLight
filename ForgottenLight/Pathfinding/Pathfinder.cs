@@ -8,11 +8,11 @@ using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
-using OpenGL_Test.Entities;
-using OpenGL_Test.Levels;
-using OpenGL_Test.Primitives;
+using ForgottenLight.Entities;
+using ForgottenLight.Levels;
+using ForgottenLight.Primitives;
 
-namespace OpenGL_Test.Pathfinding {
+namespace ForgottenLight.Pathfinding {
     class Pathfinder {
         
         public Entity Entity {

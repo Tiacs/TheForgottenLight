@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OpenGL_Test.Pathfinding {
+namespace ForgottenLight.Pathfinding {
     class Heap<T> where T : IHeapItem<T> {
 
         private T[] items;

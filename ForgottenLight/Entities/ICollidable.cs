@@ -1,6 +1,6 @@
-﻿using OpenGL_Test.Primitives;
+﻿using ForgottenLight.Primitives;
 
-namespace OpenGL_Test.Entities {
+namespace ForgottenLight.Entities {
     interface ICollidable {
         BoxCollider Collider {
             get;

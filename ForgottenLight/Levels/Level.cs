@@ -9,11 +9,11 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
-using OpenGL_Test.Entities;
-using OpenGL_Test.Primitives;
-using OpenGL_Test.Levels;
+using ForgottenLight.Entities;
+using ForgottenLight.Primitives;
+using ForgottenLight.Levels;
 
-namespace OpenGL_Test.Levels {
+namespace ForgottenLight.Levels {
     abstract class Level {
 
         protected ContentManager contentManager;

@@ -3,7 +3,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace OpenGL_Test.Primitives {
+namespace ForgottenLight.Primitives {
     class CrossGizmo : Gizmo {
 
         private float size;

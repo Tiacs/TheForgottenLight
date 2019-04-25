@@ -1,13 +1,13 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using OpenGL_Test.Events;
+using ForgottenLight.Events;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OpenGL_Test.Primitives {
+namespace ForgottenLight.Primitives {
     class Gizmos {
 
         private bool gizmosEnabled = true;

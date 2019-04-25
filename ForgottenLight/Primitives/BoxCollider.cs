@@ -2,9 +2,9 @@
 
 using Microsoft.Xna.Framework;
 
-using OpenGL_Test.Levels;
+using ForgottenLight.Levels;
 
-namespace OpenGL_Test.Primitives {
+namespace ForgottenLight.Primitives {
     class BoxCollider {
 
         private Transform transform;

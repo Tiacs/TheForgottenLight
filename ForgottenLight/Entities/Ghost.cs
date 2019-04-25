@@ -5,13 +5,13 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
-using OpenGL_Test.Animations;
-using OpenGL_Test.Primitives;
-using OpenGL_Test.Levels;
-using OpenGL_Test.Pathfinding;
+using ForgottenLight.Animations;
+using ForgottenLight.Primitives;
+using ForgottenLight.Levels;
+using ForgottenLight.Pathfinding;
 using System.Collections.Generic;
 
-namespace OpenGL_Test.Entities {
+namespace ForgottenLight.Entities {
     class Ghost : Entity, ICollidable {
 
         private Animation idleAnimation;

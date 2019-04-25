@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace OpenGL_Test.Primitives {
+namespace ForgottenLight.Primitives {
     abstract class Gizmo {
 
         public Vector2 Position {

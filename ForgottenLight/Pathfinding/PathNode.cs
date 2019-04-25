@@ -1,14 +1,14 @@
 ﻿using Microsoft.Xna.Framework;
-using OpenGL_Test.Entities;
-using OpenGL_Test.Levels;
-using OpenGL_Test.Primitives;
+using ForgottenLight.Entities;
+using ForgottenLight.Levels;
+using ForgottenLight.Primitives;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OpenGL_Test.Pathfinding {
+namespace ForgottenLight.Pathfinding {
     class PathNode : IHeapItem<PathNode> {
 
         public Vector2 Position {

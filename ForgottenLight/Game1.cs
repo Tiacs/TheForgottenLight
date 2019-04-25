@@ -5,12 +5,12 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
-using OpenGL_Test.Entities;
-using OpenGL_Test.Events;
-using OpenGL_Test.Primitives;
-using OpenGL_Test.Levels;
+using ForgottenLight.Entities;
+using ForgottenLight.Events;
+using ForgottenLight.Primitives;
+using ForgottenLight.Levels;
 
-namespace OpenGL_Test {
+namespace ForgottenLight {
     /// <summary>
     /// This is the main type for your game.
     /// </summary>

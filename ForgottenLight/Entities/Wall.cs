@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
-using OpenGL_Test.Levels;
-using OpenGL_Test.Primitives;
+using ForgottenLight.Levels;
+using ForgottenLight.Primitives;
 
-namespace OpenGL_Test.Entities {
+namespace ForgottenLight.Entities {
     class Wall : Entity, ICollidable {
 
         public BoxCollider Collider {

@@ -2,7 +2,7 @@
 
 using Microsoft.Xna.Framework;
 
-namespace OpenGL_Test.Primitives {
+namespace ForgottenLight.Primitives {
 
     class Transform {
 

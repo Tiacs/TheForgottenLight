@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace OpenGL_Test {
+namespace ForgottenLight {
     /// <summary>
     /// The main class.
     /// </summary>

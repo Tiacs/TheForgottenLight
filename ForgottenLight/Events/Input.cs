@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework;
 
-namespace OpenGL_Test.Events {
+namespace ForgottenLight.Events {
     class Input {
 
         static Input instance;

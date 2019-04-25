@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace OpenGL_Test.Primitives {
+namespace ForgottenLight.Primitives {
     class BoxGizmo : Gizmo {
 
         private float width;

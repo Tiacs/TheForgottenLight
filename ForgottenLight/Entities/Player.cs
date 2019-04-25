@@ -5,12 +5,12 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
 
-using OpenGL_Test.Animations;
-using OpenGL_Test.Events;
-using OpenGL_Test.Primitives;
-using OpenGL_Test.Levels;
+using ForgottenLight.Animations;
+using ForgottenLight.Events;
+using ForgottenLight.Primitives;
+using ForgottenLight.Levels;
 
-namespace OpenGL_Test.Entities {
+namespace ForgottenLight.Entities {
     class Player : Entity, ICollidable {
         
         private AnimationPlayer animationPlayer;

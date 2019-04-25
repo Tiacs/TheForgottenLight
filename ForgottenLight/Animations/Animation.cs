@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 
-namespace OpenGL_Test.Animations {
+namespace ForgottenLight.Animations {
     class Animation {
         private Texture2D texture;
         public Texture2D Texture => this.texture;

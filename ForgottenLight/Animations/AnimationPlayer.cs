@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace OpenGL_Test.Animations {
+namespace ForgottenLight.Animations {
     class AnimationPlayer {
         
         private Animation animation;

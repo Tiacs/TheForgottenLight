@@ -8,10 +8,10 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
-using OpenGL_Test.Primitives;
-using OpenGL_Test.Levels;
+using ForgottenLight.Primitives;
+using ForgottenLight.Levels;
 
-namespace OpenGL_Test.Entities {
+namespace ForgottenLight.Entities {
     abstract class Entity {
 
         public Transform Transform {

@@ -9,11 +9,11 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
-using OpenGL_Test.Entities;
-using OpenGL_Test.Pathfinding;
-using OpenGL_Test.Primitives;
+using ForgottenLight.Entities;
+using ForgottenLight.Pathfinding;
+using ForgottenLight.Primitives;
 
-namespace OpenGL_Test.Levels {
+namespace ForgottenLight.Levels {
     class Level_Test : Level {
 
         private Texture2D levelBackground;
