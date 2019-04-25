@@ -9,8 +9,8 @@
     <ProjectGuid>{CC0BBBC7-6D82-454B-A411-7668BC5C416A}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>OpenGL_Test</RootNamespace>
-    <AssemblyName>OpenGL-Test</AssemblyName>
+    <RootNamespace>ForgottenLight</RootNamespace>
+    <AssemblyName>ForgottenLight</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MonoGamePlatform>DesktopGL</MonoGamePlatform>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
