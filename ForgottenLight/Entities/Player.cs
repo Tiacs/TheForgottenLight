@@ -17,12 +17,19 @@ namespace ForgottenLight.Entities {
 
         private Animation idleAnimation;
         private Animation attackAnimation;
-        private Animation walkAnimation;
+        private Animation walkFrontAnimation;
+        private Animation walkBackAnimation;
+        private Animation walkRightAnimation;
+        private Animation walkLeftAnimation;
+
+        private AnimationState animationState = AnimationState.IDLE;
+        private AnimationState prevAnimationSatet;
+
+        private Orientation orientation = Orientation.FRONT;
+        private Orientation prevOrientation;
 
         private const float speed = 200.0f;
         
-        private bool isWalking;
-
         public BoxCollider Collider {
             get; private set;
         }
@@ -32,12 +39,14 @@ namespace ForgottenLight.Entities {
         public bool Flipped {
             get; set;
         }
-        
+
+        public bool Collidable => true;
+
         public Player(Vector2 position, ContentManager content, Level level) : base(position, level) {
 
-            this.Collider = new BoxCollider(32, 32, new Vector2(.5f, 1), Transform, level);
+            this.Collider = new BoxCollider(22, 38, new Vector2(.5f, 1), Transform, level);
 
-            this.Transform.Scale = Vector2.One * 1f;
+            this.Transform.Scale = Vector2.One * 1.5f;
             this.LoadContent(content);
 
             this.Transform.GizmosEnabled = true;
@@ -47,12 +56,15 @@ namespace ForgottenLight.Entities {
         }
 
         private void LoadContent(ContentManager content) {
-            Texture2D atlas = content.Load<Texture2D>("sprite_atlas");
+            Texture2D atlas = content.Load<Texture2D>("sprites/player");
 
             // Load animations
-            this.idleAnimation = new Animation(atlas, 32, 32, Vector2.Zero, 2, 0.5f, true);
+            this.idleAnimation = new Animation(atlas, 38, 22, Vector2.Zero, 12, 0.1f, true);
             this.attackAnimation = new Animation(atlas, 32, 240, new Vector2(32, 0), 7, 0.1f, false);
-            this.walkAnimation = new Animation(atlas, 32, 32, new Vector2(32 + 240, 0), 3, 0.1f, true);
+            this.walkFrontAnimation = new Animation(atlas, 38, 22, new Vector2(44, 0), 4, 0.1f, true);
+            this.walkBackAnimation = new Animation(atlas, 38, 22, new Vector2(66, 0), 4, 0.1f, true);
+            this.walkRightAnimation = new Animation(atlas, 38, 22, new Vector2(88, 0), 2, 0.1f, true);
+            this.walkLeftAnimation = new Animation(atlas, 38, 22, new Vector2(110, 0), 2, 0.1f, true);
 
             this.animationPlayer = new AnimationPlayer();
 
@@ -60,8 +72,6 @@ namespace ForgottenLight.Entities {
             
             keyboardEventHandler = Input.Instance;
             keyboardEventHandler.RegisterOnKeyDownEvent(Keys.X, new Input.KeyboardEvent(this.KeyXDown));
-            keyboardEventHandler.RegisterOnKeyDownEvent(Keys.Space, new Input.KeyboardEvent(this.KeySpaceDown));
-            keyboardEventHandler.RegisterOnKeyUpEvent(Keys.Space, new Input.KeyboardEvent(this.KeySpaceUp));
         }
 
         public override void Update(GameTime gameTime, KeyboardState keyboardState, MouseState mouseState) {
@@ -74,48 +84,75 @@ namespace ForgottenLight.Entities {
             if (keyboardState.IsKeyDown(Keys.R)) {
                 this.Transform.Position = new Vector2(100, 100);
             }
-
-            if (this.animationPlayer.Animation == this.attackAnimation && this.animationPlayer.IsAnimationDone) {
-                this.animationPlayer.PlayAnimation(idleAnimation);
+            
+            if(animationState != prevAnimationSatet || orientation != prevOrientation) {
+                switch (animationState) {
+                    case AnimationState.IDLE:
+                        switch (orientation) {
+                            case Orientation.LEFT:
+                            case Orientation.RIGHT:
+                            case Orientation.FRONT:
+                                animationPlayer.PlayAnimation(idleAnimation);
+                                break;
+                            case Orientation.BACK:
+                                animationPlayer.PlayAnimation(idleAnimation);
+                                break;
+                        }
+                        break;
+                    case AnimationState.WALKING:
+                        switch (orientation) {
+                            case Orientation.FRONT:
+                                animationPlayer.PlayAnimation(walkFrontAnimation);
+                                break;
+                            case Orientation.BACK:
+                                animationPlayer.PlayAnimation(walkBackAnimation);
+                                break;
+                            case Orientation.LEFT:
+                                animationPlayer.PlayAnimation(walkLeftAnimation);
+                                break;
+                            case Orientation.RIGHT:
+                                animationPlayer.PlayAnimation(walkRightAnimation);
+                                break;
+                        }
+                        break;
+                }
             }
-
-            if (this.isWalking && this.animationPlayer.Animation != this.walkAnimation) {
-                this.animationPlayer.PlayAnimation(walkAnimation);
-            } else if (!this.isWalking && this.animationPlayer.Animation == this.walkAnimation) {
-                this.animationPlayer.PlayAnimation(idleAnimation);
-            }
+            prevAnimationSatet = animationState;
+            prevOrientation = orientation;
         }
 
         private void UpdateMovement(GameTime gameTime, KeyboardState keyboardState) {
 
             // create movement direction vector
             Vector2 movement = new Vector2();
-
-            this.isWalking = false;
-            if (keyboardState.IsKeyDown(Keys.D)) {
-                movement += Vector2.UnitX;
-                this.Flipped = false;
-                this.isWalking = true;
-            }
-
-            if (keyboardState.IsKeyDown(Keys.A)) {
-                movement += -Vector2.UnitX;
-                this.Flipped = true;
-                this.isWalking = true;
-            }
-
+            this.animationState = AnimationState.IDLE;
+            
             if (keyboardState.IsKeyDown(Keys.S)) {
                 movement += Vector2.UnitY;
-                this.isWalking = true;
+                this.animationState = AnimationState.WALKING;
+                this.orientation = Orientation.FRONT;
             }
 
             if (keyboardState.IsKeyDown(Keys.W)) {
                 movement += -Vector2.UnitY;
-                this.isWalking = true;
+                this.animationState = AnimationState.WALKING;
+                this.orientation = Orientation.BACK;
+            }
+
+            if (keyboardState.IsKeyDown(Keys.D)) {
+                movement += Vector2.UnitX;
+                this.animationState = AnimationState.WALKING;
+                this.orientation = Orientation.RIGHT;
+            }
+
+            if (keyboardState.IsKeyDown(Keys.A)) {
+                movement += -Vector2.UnitX;
+                this.animationState = AnimationState.WALKING;
+                this.orientation = Orientation.LEFT;
             }
 
             // Normalize vector to prevent faster vertical movement
-            if(movement.Length() > 0) movement.Normalize();
+            if (movement.Length() > 0) movement.Normalize();
             Gizmos.Instance.DrawGizmo(new LineGizmo(Transform.Position, Transform.Position + 35 * movement, 1, Color.Blue)); // draw normalized movement vector
 
             movement *= speed * (float)gameTime.ElapsedGameTime.TotalSeconds; // change direction to movement vector
@@ -148,20 +185,18 @@ namespace ForgottenLight.Entities {
         public void KeyXDown() {
             Console.WriteLine("Hello World!");
         }
-
-        public void KeySpaceDown() {
-            if ((this.animationPlayer.IsAnimationDone || this.animationPlayer.Animation != attackAnimation) && !this.isWalking) {
-                this.animationPlayer.PlayAnimation(attackAnimation);
-            }
-        }
-
-        public void KeySpaceUp() {
-            
-        }
-
+       
         public override void Draw(SpriteBatch spriteBatch, GameTime gameTime) {
             base.Draw(spriteBatch, gameTime);
-            this.animationPlayer.Draw(spriteBatch, gameTime, this.Transform.Position, this.Transform.Scale, this.Flipped ? SpriteEffects.FlipHorizontally : SpriteEffects.None);
+            this.animationPlayer.Draw(spriteBatch, gameTime, this.Transform.Position, this.Transform.Scale);
+        }
+
+        private enum AnimationState {
+            IDLE, WALKING
+        }
+
+        private enum Orientation {
+            FRONT, BACK, LEFT, RIGHT
         }
     }
 }
