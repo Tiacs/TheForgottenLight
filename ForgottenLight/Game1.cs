@@ -19,9 +19,6 @@ namespace ForgottenLight {
         private SpriteBatch spriteBatch;
 
         // Textures
-        private Texture2D friesTexture;
-        private Texture2D iceTexture;
-        private Texture2D fishTexture;
         private Texture2D lightTexture;
         
         // Render Targets
@@ -79,10 +76,7 @@ namespace ForgottenLight {
         protected override void LoadContent() {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
-            this.friesTexture = this.Content.Load<Texture2D>("fries_32");
-            this.iceTexture = this.Content.Load<Texture2D>("icecream_32");
-            this.fishTexture = this.Content.Load<Texture2D>("fish_32");
+            
             this.lightTexture = this.Content.Load<Texture2D>("light");
 
             this.lightningEffect = this.Content.Load<Effect>("lightning");
@@ -142,11 +136,7 @@ namespace ForgottenLight {
             GraphicsDevice.Clear(Color.DarkOliveGreen);
 
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp);
-
-            spriteBatch.Draw(this.fishTexture, new Vector2(100, 100), Color.White);
-            spriteBatch.Draw(this.friesTexture, new Vector2(200, 300), Color.White);
-            spriteBatch.Draw(this.iceTexture, new Vector2(400, 150), Color.White);
-
+            
             level.Draw(spriteBatch, gameTime);
 
             spriteBatch.End();
