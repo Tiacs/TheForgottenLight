@@ -25,6 +25,8 @@ namespace ForgottenLight.Entities {
             get; private set;
         }
 
+        public bool Collidable => true;
+
         public Wall(int width, int height, Transform transform, Level level) : base(transform, level) {
             this.Width = width;
             this.Height = height;

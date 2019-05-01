@@ -123,10 +123,12 @@ namespace ForgottenLight {
 
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive);
 
-            spriteBatch.Draw(lightTexture, new Rectangle((int)mousePos.X - 200 / 2, (int)mousePos.Y - 200 / 2, 200, 200), Color.White);
-            spriteBatch.Draw(lightTexture, new Rectangle(50 - 400 / 2, 50 - 400 / 2, 400, 400), Color.White);
-            spriteBatch.Draw(lightTexture, new Rectangle(400 - 200 / 2, 400 - 200 / 2, 200, 200), Color.White);
-            spriteBatch.Draw(lightTexture, new Rectangle(700 - 200 / 2, 300 - 200 / 2, 200, 200), Color.White);
+            //spriteBatch.Draw(lightTexture, new Rectangle((int)mousePos.X - 200 / 2, (int)mousePos.Y - 200 / 2, 200, 200), Color.White);
+            //spriteBatch.Draw(lightTexture, new Rectangle(50 - 400 / 2, 50 - 400 / 2, 400, 400), Color.White);
+            //spriteBatch.Draw(lightTexture, new Rectangle(400 - 200 / 2, 400 - 200 / 2, 200, 200), Color.White);
+            //spriteBatch.Draw(lightTexture, new Rectangle(700 - 200 / 2, 300 - 200 / 2, 200, 200), Color.White);
+
+            level.DrawLights(spriteBatch, gameTime);
 
             spriteBatch.End();
 
@@ -148,11 +150,18 @@ namespace ForgottenLight {
 
             lightningEffect.Parameters["lightMask"].SetValue(lightningTarget); // set light mask to shader
             spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, effect: lightningEnabled ? lightningEffect : null);
-
+            
             // lightningEffect.Parameters["time"].SetValue(t);
             //lightningEffect.CurrentTechnique.Passes[0].Apply();
 
             spriteBatch.Draw(mainTarget, Vector2.Zero, Color.White);
+
+            spriteBatch.End();
+
+            // Draw UI
+            spriteBatch.Begin();
+
+            level.DrawUI(spriteBatch);
 
             spriteBatch.End();
 

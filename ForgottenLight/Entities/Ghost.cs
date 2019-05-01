@@ -29,7 +29,9 @@ namespace ForgottenLight.Entities {
         public BoxCollider Collider {
             get; private set;
         }
-        
+
+        public bool Collidable => true;
+
         private Pathfinder pathfinder;
 
         private List<Vector2> path;
@@ -65,7 +67,7 @@ namespace ForgottenLight.Entities {
 
             this.idleAnimation = new Animation(atlas, 25, 22, new Vector2(304,0), 2, 0.5f, true);
 
-            this.animationPlayer = new AnimationPlayer();
+            this.animationPlayer = new AnimationPlayer(new Vector2(0.5f, 1));
             this.animationPlayer.PlayAnimation(idleAnimation);
         }
 
@@ -77,8 +79,8 @@ namespace ForgottenLight.Entities {
         
         public override void Update(GameTime gameTime, KeyboardState keyboardState, MouseState mouseState) {
             base.Update(gameTime, keyboardState, mouseState);
-            waypoints.Clear();
-            waypoints.Enqueue(new Waypoint(Level.Player.Transform.Position));
+            //waypoints.Clear();
+            //waypoints.Enqueue(new Waypoint(Level.Player.Transform.Position));
             /*
              * 1. Create new waypoint
              */

@@ -34,6 +34,7 @@ namespace ForgottenLight.Entities {
         public Entity(Vector2 position, Level level) : this(new Transform(position), level) {
 
         }
+        
 
         public virtual void Update(GameTime gameTime, KeyboardState keyboardState, MouseState mouseState) {
             this.Transform.Update();
@@ -45,21 +46,48 @@ namespace ForgottenLight.Entities {
 
 
         public static bool IsColliding(Entity e1) {
-            if(!(e1 is ICollidable)) { // TODO: Maybe throw exception
+            if(!(e1 is ICollidable)) {
                 return false;
             }
 
             ICollidable entitiy = (ICollidable) e1;
+            if(!entitiy.Collidable) {
+                return false;
+            }
+
             Vector2 o = Vector2.Zero;
             foreach(Entity e2 in e1.Level.Entities) {
                 if (e2 is ICollidable && e1 != e2) {
                     ICollidable entity2 = (ICollidable) e2;
-                    if(entitiy.Collider.Intersects(((ICollidable)e2).Collider)) {
+                    if(entity2.Collidable && entitiy.Collider.Intersects(((ICollidable)e2).Collider)) {
                         return true;
                     }
                 }
             }
             return false;
+        }
+
+        /// <summary>
+        /// Get interactable entity for given entitiy.
+        /// </summary>
+        /// <param name="entity">Entity which a interectable should be found for</param>
+        /// <returns>First interactable found colliding with entity. Returns null if not found or entity does not implement ICollidable.</returns>
+        public static IInteractable GetInteractable(Entity entity) {
+            if (!(entity is ICollidable)) {
+                return null;
+            }
+
+            ICollidable e1 = (ICollidable)entity;
+            foreach (Entity e2 in entity.Level.Entities) {
+                if(e2 is IInteractable && e1 != e2) {
+                    IInteractable entity2 = (IInteractable) e2;
+                    if (e1.Collider.Intersects(entity2.Collider)) {
+                        return entity2;
+                    }
+                }
+            }
+
+            return null;
         }
 
     }

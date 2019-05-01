@@ -60,7 +60,7 @@ namespace ForgottenLight.Pathfinding {
             watch.Start();
             List<PathNode> nodes = FindPath(FindNearestNode(start), FindNearestNode(end));
             watch.Stop();
-            Console.WriteLine("Pathfinding<{0}>: {1}", Entity, watch.ElapsedMilliseconds);
+            //Console.WriteLine("Pathfinding<{0}>: {1}", Entity, watch.ElapsedMilliseconds);
             foreach (PathNode node in nodes) {
                 if (node.Parent != null)
                     Gizmos.Instance.DrawGizmo(new LineGizmo(node.Parent.Position, node.Position, 4, Color.Orange));
@@ -184,7 +184,7 @@ namespace ForgottenLight.Pathfinding {
                 }
             }
             watch.Stop();
-            Console.WriteLine("updatenodes<{0}>:{1}", Entity, watch.ElapsedMilliseconds);
+            //Console.WriteLine("updatenodes<{0}>:{1}", Entity, watch.ElapsedMilliseconds);
         }
         
         public static T Clamp<T>(T val, T min, T max) where T : IComparable<T> {

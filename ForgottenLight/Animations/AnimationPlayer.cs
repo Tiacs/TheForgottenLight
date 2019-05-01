@@ -16,11 +16,19 @@ namespace ForgottenLight.Animations {
         private int currentAnimationIndex;
         public int CurrentAnimationIndex => currentAnimationIndex;
 
-        public Vector2 Origin => new Vector2(Animation.FrameWidth / 2.0f, Animation.FrameHeight);
+        public Vector2 Origin => new Vector2(Animation.FrameWidth, Animation.FrameHeight) * Pivot;
+
+        public Vector2 Pivot {
+            get; set;
+        }
 
         public bool IsAnimationDone => this.currentAnimationIndex >= this.Animation.FrameCount - 1;
 
         private float time;
+
+        public AnimationPlayer(Vector2 pivot) {
+            this.Pivot = pivot;
+        }
 
         public void PlayAnimation(Animation animation, int animationOffset = 0) {
             this.animation = animation;

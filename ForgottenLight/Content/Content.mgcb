@@ -25,6 +25,13 @@
 /processorParam:TextureFormat=Color
 /build:fish_32.PNG
 
+#begin fonts/Main.spritefont
+/importer:FontDescriptionImporter
+/processor:LocalizedFontProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Main.spritefont
+
 #begin fries_32.PNG
 /importer:TextureImporter
 /processor:TextureProcessor

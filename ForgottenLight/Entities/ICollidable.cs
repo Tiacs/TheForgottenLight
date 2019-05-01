@@ -5,5 +5,9 @@ namespace ForgottenLight.Entities {
         BoxCollider Collider {
             get;
         }
+
+        bool Collidable {
+            get;
+        }
     }
 }

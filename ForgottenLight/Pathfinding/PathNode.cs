@@ -82,7 +82,7 @@ namespace ForgottenLight.Pathfinding {
             foreach (Entity e2 in Pathfinder.Entity.Level.Entities) {
                 if (e2 != Pathfinder.Entity && e2 is ICollidable && !(e2 is Player)) {
                     ICollidable entity2 = (ICollidable)e2;
-                    if (Collider.Intersects(((ICollidable)e2).Collider)) {
+                    if (entity2.Collidable && Collider.Intersects(((ICollidable)e2).Collider)) {
                         this.Collided = true;
                     }
                 }

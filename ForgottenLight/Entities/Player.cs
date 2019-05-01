@@ -9,14 +9,15 @@ using ForgottenLight.Animations;
 using ForgottenLight.Events;
 using ForgottenLight.Primitives;
 using ForgottenLight.Levels;
+using ForgottenLight.Items;
 
 namespace ForgottenLight.Entities {
     class Player : Entity, ICollidable {
         
         private AnimationPlayer animationPlayer;
 
-        private Animation idleAnimation;
-        private Animation attackAnimation;
+        private Animation idleFrontAnimation;
+        private Animation idleBackAnimation;
         private Animation walkFrontAnimation;
         private Animation walkBackAnimation;
         private Animation walkRightAnimation;
@@ -29,6 +30,10 @@ namespace ForgottenLight.Entities {
         private Orientation prevOrientation;
 
         private const float speed = 200.0f;
+
+        public Item Item {
+            get; set;
+        }
         
         public BoxCollider Collider {
             get; private set;
@@ -38,6 +43,10 @@ namespace ForgottenLight.Entities {
 
         public bool Flipped {
             get; set;
+        }
+
+        public IInteractable Interactable {
+            get; private set;
         }
 
         public bool Collidable => true;
@@ -59,19 +68,19 @@ namespace ForgottenLight.Entities {
             Texture2D atlas = content.Load<Texture2D>("sprites/player");
 
             // Load animations
-            this.idleAnimation = new Animation(atlas, 38, 22, Vector2.Zero, 12, 0.1f, true);
-            this.attackAnimation = new Animation(atlas, 32, 240, new Vector2(32, 0), 7, 0.1f, false);
+            this.idleFrontAnimation = new Animation(atlas, 38, 22, Vector2.Zero, 12, 0.1f, true);
+            this.idleBackAnimation = new Animation(atlas, 38, 22, new Vector2(22, 0), 12, 0.1f, true);
             this.walkFrontAnimation = new Animation(atlas, 38, 22, new Vector2(44, 0), 4, 0.1f, true);
             this.walkBackAnimation = new Animation(atlas, 38, 22, new Vector2(66, 0), 4, 0.1f, true);
             this.walkRightAnimation = new Animation(atlas, 38, 22, new Vector2(88, 0), 2, 0.1f, true);
             this.walkLeftAnimation = new Animation(atlas, 38, 22, new Vector2(110, 0), 2, 0.1f, true);
 
-            this.animationPlayer = new AnimationPlayer();
+            this.animationPlayer = new AnimationPlayer(new Vector2(0.5f, 1));
 
-            this.animationPlayer.PlayAnimation(this.idleAnimation);
+            this.animationPlayer.PlayAnimation(this.idleFrontAnimation);
             
             keyboardEventHandler = Input.Instance;
-            keyboardEventHandler.RegisterOnKeyDownEvent(Keys.X, new Input.KeyboardEvent(this.KeyXDown));
+            keyboardEventHandler.RegisterOnKeyDownEvent(Keys.E, new Input.KeyboardEvent(this.InteractKeyDown));
         }
 
         public override void Update(GameTime gameTime, KeyboardState keyboardState, MouseState mouseState) {
@@ -92,10 +101,10 @@ namespace ForgottenLight.Entities {
                             case Orientation.LEFT:
                             case Orientation.RIGHT:
                             case Orientation.FRONT:
-                                animationPlayer.PlayAnimation(idleAnimation);
+                                animationPlayer.PlayAnimation(idleFrontAnimation);
                                 break;
                             case Orientation.BACK:
-                                animationPlayer.PlayAnimation(idleAnimation);
+                                animationPlayer.PlayAnimation(idleBackAnimation);
                                 break;
                         }
                         break;
@@ -119,6 +128,11 @@ namespace ForgottenLight.Entities {
             }
             prevAnimationSatet = animationState;
             prevOrientation = orientation;
+
+            this.Interactable = Entity.GetInteractable(this);
+            if (Interactable != null) { // interactable found
+                // Do something if interactable is present                
+            }
         }
 
         private void UpdateMovement(GameTime gameTime, KeyboardState keyboardState) {
@@ -182,8 +196,14 @@ namespace ForgottenLight.Entities {
             }
         }
 
-        public void KeyXDown() {
-            Console.WriteLine("Hello World!");
+        private void InteractKeyDown() {
+            if(Interactable != null) {
+                Interact(Interactable);
+            }
+        }
+
+        private void Interact(IInteractable interactable) {
+            interactable.OnInteract(this);
         }
        
         public override void Draw(SpriteBatch spriteBatch, GameTime gameTime) {
