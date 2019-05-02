@@ -15,7 +15,7 @@ namespace ForgottenLight.UI {
         public Transform Transform {
             get; set;
         }
-
+        
         private UIComponent parent;
         public UIComponent Parent {
             get {
@@ -27,7 +27,13 @@ namespace ForgottenLight.UI {
                 }
 
                 this.parent = value;
-                this.parent.Childs.Add(this);
+
+                if(parent != null) {
+                    this.parent.Childs.Add(this);
+                }
+
+                // Update Transform
+                Transform.Parent = value.Transform;
             }
         }
 
@@ -41,7 +47,7 @@ namespace ForgottenLight.UI {
             this.Childs = new List<UIComponent>();
         }
 
-        public UIComponent(Vector2 position, Vector2 scale) : this(new Transform(position, scale)) {
+        public UIComponent(Vector2 position, Vector2 scale) : this(new Transform(Vector2.Zero, Vector2.One) { LocalPosition = position, LocalScale = scale }) {
 
         }
 
@@ -56,8 +62,9 @@ namespace ForgottenLight.UI {
         private ButtonState prevMouseLeftButton;
 
         public virtual void Update(GameTime gameTime, KeyboardState keyboardState, MouseState mouseState) {
+            Transform.Update();
             Childs.ForEach(child => child.Update(gameTime, keyboardState, mouseState));
-            CheckEvents(gameTime, keyboardState, mouseState);            
+            CheckEvents(gameTime, keyboardState, mouseState);
         }
 
         private void CheckEvents(GameTime gameTime, KeyboardState keyboardState, MouseState mouseState) {

@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using ForgottenLight.Primitives;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
@@ -21,6 +22,21 @@ namespace ForgottenLight.UI {
         public SpriteFont Font {
             get; set;
         }
+        
+        public Vector2 Bounds => Font.MeasureString(Text) * Transform.Scale;
+
+        public float Width => Bounds.X;
+        public float Height => Bounds.Y;
+
+        public Vector2 Position {
+            get => Transform.LocalPosition;
+            set => Transform.LocalPosition = value;
+        }
+
+        public Vector2 Scale {
+            get => Transform.LocalScale;
+            set => Transform.LocalScale = value;
+        }
 
         public Label(string text, Vector2 position, SpriteFont font, Color color) : base(position) {
             this.Text = text;
@@ -35,7 +51,8 @@ namespace ForgottenLight.UI {
         public override void Draw(SpriteBatch spriteBatch) {
             base.Draw(spriteBatch);
 
-            spriteBatch.DrawString(Font, Text, Transform.Position, Color);
+            Gizmos.Instance.DrawGizmo(new BoxGizmo(Transform.Position, Width, Height, 1, Color.Orange));
+            spriteBatch.DrawString(Font, Text, Transform.Position, Color, 0, Vector2.Zero, Transform.Scale, SpriteEffects.None, 0);
         }
 
         public override void OnClick() {

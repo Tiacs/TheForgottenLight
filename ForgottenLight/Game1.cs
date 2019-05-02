@@ -159,7 +159,7 @@ namespace ForgottenLight {
             spriteBatch.End();
 
             // Draw UI
-            spriteBatch.Begin();
+            spriteBatch.Begin(samplerState: SamplerState.PointClamp);
 
             level.DrawUI(spriteBatch);
 
