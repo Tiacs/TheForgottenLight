@@ -24,6 +24,7 @@ namespace ForgottenLight {
         // Render Targets
         private RenderTarget2D mainTarget;
         private RenderTarget2D lightningTarget;
+        private RenderTarget2D target;
 
         // Effects
         private Effect lightningEffect;
@@ -41,6 +42,11 @@ namespace ForgottenLight {
 
         private bool lightningEnabled = true;
 
+        private bool fullScreenEnabled = false;
+
+        private int WIDTH = 800;
+        private int HEIGHT = 480;
+
         public Game1() {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
@@ -54,8 +60,12 @@ namespace ForgottenLight {
         /// </summary>
         protected override void Initialize() {
 
-            this.mainTarget = new RenderTarget2D(GraphicsDevice, GraphicsDevice.PresentationParameters.BackBufferWidth, GraphicsDevice.PresentationParameters.BackBufferHeight);
-            this.lightningTarget = new RenderTarget2D(GraphicsDevice, GraphicsDevice.PresentationParameters.BackBufferWidth, GraphicsDevice.PresentationParameters.BackBufferHeight);
+            this.SetFullscreen(fullScreenEnabled);
+
+            this.mainTarget = new RenderTarget2D(GraphicsDevice, WIDTH, HEIGHT);
+            this.lightningTarget = new RenderTarget2D(GraphicsDevice, WIDTH, HEIGHT);
+
+            this.target = new RenderTarget2D(GraphicsDevice, WIDTH, HEIGHT);
 
             base.Initialize();
 
@@ -63,6 +73,7 @@ namespace ForgottenLight {
 
             // register lightning key event
             Input.Instance.RegisterOnKeyDownEvent(Keys.F2, this.OnLightningKeyPressed);
+            Input.Instance.RegisterOnKeyDownEvent(Keys.F11, this.ToggleFullscreen);
 
             // initialize level
             this.level = new Level_Test(Content);
@@ -145,7 +156,7 @@ namespace ForgottenLight {
 
             // DRAW TO SCREEN USING LIGHTNING SHADER
             
-            GraphicsDevice.SetRenderTarget(null);
+            GraphicsDevice.SetRenderTarget(target);
             GraphicsDevice.Clear(Color.Black);
 
             lightningEffect.Parameters["lightMask"].SetValue(lightningTarget); // set light mask to shader
@@ -161,7 +172,7 @@ namespace ForgottenLight {
             // Draw UI
             spriteBatch.Begin(samplerState: SamplerState.PointClamp);
 
-            level.DrawUI(spriteBatch);
+            level.DrawUI(spriteBatch, gameTime);
 
             spriteBatch.End();
 
@@ -172,7 +183,34 @@ namespace ForgottenLight {
 
             spriteBatch.End();
 
+            GraphicsDevice.SetRenderTarget(null);
+
+            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone);
+
+            spriteBatch.Draw(target, new Rectangle(0, 0, GraphicsDevice.PresentationParameters.BackBufferWidth, GraphicsDevice.PresentationParameters.BackBufferHeight), Color.White);
+
+            spriteBatch.End();
+            
             base.Draw(gameTime);
+        }
+
+        private void ToggleFullscreen() {
+            this.fullScreenEnabled = !fullScreenEnabled;
+            SetFullscreen(this.fullScreenEnabled);
+        }
+
+        private void SetFullscreen(bool fullScreenEnabled) {
+            if (fullScreenEnabled) {
+                graphics.IsFullScreen = true;
+                graphics.PreferredBackBufferWidth = GraphicsDevice.DisplayMode.Width;
+                graphics.PreferredBackBufferHeight = GraphicsDevice.DisplayMode.Height;
+                graphics.ApplyChanges();
+            } else {
+                graphics.IsFullScreen = false;
+                graphics.PreferredBackBufferWidth = WIDTH;
+                graphics.PreferredBackBufferHeight = HEIGHT;
+                graphics.ApplyChanges();
+            }
         }
 
         private void OnLightningKeyPressed() {
