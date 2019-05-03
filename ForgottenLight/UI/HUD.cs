@@ -15,11 +15,10 @@ namespace ForgottenLight.UI {
         private Player player;
 
         private Label interactLabel;
+        private DialogBox dialogBox;
 
-        public HUD(ContentManager content, Player player) : base(content) {
+        public HUD(float width, float height, Player player, ContentManager content) : base(width, height, content) {
             this.player = player;
-
-            this.Transform.Position = new Vector2(10, 10);
 
             Initialize();
         }

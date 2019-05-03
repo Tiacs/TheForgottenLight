@@ -43,13 +43,15 @@ namespace ForgottenLight.UI {
             get; set;
         }
         
-        public Vector2 Bounds => Font.MeasureString(FormattedText) * Transform.Scale;
+        protected override Vector2 Bounds => Font.MeasureString(FormattedText) * Transform.Scale;
 
-        public float Width => Bounds.X;
-        public float Height => Bounds.Y;
+        public override float Width => Bounds.X;
+        public override float Height => Bounds.Y;
 
+        private float maxWidth;
         public float MaxWidth {
-            get; set;
+            get => maxWidth <= 0 ? Parent.Width : maxWidth; // If no maxWidth set -> maxWidth is Parent.Width
+            set => maxWidth = value;
         }
 
         public Label(SpriteFont font) {
@@ -70,9 +72,9 @@ namespace ForgottenLight.UI {
             base.Draw(spriteBatch);
 
             // Gizmos.Instance.DrawGizmo(new BoxGizmo(Transform.AbsolutePosition, MaxWidth, Height, 1, Color.Gray)); // Draw MaxWdith box
-            Gizmos.Instance.DrawGizmo(new BoxGizmo(Transform.AbsolutePosition, Width, Height, 1, Color.Orange)); // Draw actual text box
+            //Gizmos.Instance.DrawGizmo(new BoxGizmo(AbsolutePosition, Width, Height, 1, Color.Orange)); // Draw actual text box
 
-            spriteBatch.DrawString(Font, FormattedText, Transform.AbsolutePosition, Color, 0, Vector2.Zero, Transform.Scale, SpriteEffects.None, 0);
+            spriteBatch.DrawString(Font, FormattedText, AbsolutePosition, Color, 0, Vector2.Zero, Transform.Scale, SpriteEffects.None, 0);
         }
 
         private void UpdateFormattedText() {

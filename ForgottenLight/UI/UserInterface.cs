@@ -16,7 +16,9 @@ namespace ForgottenLight.UI {
             get; protected set;
         }
 
-        public UserInterface(ContentManager content) : base(Vector2.Zero) {
+        public UserInterface(float width, float height, ContentManager content) : base(Vector2.Zero) {
+            this.Width = width;
+            this.Height = height;
             LoadContent(content);
         }
 
