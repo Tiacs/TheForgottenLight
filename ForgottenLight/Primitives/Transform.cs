@@ -105,9 +105,9 @@ namespace ForgottenLight.Primitives {
 
         private void UpdateAbsolute() {
             if(Parent != null) {
-                this.absolutePosition = Parent.Position + this.localPosition;
-                this.absoluteScale = this.localScale * Parent.Scale;
-                this.absoluteRotation = this.localRotation* Parent.Rotation;
+                this.absolutePosition = Parent.AbsolutePosition + this.localPosition;
+                this.absoluteScale = Parent.AbsoluteScale * this.localScale;
+                this.absoluteRotation = Parent.AbsoluteRotation * this.localRotation;
             } else {
                 this.absolutePosition = localPosition;
                 this.absoluteScale = localScale;
