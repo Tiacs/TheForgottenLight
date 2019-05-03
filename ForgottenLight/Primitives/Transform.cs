@@ -6,53 +6,42 @@ namespace ForgottenLight.Primitives {
 
     class Transform {
 
-        private Vector2 position;
-        public Vector2 Position {
-            get => position;
-            set {
-                position = value;
-                this.SetNeedsPositionUpdate();
-            }
-        }
-
-        private Vector2 scale;
-        public Vector2 Scale {
-            get => scale;
-            set {
-                scale = value;
-                this.SetNeedsPositionUpdate();
-            }
-        }
-
-        private float rotation;
-        public float Rotation {
-            get => rotation;
-            set {
-                rotation = value;
-                this.SetNeedsPositionUpdate();
-            }
-        }
-
-
         private Vector2 localPosition;
-        public Vector2 LocalPosition {
+        public Vector2 Position {
             get => localPosition;
             set {
                 localPosition = value;
+                this.SetNeedsAbsoluteUpdate();
             }
         }
 
-        public Vector2 LocalScale {
-            get; set;
+        private Vector2 localScale;
+        public Vector2 Scale {
+            get => localScale;
+            set {
+                localScale = value;
+                this.SetNeedsAbsoluteUpdate();
+            }
         }
 
         private float localRotation;
-        public float LocalRotation {
+        public float Rotation {
             get => localRotation;
             set {
                 localRotation = value;
+                this.SetNeedsAbsoluteUpdate();
             }
         }
+
+
+        private Vector2 absolutePosition;
+        public Vector2 AbsolutePosition => GetAndUpdate(ref absolutePosition);
+
+        private Vector2 absoluteScale;
+        public Vector2 AbsoluteScale => GetAndUpdate(ref absoluteScale);
+
+        private float absoluteRotation;
+        public float AbsoluteRotation => GetAndUpdate(ref absoluteRotation);
 
 
         private Transform parent;
@@ -69,7 +58,7 @@ namespace ForgottenLight.Primitives {
                     parent.childs.Add(this);
                 }
 
-                this.SetNeedsPositionUpdate();
+                this.SetNeedsAbsoluteUpdate();
             }
         }
 
@@ -97,24 +86,32 @@ namespace ForgottenLight.Primitives {
         }
 
         public void Update() {
-            // TODO: Update local and global pos
-            if (needsPositionUpdate) UpdatePosition();
-
             if(GizmosEnabled) {
-                Gizmos.Instance.DrawGizmo(new CrossGizmo(this.position, 10, 1, Color.Red));
+                Gizmos.Instance.DrawGizmo(new CrossGizmo(this.AbsolutePosition, 10, 1, Color.Red));
             }
         }
         
-        private void SetNeedsPositionUpdate() {
+        private void SetNeedsAbsoluteUpdate() {
             this.needsPositionUpdate = true;
-            childs.ForEach(child => child.SetNeedsPositionUpdate());
+            childs.ForEach(child => child.SetNeedsAbsoluteUpdate());
         }
 
-        private void UpdatePosition() {
+        private T GetAndUpdate<T>(ref T field) {
+            if(needsPositionUpdate) {
+                UpdateAbsolute();
+            }
+            return field;
+        }
+
+        private void UpdateAbsolute() {
             if(Parent != null) {
-                this.position = Parent.Position + this.LocalPosition;
-                this.scale = this.LocalScale * Parent.Scale;
-                this.rotation = this.LocalRotation * Parent.Rotation;
+                this.absolutePosition = Parent.Position + this.localPosition;
+                this.absoluteScale = this.localScale * Parent.Scale;
+                this.absoluteRotation = this.localRotation* Parent.Rotation;
+            } else {
+                this.absolutePosition = localPosition;
+                this.absoluteScale = localScale;
+                this.absoluteRotation = localRotation;
             }
             this.needsPositionUpdate = false;
         }

@@ -30,12 +30,11 @@ namespace ForgottenLight.Entities {
         
         public override void Draw(SpriteBatch spriteBatch, GameTime gameTime) {
             base.Draw(spriteBatch, gameTime);
-            animationPlayer.Draw(spriteBatch, gameTime, Transform.Position, Transform.Scale);
+            animationPlayer.Draw(spriteBatch, gameTime, Transform.AbsolutePosition, Transform.AbsoluteScale);
         }
 
         public override void Update(GameTime gameTime, KeyboardState keyboardState, MouseState mouseState) {
             base.Update(gameTime, keyboardState, mouseState);
-            Transform.Update();
         }
     }
 }

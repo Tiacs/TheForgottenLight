@@ -167,7 +167,7 @@ namespace ForgottenLight.Entities {
 
             // Normalize vector to prevent faster vertical movement
             if (movement.Length() > 0) movement.Normalize();
-            Gizmos.Instance.DrawGizmo(new LineGizmo(Transform.Position, Transform.Position + 35 * movement, 1, Color.Blue)); // draw normalized movement vector
+            Gizmos.Instance.DrawGizmo(new LineGizmo(Transform.AbsolutePosition, Transform.AbsolutePosition+ 35 * movement, 1, Color.Blue)); // draw normalized movement vector
 
             movement *= speed * (float)gameTime.ElapsedGameTime.TotalSeconds; // change direction to movement vector
 
@@ -208,7 +208,7 @@ namespace ForgottenLight.Entities {
        
         public override void Draw(SpriteBatch spriteBatch, GameTime gameTime) {
             base.Draw(spriteBatch, gameTime);
-            this.animationPlayer.Draw(spriteBatch, gameTime, this.Transform.Position, this.Transform.Scale);
+            this.animationPlayer.Draw(spriteBatch, gameTime, this.Transform.AbsolutePosition, this.Transform.AbsoluteScale);
         }
 
         private enum AnimationState {

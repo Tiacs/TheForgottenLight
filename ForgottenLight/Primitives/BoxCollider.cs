@@ -41,10 +41,10 @@ namespace ForgottenLight.Primitives {
         }
 
         public void Update(GameTime gameTime) {
-            this.Rectangle = new Rectangle((int) (transform.Position.X - Width * Pivot.X * transform.Scale.X), 
-                (int) (transform.Position.Y - Height * Pivot.Y * transform.Scale.Y), 
-                (int) (Width * transform.Scale.X), 
-                (int) (Height * transform.Scale.Y)
+            this.Rectangle = new Rectangle((int) (transform.AbsolutePosition.X - Width * Pivot.X * transform.AbsoluteScale.X), 
+                (int) (transform.AbsolutePosition.Y - Height * Pivot.Y * transform.AbsoluteScale.Y), 
+                (int) (Width * transform.AbsoluteScale.X), 
+                (int) (Height * transform.AbsoluteScale.Y)
             );
             
             if(this.Debug) Gizmos.Instance.DrawGizmo(new BoxGizmo(Rectangle, 1, Color.Green));

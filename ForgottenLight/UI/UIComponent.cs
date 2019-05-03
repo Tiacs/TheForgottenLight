@@ -15,7 +15,17 @@ namespace ForgottenLight.UI {
         public Transform Transform {
             get; set;
         }
-        
+
+        public Vector2 Position {
+            get => Transform.Position;
+            set => Transform.Position = value;
+        }
+
+        public Vector2 Scale {
+            get => Transform.Scale;
+            set => Transform.Scale = value;
+        }
+
         private UIComponent parent;
         public UIComponent Parent {
             get {
@@ -40,6 +50,12 @@ namespace ForgottenLight.UI {
         public List<UIComponent> Childs {
             get; private set;
         }
+
+        public UIComponent() {
+            this.Transform = new Transform(Vector2.Zero);
+
+            this.Childs = new List<UIComponent>();
+        }
         
         public UIComponent(Transform transform) {
             this.Transform = transform;
@@ -47,7 +63,7 @@ namespace ForgottenLight.UI {
             this.Childs = new List<UIComponent>();
         }
 
-        public UIComponent(Vector2 position, Vector2 scale) : this(new Transform(Vector2.Zero, Vector2.One) { LocalPosition = position, LocalScale = scale }) {
+        public UIComponent(Vector2 position, Vector2 scale) : this(new Transform(Vector2.Zero, Vector2.One) { Position = position, Scale = scale }) {
 
         }
 

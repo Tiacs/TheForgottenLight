@@ -74,13 +74,13 @@ namespace ForgottenLight.Entities {
         public override void Draw(SpriteBatch spriteBatch, GameTime gameTime) {
             base.Draw(spriteBatch, gameTime);
 
-            this.animationPlayer.Draw(spriteBatch, gameTime, this.Transform.Position, this.Transform.Scale);
+            this.animationPlayer.Draw(spriteBatch, gameTime, this.Transform.AbsolutePosition, this.Transform.AbsoluteScale);
         }
         
         public override void Update(GameTime gameTime, KeyboardState keyboardState, MouseState mouseState) {
             base.Update(gameTime, keyboardState, mouseState);
             //waypoints.Clear();
-            //waypoints.Enqueue(new Waypoint(Level.Player.Transform.Position));
+            //waypoints.Enqueue(new Waypoint(Level.Player.Transform.AbsoluePosition));
             /*
              * 1. Create new waypoint
              */
@@ -89,7 +89,7 @@ namespace ForgottenLight.Entities {
             } 
 
             if(waypoints.Peek() != null) {
-                Gizmos.Instance.DrawGizmo(new LineGizmo(Transform.Position, waypoints.Peek().Position, 2, Color.Orange));
+                Gizmos.Instance.DrawGizmo(new LineGizmo(Transform.AbsolutePosition, waypoints.Peek().Position, 2, Color.Orange));
             }
 
             /*
@@ -98,7 +98,7 @@ namespace ForgottenLight.Entities {
             if(path.Count <= 0) {
                 // this.waypoint = waypoints.Dequeue();
                 this.pathfinder.Update(gameTime);
-                this.path = pathfinder.FindPath(this.Transform.Position, this.waypoints.Peek().Position);
+                this.path = pathfinder.FindPath(this.Transform.AbsolutePosition, this.waypoints.Peek().Position);
                 if(path.Count == 0) {
                     this.waypoints.Dequeue(); // remove current waypoint
                 }
@@ -119,7 +119,7 @@ namespace ForgottenLight.Entities {
                 }
 
                 // Calculate movement
-                Vector2 movement = path[currentPathNode] - Transform.Position;
+                Vector2 movement = path[currentPathNode] - Transform.AbsolutePosition;
                 movement.Normalize();
                 movement *= speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
 
@@ -154,7 +154,7 @@ namespace ForgottenLight.Entities {
                 /*
                  * Current path node reached
                  */
-                if ((path[currentPathNode] - Transform.Position).Length() <= 1) {
+                if ((path[currentPathNode] - Transform.AbsolutePosition).Length() <= 1) {
                     this.pathfinder.Update(gameTime);
                     List<Vector2> newPath = pathfinder.FindPath(path[currentPathNode], waypoints.Peek().Position);
                     if (newPath.Count > 0) {

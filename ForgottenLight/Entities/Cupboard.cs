@@ -41,7 +41,7 @@ namespace ForgottenLight.Entities {
 
         public override void Draw(SpriteBatch spriteBatch, GameTime gameTime) {
             base.Draw(spriteBatch, gameTime);
-            this.animationPlayer.Draw(spriteBatch, gameTime, Transform.Position);
+            this.animationPlayer.Draw(spriteBatch, gameTime, Transform.AbsolutePosition, Transform.AbsoluteScale);
         }
         
         public override void Update(GameTime gameTime, KeyboardState keyboardState, MouseState mouseState) {

@@ -19,17 +19,23 @@ namespace ForgottenLight.UI {
         public HUD(ContentManager content, Player player) : base(content) {
             this.player = player;
 
-            this.Transform.LocalPosition = new Vector2(10, 10);
+            this.Transform.Position = new Vector2(10, 10);
 
             Initialize();
         }
 
         private void Initialize() {
-            this.interactLabel = new Label("", Vector2.Zero, MainFont) {
-                Scale = Vector2.One * 5f
+            this.interactLabel = new Label(MainFont) {
+                Text = "Hello world!",
+                Position = Vector2.Zero,
+                Color = Color.White,
+                Parent = this
             };
-            // this.interactLabel.Transform.LocalScale = Vector2.One * 2;
-            this.interactLabel.Parent = this;
+
+            this.dialogBox = new DialogBox(MainFont) {
+                Position = new Vector2(100, 100),
+                Parent = this
+            };
         }
 
         public override void Draw(SpriteBatch spriteBatch) {

@@ -19,8 +19,6 @@ namespace ForgottenLight.Levels {
     class Level_Test : Level {
 
         private Texture2D levelBackground;
-
-        private Pathfinder pathfinder;
         
         private Light mouseLight;
         private Light playerLight;

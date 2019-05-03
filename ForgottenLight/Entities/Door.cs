@@ -52,7 +52,7 @@ namespace ForgottenLight.Entities {
 
         public override void Draw(SpriteBatch spriteBatch, GameTime gameTime) {
             base.Draw(spriteBatch, gameTime);
-            animationPlayer.Draw(spriteBatch, gameTime, Transform.Position);
+            animationPlayer.Draw(spriteBatch, gameTime, Transform.AbsolutePosition, Transform.AbsoluteScale);
         }
 
         public void OnInteract(Entity entity) {
