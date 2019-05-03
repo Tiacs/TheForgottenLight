@@ -12,6 +12,12 @@ namespace ForgottenLight.UI {
 
     abstract class UIComponent {
 
+        private bool visible = true;
+        public bool Visible {
+            get => Parent != null ? visible & Parent.Visible : visible;
+            set => visible = value;
+        }
+
         public Transform Transform {
             get; set;
         }
@@ -98,11 +104,18 @@ namespace ForgottenLight.UI {
 
         }
         
-        public virtual void Draw(SpriteBatch spriteBatch) {
-            Childs.ForEach(child => child.Draw(spriteBatch));
+        public virtual void Draw(SpriteBatch spriteBatch, GameTime gameTime) {
+            if(Visible) { // Only draw if visible
+                this.OnDraw(spriteBatch, gameTime);
+                
             Gizmos.Instance.DrawGizmo(new BoxGizmo(AbsolutePosition, Width, Height, 1, Color.Gray));
             Gizmos.Instance.DrawGizmo(new CrossGizmo(AbsolutePosition, 5, 1, Color.Yellow));
+            }
+
+            Childs.ForEach(child => child.Draw(spriteBatch, gameTime));
         }
+
+        public abstract void OnDraw(SpriteBatch sprite, GameTime gameTime);
 
         private ButtonState prevMouseLeftButton;
 

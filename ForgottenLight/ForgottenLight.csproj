@@ -65,6 +65,7 @@
     <Compile Include="Pathfinding\Waypoint.cs" />
     <Compile Include="Primitives\BoxCollider.cs" />
     <Compile Include="Primitives\CrossGizmo.cs" />
+    <Compile Include="Primitives\CustomColor.cs" />
     <Compile Include="Primitives\Gizmo.cs" />
     <Compile Include="Primitives\Gizmos.cs" />
     <Compile Include="Primitives\BoxGizmo.cs" />
@@ -73,6 +74,8 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Primitives\Transform.cs" />
+    <Compile Include="UI\DialogBox.cs" />
+    <Compile Include="UI\DialogMessage.cs" />
     <Compile Include="UI\HUD.cs" />
     <Compile Include="UI\Label.cs" />
     <Compile Include="UI\UIComponent.cs" />

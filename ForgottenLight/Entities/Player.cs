@@ -85,9 +85,7 @@ namespace ForgottenLight.Entities {
 
         public override void Update(GameTime gameTime, KeyboardState keyboardState, MouseState mouseState) {
             base.Update(gameTime, keyboardState, mouseState);
-
-            this.keyboardEventHandler.Update();
-
+            
             this.UpdateMovement(gameTime, keyboardState);
 
             if (keyboardState.IsKeyDown(Keys.R)) {

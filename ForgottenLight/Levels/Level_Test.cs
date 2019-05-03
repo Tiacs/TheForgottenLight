@@ -63,7 +63,7 @@ namespace ForgottenLight.Levels {
             //this.Entities.Add(new Ghost(250, 200, contentManager, this));
             //this.Entities.Add(new Ghost(250, 250, contentManager, this));
 
-            this.userInterface = new HUD(Width, Height, Player, contentManager);
+            this.Interface = new HUD(Width, Height, Player, contentManager);
 
             this.mouseLight = new Light(0, 0, contentManager, 4, this);
             this.playerLight = new Light(0, 0, contentManager, 1, this);

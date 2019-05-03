@@ -18,11 +18,15 @@ namespace ForgottenLight.Entities {
         private AnimationPlayer animationPlayer;
         private Animation idleAnimation;
 
-        public string Description { get; private set; } = "Press a key to complete level";
+        public string Description { get; private set; } = "Press E to open door";
 
         public BoxCollider Collider { get; private set; }
 
         public bool Collidable => false;
+
+        private bool Opened {
+            get; set;
+        }
 
         public Door(Vector2 position, ContentManager content, Level level) : base(position, level) {
 
@@ -59,13 +63,24 @@ namespace ForgottenLight.Entities {
             if(!(entity is Player)) {
                 return;
             }
-
+            
             Player player = (Player)entity;
-            if(player.Item != null && player.Item.ID == ItemCode.KEY) {
+            if(Opened) {
                 Console.WriteLine("Door opened!");
-            } else {
-                Console.WriteLine("Find the key first!");
+                Level.Interface.DialogBox.Enqueue(new UI.DialogMessage("This door is already opened!", true));
+                return;
             }
+
+            if (player.Item != null && player.Item.ID == ItemCode.KEY) {
+                Console.WriteLine("Door opened!");
+                Level.Interface.DialogBox.Enqueue(new UI.DialogMessage("You opened the door!", false));
+                Level.Interface.DialogBox.Enqueue(new UI.DialogMessage("Lets see what is in it!", false));
+                Opened = true;
+                return;
+            }
+
+            Console.WriteLine("Find the key first!");
+            Level.Interface.DialogBox.Enqueue(new UI.DialogMessage("You must find the key first!", true));
         }
     }
 }

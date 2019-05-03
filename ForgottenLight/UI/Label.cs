@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace ForgottenLight.UI {
     class Label : UIComponent {
 
-        private string text;
+        private string text = "";
         public string Text {
             get => text;
             set {
@@ -68,9 +68,7 @@ namespace ForgottenLight.UI {
 
         }
         
-        public override void Draw(SpriteBatch spriteBatch) {
-            base.Draw(spriteBatch);
-
+        public override void OnDraw(SpriteBatch spriteBatch, GameTime gameTime) {
             // Gizmos.Instance.DrawGizmo(new BoxGizmo(Transform.AbsolutePosition, MaxWidth, Height, 1, Color.Gray)); // Draw MaxWdith box
             //Gizmos.Instance.DrawGizmo(new BoxGizmo(AbsolutePosition, Width, Height, 1, Color.Orange)); // Draw actual text box
 
@@ -89,7 +87,7 @@ namespace ForgottenLight.UI {
 
             string result = "";
             foreach (char c in text) {
-                Vector2 bounds = Font.MeasureString(result + c);
+                Vector2 bounds = Font.MeasureString(result + c) * Transform.Scale;
                 if(bounds.X > this.MaxWidth) {
                     result += "\n";
                 }

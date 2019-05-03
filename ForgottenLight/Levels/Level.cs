@@ -13,6 +13,7 @@ using ForgottenLight.Entities;
 using ForgottenLight.Primitives;
 using ForgottenLight.Levels;
 using ForgottenLight.UI;
+using ForgottenLight.Events;
 
 namespace ForgottenLight.Levels {
     abstract class Level {
@@ -51,10 +52,10 @@ namespace ForgottenLight.Levels {
             get; protected set;
         }
 
-        public UserInterface userInterface {
+        public HUD Interface {
             get; protected set;
         }
-
+        
         public Level(ContentManager contentManager, float width, float height) {
             this.Width = width;
             this.Height = height;
@@ -78,10 +79,14 @@ namespace ForgottenLight.Levels {
         }
 
         public virtual void Update(GameTime gameTime, KeyboardState keyboardState, MouseState mouseState) {
-            this.Walls.ForEach(wall => wall.Update(gameTime));
-            this.Entities.ForEach(entity => entity.Update(gameTime, keyboardState, mouseState));
-            this.Lights.ForEach(light => light.Update(gameTime, keyboardState, mouseState));
-            this.userInterface.Update(gameTime, keyboardState, mouseState);
+            Input.Instance.Update();
+
+            if(!Interface.DialogBox.IsDialogRunning) {
+                this.Walls.ForEach(wall => wall.Update(gameTime));
+                this.Entities.ForEach(entity => entity.Update(gameTime, keyboardState, mouseState));
+                this.Lights.ForEach(light => light.Update(gameTime, keyboardState, mouseState));
+            }
+            this.Interface.Update(gameTime, keyboardState, mouseState);
         }
 
         public virtual void Draw(SpriteBatch spriteBatch, GameTime gameTime) {
@@ -92,8 +97,8 @@ namespace ForgottenLight.Levels {
             this.Lights.ForEach(light => light.Draw(spriteBatch, gameTime));
         }
 
-        public void DrawUI(SpriteBatch spriteBatch) {
-            this.userInterface.Draw(spriteBatch);
+        public void DrawUI(SpriteBatch spriteBatch, GameTime gameTime) {
+            this.Interface.Draw(spriteBatch, gameTime);
         }
     }
 }
