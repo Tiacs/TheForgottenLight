@@ -38,7 +38,7 @@ namespace ForgottenLight.Entities {
 
                 if (Item != null) {
                     Console.WriteLine("You found '{0}'! {1}", Item.Name, Item.Description);
-                    Level.Interface.DialogBox.Enqueue(new UI.DialogMessage(string.Format("You found {0}! {1}", Item.Name, Item.Description), true));
+                    Level.Interface.DialogBox.Enqueue(new UI.DialogMessage(string.Format("You found {0}! {1}", Item.Name, Item.Description), false));
                     player.Item = Item;
                     this.Item = null;
                 } else {

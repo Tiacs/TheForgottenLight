@@ -48,8 +48,12 @@ namespace ForgottenLight.UI {
             get; set;
         } = CustomColor.DarkBlue;
 
-        private Animation texture;
+        private Animation defaultAnimation;
+        private Animation watingAnimation;
         private AnimationPlayer animationPlayer;
+
+        private AnimationState animationState = AnimationState.DEFAULT;
+        private AnimationState prevAnimationState;
 
         public DialogBox(SpriteFont font, ContentManager content) {
             this.font = font;
@@ -71,9 +75,13 @@ namespace ForgottenLight.UI {
         }
 
         private void LoadContent(ContentManager content) {
-            this.texture = new Animation(content.Load<Texture2D>("ui/ui_atlas"), 100, 400, Vector2.Zero, 1, 0, false);
+            Texture2D textureAtlas = content.Load<Texture2D>("ui/ui_atlas");
+
+            this.defaultAnimation = new Animation(textureAtlas, 100, 400, Vector2.Zero, 1, 0, false);
+            this.watingAnimation = new Animation(textureAtlas, 100, 400, new Vector2(0, 100), 4, .2f, true);
+
             this.animationPlayer = new AnimationPlayer(Vector2.Zero);
-            this.animationPlayer.PlayAnimation(texture);
+            this.animationPlayer.PlayAnimation(defaultAnimation);
         }
 
         public override void Update(GameTime gameTime, KeyboardState keyboardState, MouseState mouseState) {
@@ -85,13 +93,25 @@ namespace ForgottenLight.UI {
 
             PerformCurrentMessage(gameTime);
 
-            if(currentMessage == null) {
+            if(animationState != prevAnimationState) {
+                switch (animationState) {
+                    case AnimationState.DEFAULT:
+                        this.animationPlayer.PlayAnimation(this.defaultAnimation);
+                        break;
+                    case AnimationState.WAITING:
+                        this.animationPlayer.PlayAnimation(this.watingAnimation);
+                        break;
+                }
+            }
+            prevAnimationState = animationState;
+
+            if (currentMessage == null) {
                 Visible = false;
             } else {
                 Visible = true;
             }
         }
-        
+
         private void PerformCurrentMessage(GameTime gameTime) {
             if (MoreCharacters) { // Show next character if there are more
                 NextChar(gameTime);
@@ -123,6 +143,7 @@ namespace ForgottenLight.UI {
             currentIndex = 0;
             messageLabel.Text = "";
             currentMessage = Messages.Dequeue();
+            animationState = currentMessage.AutoContinue ? AnimationState.DEFAULT : AnimationState.WAITING;
             IsDialogRunning = true;
         }
 
@@ -177,6 +198,10 @@ namespace ForgottenLight.UI {
             Texture2D t = new Texture2D(spriteBatch.GraphicsDevice, 1, 1);
             t.SetData<Color>(new Color[] { Color.White });
             return t;
+        }
+
+        private enum AnimationState {
+            DEFAULT, WAITING 
         }
 
     }
