@@ -48,7 +48,7 @@ namespace ForgottenLight.UI {
             //this.dialogBox.Messages.Enqueue(new DialogMessage("Hello World!", true));
             //this.dialogBox.Messages.Enqueue(new DialogMessage("My name is mystic guy!"));
             //this.dialogBox.Messages.Enqueue(new DialogMessage("I love u!"));
-            this.dialogBox.Enqueue("This text hopefully is longer then 300px! I hope it will get into the next line! Or maybe antoher one! That would be great! Did I mention that I love this char!", false);
+            //this.dialogBox.Enqueue("This text hopefully is longer then 300px! I hope it will get into the next line! Or maybe antoher one!", false);
 
         }
 

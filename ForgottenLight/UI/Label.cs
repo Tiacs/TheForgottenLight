@@ -86,12 +86,12 @@ namespace ForgottenLight.UI {
             }
 
             string result = "";
-            foreach (char c in text) {
-                Vector2 bounds = Font.MeasureString(result + c) * Transform.Scale;
+            foreach (string c in text.Split(' ')) {
+                Vector2 bounds = Font.MeasureString(result + c + " ") * Transform.Scale;
                 if(bounds.X > this.MaxWidth) {
                     result += "\n";
                 }
-                result += c;
+                result += c + " ";
             }
             return result;
         }
