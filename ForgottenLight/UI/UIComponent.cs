@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace ForgottenLight.UI {
 
     abstract class UIComponent {
-
+        
         private bool visible = true;
         public bool Visible {
             get => Parent != null ? visible & Parent.Visible : visible;
@@ -41,6 +41,11 @@ namespace ForgottenLight.UI {
             set => Transform.Scale = value;
         }
 
+        public Vector2 Pivot {
+            get; set;
+        } = Vector2.Zero;
+
+
         protected virtual Vector2 Bounds {
             get; set;
         }
@@ -54,10 +59,7 @@ namespace ForgottenLight.UI {
             get => Bounds.Y;
             set => Bounds = Vector2.UnitX * Bounds + Vector2.UnitY * value;
         }
-
-        public Vector2 Pivot {
-            get; set;
-        } = Vector2.Zero;
+        
 
         private UIComponent parent;
         public UIComponent Parent {
@@ -84,6 +86,8 @@ namespace ForgottenLight.UI {
             get; private set;
         }
 
+        private ButtonState prevMouseLeftButton;
+
         public UIComponent() {
             this.Transform = new Transform(Vector2.Zero);
 
@@ -103,26 +107,25 @@ namespace ForgottenLight.UI {
         public UIComponent(Vector2 position) : this(position, Vector2.One) {
 
         }
-        
+
+        public abstract void OnDraw(SpriteBatch sprite, GameTime gameTime);
+
         public virtual void Draw(SpriteBatch spriteBatch, GameTime gameTime) {
             if(Visible) { // Only draw if visible
                 this.OnDraw(spriteBatch, gameTime);
                 
-            Gizmos.Instance.DrawGizmo(new BoxGizmo(AbsolutePosition, Width, Height, 1, Color.Gray));
-            Gizmos.Instance.DrawGizmo(new CrossGizmo(AbsolutePosition, 5, 1, Color.Yellow));
+                Gizmos.Instance.DrawGizmo(new BoxGizmo(AbsolutePosition, Width, Height, 1, Color.Gray));
+                Gizmos.Instance.DrawGizmo(new CrossGizmo(AbsolutePosition, 5, 1, Color.Yellow));
             }
 
             Childs.ForEach(child => child.Draw(spriteBatch, gameTime));
         }
 
-        public abstract void OnDraw(SpriteBatch sprite, GameTime gameTime);
-
-        private ButtonState prevMouseLeftButton;
-
         public virtual void Update(GameTime gameTime, KeyboardState keyboardState, MouseState mouseState) {
             Transform.Update();
-            Childs.ForEach(child => child.Update(gameTime, keyboardState, mouseState));
             CheckEvents(gameTime, keyboardState, mouseState);
+
+            Childs.ForEach(child => child.Update(gameTime, keyboardState, mouseState));
         }
 
         private void CheckEvents(GameTime gameTime, KeyboardState keyboardState, MouseState mouseState) {
