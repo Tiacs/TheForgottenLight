@@ -1,52 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ForgottenLight.Animations;
-using ForgottenLight.Events;
-using ForgottenLight.Primitives;
+﻿using System.Collections.Generic;
+
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
+using ForgottenLight.Animations;
+using ForgottenLight.Events;
+using ForgottenLight.Primitives;
+
 namespace ForgottenLight.UI {
     class DialogBox : UIComponent {
 
+        private SpriteFont font;
         private Label messageLabel;
 
-        private SpriteFont font;
-
-        public Texture2D Background {
-            get; set;
-        }
-
-        public Queue<DialogMessage> Messages {
-            get; set;
-        }
-        
         private DialogMessage currentMessage;
-        
-        int currentIndex = 0;
 
-        private Timer charDelay = new Timer(25);
-        private Timer messageDelay = new Timer(1000);
-
-        public bool IsDialogRunning {
-            get; private set;
-        } 
-
-        private bool MoreCharacters {
-            get {
-                if (currentMessage == null) return false;
-                return currentIndex < currentMessage.Length;
-            }
-        }
-
-        public Color TextColor {
-            get; set;
-        } = CustomColor.DarkBlue;
+        int currentCharacterIndex = 0;
 
         private Animation defaultAnimation;
         private Animation watingAnimation;
@@ -55,12 +26,35 @@ namespace ForgottenLight.UI {
         private AnimationState animationState = AnimationState.DEFAULT;
         private AnimationState prevAnimationState;
 
+
+        private Timer charDelay = new Timer(25);
+        private Timer messageDelay = new Timer(1000);
+
+
+        public Color TextColor {
+            get; set;
+        } = CustomColor.DarkBlue;
+
+        public bool IsDialogRunning {
+            get; private set;
+        }
+
+        private Queue<DialogMessage> Messages {
+            get; set;
+        }
+
+        private bool MoreCharacters {
+            get {
+                if (currentMessage == null) return false;
+                return currentCharacterIndex < currentMessage.Length;
+            }
+        }
+
         public DialogBox(SpriteFont font, ContentManager content) {
             this.font = font;
+            this.Messages = new Queue<DialogMessage>();
 
             LoadContent(content);
-
-            this.Messages = new Queue<DialogMessage>();
 
             this.messageLabel = new Label(font) {
                 MaxWidth = 360,
@@ -71,7 +65,7 @@ namespace ForgottenLight.UI {
                 Parent = this
             };
 
-            Input.Instance.RegisterOnKeyDownEvent(Keys.E, new Input.KeyboardEvent(this.OnEnter));
+            Input.Instance.RegisterOnKeyDownEvent(Keys.E, new Input.KeyboardEvent(this.OnNextKey));
         }
 
         private void LoadContent(ContentManager content) {
@@ -87,12 +81,13 @@ namespace ForgottenLight.UI {
         public override void Update(GameTime gameTime, KeyboardState keyboardState, MouseState mouseState) {
             base.Update(gameTime, keyboardState, mouseState);
             
-            if (currentMessage == null && Messages.Count > 0) {
+            if (currentMessage == null && Messages.Count > 0) { // Change message if done and new message waiting
                 NextMessage();
             }
 
-            PerformCurrentMessage(gameTime);
+            PerformCurrentMessage(gameTime); // write current message to output and wait for next one
 
+            // Handle Animation changes
             if(animationState != prevAnimationState) {
                 switch (animationState) {
                     case AnimationState.DEFAULT:
@@ -105,11 +100,8 @@ namespace ForgottenLight.UI {
             }
             prevAnimationState = animationState;
 
-            if (currentMessage == null) {
-                Visible = false;
-            } else {
-                Visible = true;
-            }
+            // Set visablity if currently dialog is running
+            Visible = IsDialogRunning;
         }
 
         private void PerformCurrentMessage(GameTime gameTime) {
@@ -118,63 +110,64 @@ namespace ForgottenLight.UI {
                 return;
             }
 
-            if (currentMessage == null || !currentMessage.AutoContinue) {
+            if (currentMessage == null || !currentMessage.AutoContinue) { // Wait for input if no autocontinue
                 return;
             }
 
-            if (!messageDelay.Done) {
+            if (!messageDelay.Done) { // If delay not over; wait for delay completion
                 messageDelay.Update(gameTime);
                 return;
             }
 
+            // If current message done; remove it
             currentMessage = null;
-            messageDelay.Restart();
-            if (Messages.Count <= 0) IsDialogRunning = false;
+            messageDelay.Restart(); // restart delay timer for next time
+            if (Messages.Count <= 0) IsDialogRunning = false; // if no more messages; finish dialog
         }
 
         public override void OnDraw(SpriteBatch spriteBatch, GameTime gameTime) {
-
-            if (this.Background == null) this.Background = GetColor(spriteBatch);
-            //spriteBatch.Draw(Background, new Rectangle((int)AbsolutePosition.X, (int)AbsolutePosition.Y, (int)Width, (int)Height), new Color(73, 77, 126));
             animationPlayer.Draw(spriteBatch, gameTime, AbsolutePosition, Scale);
         }
         
-        private void NextMessage() { // TODO: Some delay before next message
-            currentIndex = 0;
+        private void NextMessage() {
+            // Reset message and counters
+            currentCharacterIndex = 0;
             messageLabel.Text = "";
+
+            // get new message
             currentMessage = Messages.Dequeue();
+
+            // Show animation
             animationState = currentMessage.AutoContinue ? AnimationState.DEFAULT : AnimationState.WAITING;
             IsDialogRunning = true;
         }
 
         private void NextChar(GameTime gameTime) {
-            if(!charDelay.Done) {
+            if(!charDelay.Done) { // if delay not over; wait for completion
                 charDelay.Update(gameTime);
                 return;
             }
-            messageLabel.Text += currentMessage.Text[currentIndex++];
-            this.charDelay.Restart();
+            messageLabel.Text += currentMessage.Text[currentCharacterIndex++]; // append next char
+            this.charDelay.Restart(); // restart delay for next char
         }
         
-        private void OnEnter() {
+        private void OnNextKey() {
             if (!IsDialogRunning) return;
 
-            if(this.Messages.Count > 0) {
+            if(this.Messages.Count > 0) { // If more messages; show next one
                 NextMessage();
                 return;
             }
-
-            if (currentMessage == null) return;
-
-            if(currentIndex < currentMessage.Length) { // if last message -> complete message
-                currentIndex = currentMessage.Length; // set index to end
+            
+            if(currentCharacterIndex < currentMessage.Length) { // if last message -> complete message
+                currentCharacterIndex = currentMessage.Length; // set index to end
                 messageLabel.Text = currentMessage.Text; // set whole message to label
                 return;
             }
 
-            if(currentIndex >= currentMessage.Length && this.Messages.Count == 0) { // If last message and enter hit -> clear dialogbox
+            if(currentCharacterIndex >= currentMessage.Length && this.Messages.Count == 0) { // If last message and next hit -> clear dialogbox
                 messageLabel.Text = "";
-                this.currentIndex = 0;
+                this.currentCharacterIndex = 0;
                 this.currentMessage = null;
                 this.IsDialogRunning = false;
             }
@@ -182,24 +175,13 @@ namespace ForgottenLight.UI {
         
         public void Enqueue(DialogMessage message) {
             if (IsDialogRunning) return;
-
-            if (this.Messages.Count == 0 && currentMessage != null && currentIndex >= currentMessage.Length) {
-                this.currentMessage = null;
-            }
-            
             this.Messages.Enqueue(message);
         }
 
         public void Enqueue(string message, bool autoContinue=false) {
             Enqueue(new DialogMessage(message, autoContinue));
         }
-
-        public Texture2D GetColor(SpriteBatch spriteBatch) {
-            Texture2D t = new Texture2D(spriteBatch.GraphicsDevice, 1, 1);
-            t.SetData<Color>(new Color[] { Color.White });
-            return t;
-        }
-
+        
         private enum AnimationState {
             DEFAULT, WAITING 
         }
