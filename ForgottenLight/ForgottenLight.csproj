@@ -59,6 +59,13 @@
     <Compile Include="Entities\Player.cs" />
     <Compile Include="Items\Item.cs" />
     <Compile Include="Levels\Scene.cs" />
+    <Compile Include="Levels\LevelLoader\EntityWrapper.cs" />
+    <Compile Include="Levels\LevelLoader\ItemWrapper.cs" />
+    <Compile Include="Levels\LevelLoader\LevelWrapper.cs" />
+    <Compile Include="Levels\LevelLoader\LightWrapper.cs" />
+    <Compile Include="Levels\LevelLoader\PlayerWrapper.cs" />
+    <Compile Include="Levels\LevelLoader\WaypointWrapper.cs" />
+    <Compile Include="Levels\Level_Custom.cs" />
     <Compile Include="Levels\Level.cs" />
     <Compile Include="Levels\Level_Test.cs" />
     <Compile Include="Pathfinding\Heap.cs" />
@@ -86,6 +93,9 @@
   <ItemGroup>
     <Reference Include="MonoGame.Framework">
       <HintPath>$(MonoGameInstallDirectory)\MonoGame\v3.0\Assemblies\DesktopGL\MonoGame.Framework.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Xml" />
@@ -141,10 +151,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="app.manifest" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\lightning.fx" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

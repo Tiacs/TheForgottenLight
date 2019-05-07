@@ -68,6 +68,9 @@
 /processorParam:TextureFormat=Color
 /build:level_test.png
 
+#begin levels/level_1.json
+/copy:levels/level_1.json
+
 #begin light.png
 /importer:TextureImporter
 /processor:TextureProcessor

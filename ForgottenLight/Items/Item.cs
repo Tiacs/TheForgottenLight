@@ -18,7 +18,15 @@ namespace ForgottenLight.Items {
         public ItemCode ID {
             get; set;
         } = ItemCode.NONE;
-        
+
+        public bool RandomLoot {
+            get; set;
+        } = true;
+
+        public int CountLimit {
+            get; set;
+        } = -1;
+
     }
 
     public enum ItemCode {

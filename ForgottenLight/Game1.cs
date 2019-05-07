@@ -72,7 +72,8 @@ namespace ForgottenLight {
             Input.Instance.RegisterOnKeyDownEvent(Keys.F11, this.ToggleFullscreen);
 
             // initialize level
-            this.level = new Level_Test(Content);
+            this.level = new Level_Custom(Content);
+            // this.level = new Level_Test(Content);
             this.level.Initialize();
         }
 

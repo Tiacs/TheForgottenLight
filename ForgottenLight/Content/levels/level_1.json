@@ -1,0 +1,170 @@
+{
+	"name": "level_1",
+	"next": "level_2",
+	"version": 1,
+	"player": {
+		"x": 100,
+		"y": 100
+	},
+	"entities": [
+		{
+			"entitytype": "NORMAL_GHOST",
+			"x": 100,
+			"y": 300,
+			"path": [
+				{
+					"x": 100,
+					"y": 300
+				},
+				{
+					"x": 100,
+					"y": 400
+				}
+			]
+		},
+		{
+			"entitytype": "NORMAL_GHOST",
+			"x": 500,
+			"y": 100,
+			"path": [
+				{
+					"x": 500,
+					"y": 100
+				},
+				{
+					"x": 300,
+					"y": 400
+				}
+			]
+		},
+		{
+			"entitytype": "DOOR",
+			"x": 150,
+			"y": 20
+		},
+		{
+			"entitytype": "CUPBOARD",
+			"x": 450,
+			"y": 100,
+//			"itemindex": 0
+		},
+		{
+			"entitytype": "CUPBOARD",
+			"x": 550,
+			"y": 100,
+			"randomfill": true
+		},
+		{
+			"entitytype": "CUPBOARD",
+			"x": 450,
+			"y": 200,
+			"randomfill": true
+		},
+		{
+			"entitytype": "CUPBOARD",
+			"x": 550,
+			"y": 200
+		},
+		// outter walls
+		{
+			"entitytype": "WALL", // top
+			"x": 0,
+			"y": 0,
+			"width": 800,
+			"height": 25
+		},
+		{
+			"entitytype": "WALL", // left
+			"x": 0,
+			"y": 0,
+			"width": 25,
+			"height": 480
+		},
+		{
+			"entitytype": "WALL", // right
+			"x": 775,
+			"y": 0,
+			"width": 25,
+			"height": 480
+		},
+		{
+			"entitytype": "WALL", // bottom
+			"x": 0,
+			"y": 455,
+			"width": 800,
+			"height": 25
+		},
+		// first room
+		{
+			"entitytype": "WALL", // upper
+			"x": 192,
+			"y": 0,
+			"width": 32,
+			"height": 96
+		},
+		{
+			"entitytype": "WALL", // lower
+			"x": 192,
+			"y": 180,
+			"width": 32,
+			"height": 300
+		},
+		// second room
+		{
+			"entitytype": "WALL", // left
+			"x": 320,
+			"y": 0,
+			"width": 32,
+			"height": 272
+		},
+		{
+			"entitytype": "WALL",
+			"x": 320,
+			"y": 240,
+			"width": 128,
+			"height": 32
+		},
+		{
+			"entitytype": "WALL", // right
+			"x": 576,
+			"y": 239,
+			"width": 224,
+			"height": 32
+		}
+	],
+	"lights": [
+/*		{
+			"x": 250,
+			"y": 250,
+			"radius": 2
+		}	
+*/	],
+	"items": [
+		{
+			"itemcode": 1,
+			"name": "Key",
+			"description": "This key could be useful.",
+			"randomloot": true,
+			"countlimit": 1
+		},
+		{
+			"itemcode": 2,
+			"name": "PotatoGlados",
+			"description": "What is this?",
+			"randomloot": false
+		},
+		{
+			"itemcode": 0,
+			"name": "Car Key",
+			"description": "You do not have a car!",
+			"randomloot": true,
+			"countlimit": 1
+		},
+		{
+			"itemcode": 0,
+			"name": "Boots",
+			"description": "They are not useful",
+			"randomloot": false
+		}
+	]
+}
