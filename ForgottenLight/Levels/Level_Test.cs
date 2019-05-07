@@ -109,7 +109,7 @@ namespace ForgottenLight.Levels {
         private void DrawBricks(SpriteBatch spriteBatch, GameTime gameTime) {
             for (int y = 0; y < Height; y += levelBackgroundTile.Height) {
                 for (int x = 0; x < Width; x += levelBackgroundTile.Width) {
-                    spriteBatch.Draw(levelBackgroundTile, new Vector2(x, y), new Rectangle(0, 0, levelBackgroundTile.Height, levelBackgroundTile.Width), Color.White);
+                    spriteBatch.Draw(levelBackgroundTile, new Rectangle(x, y, levelBackgroundTile.Width, levelBackgroundTile.Height), Color.White);
                 }
             }
         }
