@@ -196,17 +196,15 @@ namespace ForgottenLight {
         }
 
         private void SetFullscreen(bool fullScreenEnabled) {
+            graphics.IsFullScreen = fullScreenEnabled;
             if (fullScreenEnabled) {
-                graphics.IsFullScreen = true;
                 graphics.PreferredBackBufferWidth = GraphicsDevice.DisplayMode.Width;
                 graphics.PreferredBackBufferHeight = GraphicsDevice.DisplayMode.Height;
-                graphics.ApplyChanges();
             } else {
-                graphics.IsFullScreen = false;
                 graphics.PreferredBackBufferWidth = WIDTH;
                 graphics.PreferredBackBufferHeight = HEIGHT;
-                graphics.ApplyChanges();
             }
+            graphics.ApplyChanges();
         }
 
         private void OnLightningKeyPressed() {
