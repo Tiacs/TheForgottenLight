@@ -9,9 +9,13 @@ using Microsoft.Xna.Framework.Input;
 
 using ForgottenLight.Levels;
 using ForgottenLight.Primitives;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Content;
 
 namespace ForgottenLight.Entities {
     class Wall : Entity, ICollidable {
+
+        private static Texture2D color;
 
         public BoxCollider Collider {
             get; private set;
@@ -41,11 +45,25 @@ namespace ForgottenLight.Entities {
         public Wall(int width, int height, float x, float y, Level level) : this(width, height, new Transform(new Vector2(x,y)), level) {
 
         }
+        
+
+        private void LoadColor(SpriteBatch spriteBatch) {
+            color = new Texture2D(spriteBatch.GraphicsDevice, 1, 1);
+            color.SetData<Color>(new Color[] { CustomColor.DarkBlue });// fill the texture with white
+        }
 
         public override void Update(GameTime gameTime, KeyboardState keyboardState, MouseState mouseState) {
             base.Update(gameTime, keyboardState, mouseState);
 
             Collider.Update(gameTime);
+        }
+
+        public override void Draw(SpriteBatch spriteBatch, GameTime gameTime) {
+            base.Draw(spriteBatch, gameTime);
+
+            if (color == null) LoadColor(spriteBatch);
+            spriteBatch.Draw(color, Transform.Position, new Rectangle(0, 0, (int)Width, (int)Height), Color.White);
+
         }
 
         public void OnCollision(ICollidable collidingEntity) {

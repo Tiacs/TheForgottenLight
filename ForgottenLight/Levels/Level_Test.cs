@@ -19,7 +19,7 @@ using ForgottenLight.Items;
 namespace ForgottenLight.Levels {
     class Level_Test : Level {
 
-        private Texture2D levelBackground;
+        private Texture2D levelBackgroundTile;
         
         private Light mouseLight;
         private Light playerLight;
@@ -29,7 +29,7 @@ namespace ForgottenLight.Levels {
         }
 
         protected override void LoadContent(ContentManager contentManager) {
-            this.levelBackground = contentManager.Load<Texture2D>("level_test");
+            this.levelBackgroundTile = contentManager.Load<Texture2D>("sprites/bricks");
         }
 
         public override void Initialize() {
@@ -101,10 +101,18 @@ namespace ForgottenLight.Levels {
         }
 
         public override void Draw(SpriteBatch spriteBatch, GameTime gameTime) {
-            spriteBatch.Draw(levelBackground, Vector2.Zero, Color.White);
+            DrawBricks(spriteBatch, gameTime);
 
             base.Draw(spriteBatch, gameTime);
         }
     
+        private void DrawBricks(SpriteBatch spriteBatch, GameTime gameTime) {
+            for (int y = 0; y < Height; y += levelBackgroundTile.Height) {
+                for (int x = 0; x < Width; x += levelBackgroundTile.Width) {
+                    spriteBatch.Draw(levelBackgroundTile, new Vector2(x, y), new Rectangle(0, 0, levelBackground.Height, levelBackground.Width), Color.White);
+                }
+            }
+        }
+
     }
 }
