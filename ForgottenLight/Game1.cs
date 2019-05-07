@@ -33,11 +33,7 @@ namespace ForgottenLight {
         private Vector2 mousePos;
 
         private float t;
-
-        // Game Objects
-        private Player player;
-        private Ghost ghost;
-
+        
         private Level level;
 
         private bool lightningEnabled = true;
