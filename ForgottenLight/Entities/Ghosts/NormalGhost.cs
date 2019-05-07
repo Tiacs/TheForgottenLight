@@ -13,16 +13,17 @@ using System;
 namespace ForgottenLight.Entities.Ghosts {
     class NormalGhost : Ghost {
 
-        private List<Waypoint> patrol = new List<Waypoint>();
+        public List<Waypoint> Patrol {
+            get;set;
+        }
         private int currentPatrol;
 
-        public NormalGhost(Vector2 position, ContentManager contentManager, Level level) : base(position, contentManager, level) {
-            this.patrol.Add(new Waypoint(position.X, position.Y));
-            this.patrol.Add(new Waypoint(position.X, position.Y + 100));
+        public NormalGhost(Vector2 position, ContentManager contentManager, Scene level) : base(position, contentManager, level) {
+            this.Patrol = new List<Waypoint>();
         }
 
 
-        public NormalGhost(float x, float y, ContentManager contentManager, Level level) : this(new Vector2(x, y), contentManager, level) {
+        public NormalGhost(float x, float y, ContentManager contentManager, Scene level) : this(new Vector2(x, y), contentManager, level) {
 
         }
 
@@ -42,7 +43,7 @@ namespace ForgottenLight.Entities.Ghosts {
             //waypoints.Enqueue(new Waypoint(Level.Player.Transform.AbsolutePosition));
 
             if (waypoints.Count == 0) { // If no more waypoints in queue -> set next patrol point
-                this.waypoints.Enqueue(patrol[currentPatrol++ % patrol.Count]);
+                this.waypoints.Enqueue(Patrol[currentPatrol++ % Patrol.Count]);
             }
             
         }

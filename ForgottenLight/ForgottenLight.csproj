@@ -58,6 +58,7 @@
     <Compile Include="Game1.cs" />
     <Compile Include="Entities\Player.cs" />
     <Compile Include="Items\Item.cs" />
+    <Compile Include="Levels\Scene.cs" />
     <Compile Include="Levels\Level.cs" />
     <Compile Include="Levels\Level_Test.cs" />
     <Compile Include="Pathfinding\Heap.cs" />

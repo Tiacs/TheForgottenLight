@@ -34,7 +34,7 @@ namespace ForgottenLight {
 
         private float t;
         
-        private Level level;
+        private Scene level;
 
         private bool lightningEnabled = true;
 

@@ -20,13 +20,13 @@ namespace ForgottenLight.Entities {
 
         public override string Description => "press e to open";
 
-        public Cupboard(Vector2 position, ContentManager content, Level level) : base(position, Vector2.One, level) {
+        public Cupboard(Vector2 position, ContentManager content, Scene level) : base(position, Vector2.One, level) {
 
             this.Collider = new BoxCollider(32, 42, new Vector2(.5f, 1), Transform, Level);
             LoadContent(content);
         }
 
-        public Cupboard(float x, float y, ContentManager content, Level level) : this(new Vector2(x, y), content, level) {
+        public Cupboard(float x, float y, ContentManager content, Scene level) : this(new Vector2(x, y), content, level) {
             
         }
 

@@ -31,18 +31,18 @@ namespace ForgottenLight.Entities {
 
         public bool Collidable => true;
 
-        public Wall(int width, int height, Transform transform, Level level) : base(transform, level) {
+        public Wall(int width, int height, Transform transform, Scene level) : base(transform, level) {
             this.Width = width;
             this.Height = height;
 
             this.Collider = new BoxCollider(Width, Height, Vector2.Zero, Transform, Level);
         }
 
-        public Wall(int width, int height, Vector2 position, Level level) : this(width, height, new Transform(position), level) {
+        public Wall(int width, int height, Vector2 position, Scene level) : this(width, height, new Transform(position), level) {
 
         }
 
-        public Wall(int width, int height, float x, float y, Level level) : this(width, height, new Transform(new Vector2(x,y)), level) {
+        public Wall(int width, int height, float x, float y, Scene level) : this(width, height, new Transform(new Vector2(x,y)), level) {
 
         }
         

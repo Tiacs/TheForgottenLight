@@ -3,103 +3,60 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using ForgottenLight.Entities;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
-using ForgottenLight.Entities.Ghosts;
-using ForgottenLight.Entities;
-using ForgottenLight.Primitives;
-using ForgottenLight.Levels;
-using ForgottenLight.UI;
-using ForgottenLight.Events;
-
 namespace ForgottenLight.Levels {
-    abstract class Level {
+    class Level : Scene {
 
-        protected ContentManager contentManager;
+        private Texture2D levelBackgroundTile;
 
-        public List<BoxCollider> Walls {
-            get; protected set;
+        protected Light mouseLight;
+        protected Light playerLight;
+
+        public Level(ContentManager contentManager, float width, float height) : base(contentManager, width, height) {
         }
 
-        public List<Entity> Entities {
-            get; protected set;
-        }
-
-        public List<Light> Lights {
-            get; protected set;
-        }
-
-        public Player Player {
-            get; protected set;
-        }
-
-        public Ghost Ghost {
-            get; protected set;
-        }
-
-        public Door Door {
-            get; protected set;
-        }
-
-        public float Width {
-            get; protected set;
-        }
-
-        public float Height {
-            get; protected set;
-        }
-
-        public HUD Interface {
-            get; protected set;
-        }
-        
-        public Level(ContentManager contentManager, float width, float height) {
-            this.Width = width;
-            this.Height = height;
+        public override void Initialize() {
+            base.Initialize();
             
-            this.contentManager = contentManager;
-            this.LoadContent(contentManager);
+            this.mouseLight = new Light(0, 0, contentManager, 4, this);
+            this.playerLight = new Light(0, 0, contentManager, 1, this);
 
-            this.Entities = new List<Entity>();
-            this.Walls = new List<BoxCollider>();
-            this.Lights = new List<Light>();
+            this.Lights.Add(mouseLight);
+            this.Lights.Add(playerLight);
         }
 
-        protected abstract void LoadContent(ContentManager contentManager);
-        
-        public virtual void Initialize() {
-            this.CreateWalls();
+        public override void Update(GameTime gameTime, KeyboardState keyboardState, MouseState mouseState) {
+            base.Update(gameTime, keyboardState, mouseState);
+
+            mouseLight.Transform.Position = mouseState.Position.ToVector2();
+            playerLight.Transform.Position = Player.Transform.Position - Vector2.UnitY * Player.Collider.Height; // TODO: Create ability to get height of entity
+            playerLight.Transform.Scale = Player.Transform.Scale * 1.5f;
         }
 
-        protected virtual void CreateWalls() {
-            
+        public override void Draw(SpriteBatch spriteBatch, GameTime gameTime) {
+            DrawBricks(spriteBatch, gameTime);
+            base.Draw(spriteBatch, gameTime);
         }
 
-        public virtual void Update(GameTime gameTime, KeyboardState keyboardState, MouseState mouseState) {
-            Input.Instance.Update();
+        protected override void CreateWalls() {
+            base.CreateWalls();
+        }
 
-            if(!Interface.DialogBox.IsDialogRunning) {
-                this.Walls.ForEach(wall => wall.Update(gameTime));
-                this.Entities.ForEach(entity => entity.Update(gameTime, keyboardState, mouseState));
-                this.Lights.ForEach(light => light.Update(gameTime, keyboardState, mouseState));
+        protected override void LoadContent(ContentManager contentManager) {
+            this.levelBackgroundTile = contentManager.Load<Texture2D>("sprites/bricks");
+        }
+
+        private void DrawBricks(SpriteBatch spriteBatch, GameTime gameTime) {
+            for (int y = 0; y < Height; y += levelBackgroundTile.Height) {
+                for (int x = 0; x < Width; x += levelBackgroundTile.Width) {
+                    spriteBatch.Draw(levelBackgroundTile, new Rectangle(x, y, levelBackgroundTile.Width, levelBackgroundTile.Height), Color.White);
+                }
             }
-            this.Interface.Update(gameTime, keyboardState, mouseState);
-        }
-
-        public virtual void Draw(SpriteBatch spriteBatch, GameTime gameTime) {
-            this.Entities.ForEach(entity => entity.Draw(spriteBatch, gameTime));
-        }
-
-        public void DrawLights(SpriteBatch spriteBatch, GameTime gameTime) {
-            this.Lights.ForEach(light => light.Draw(spriteBatch, gameTime));
-        }
-
-        public void DrawUI(SpriteBatch spriteBatch, GameTime gameTime) {
-            this.Interface.Draw(spriteBatch, gameTime);
         }
     }
 }

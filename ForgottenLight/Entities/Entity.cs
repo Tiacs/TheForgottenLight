@@ -18,20 +18,24 @@ namespace ForgottenLight.Entities {
             get; set;
         }
 
-        public Level Level {
+        public Scene Level {
             get; private set;
         }
 
-        public Entity(Transform transform, Level level) {
+        private int depthIndex;
+        public int DepthIndex => depthIndex;
+
+        public Entity(Transform transform, Scene level, int depthIndex = 0) {
             this.Transform = transform;
             this.Level = level;
+            this.depthIndex = depthIndex;
         }
 
-        public Entity(Vector2 position, Vector2 scale, Level level) : this(new Transform(position, scale), level) {
+        public Entity(Vector2 position, Vector2 scale, Scene level, int depthIndex = 0) : this(new Transform(position, scale), level, depthIndex) {
 
         }
 
-        public Entity(Vector2 position, Level level) : this(new Transform(position), level) {
+        public Entity(Vector2 position, Scene level, int depthIndex = 0) : this(new Transform(position), level, depthIndex) {
 
         }
 

@@ -55,7 +55,7 @@ namespace ForgottenLight.Entities {
 
         public bool Collidable => true;
 
-        public Player(Vector2 position, ContentManager content, Level level) : base(position, level) {
+        public Player(Vector2 position, ContentManager content, Scene level) : base(position, level, 100) {
 
             this.Collider = new BoxCollider(22, 38, new Vector2(.5f, 1), Transform, level);
 
@@ -65,7 +65,7 @@ namespace ForgottenLight.Entities {
             this.Transform.GizmosEnabled = true;
         }
         
-        public Player(float x, float y, ContentManager content, Level level) : this(new Vector2(x, y), content, level) {
+        public Player(float x, float y, ContentManager content, Scene level) : this(new Vector2(x, y), content, level) {
         }
 
         private void LoadContent(ContentManager content) {

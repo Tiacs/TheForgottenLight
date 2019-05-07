@@ -25,7 +25,7 @@ namespace ForgottenLight.Entities {
             get; set;
         } 
         
-        public Container(Vector2 position, Vector2 scale, Level level) : base(position, scale, level) {
+        public Container(Vector2 position, Vector2 scale, Scene level) : base(position, scale, level, 1) {
         }
 
         public override void Draw(SpriteBatch spriteBatch, GameTime gameTime) {

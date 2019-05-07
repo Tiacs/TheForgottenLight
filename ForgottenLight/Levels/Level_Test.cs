@@ -19,17 +19,14 @@ using ForgottenLight.Items;
 namespace ForgottenLight.Levels {
     class Level_Test : Level {
 
-        private Texture2D levelBackgroundTile;
-        
-        private Light mouseLight;
-        private Light playerLight;
+        private Door door;
 
         public Level_Test(ContentManager contentManager) : base(contentManager, 800, 480) {
 
         }
 
         protected override void LoadContent(ContentManager contentManager) {
-            this.levelBackgroundTile = contentManager.Load<Texture2D>("sprites/bricks");
+            base.LoadContent(contentManager);
         }
 
         public override void Initialize() {
@@ -43,19 +40,18 @@ namespace ForgottenLight.Levels {
             };
             
             this.Player = new Player(100, 100, contentManager, this);
-            this.Ghost = new NormalGhost(250, 100, contentManager, this);
-
-            this.Door = new Door(275, 10, contentManager, this);
+            
+            this.door = new Door(275, 10, contentManager, this);
 
             Cupboard cupboard = new Cupboard(700, 100, contentManager, this);
             cupboard.Item = item;
             this.Entities.Add(cupboard);
 
 
-            this.Entities.Add(Door);
+            this.Entities.Add(door);
             this.Entities.Add(Player);
-            this.Entities.Add(Ghost);
 
+            this.Entities.Add(new NormalGhost(250, 100, contentManager, this));
             this.Entities.Add(new NormalGhost(400, 100, contentManager, this));
             this.Entities.Add(new NormalGhost(480, 100, contentManager, this));
             this.Entities.Add(new NormalGhost(400, 200, contentManager, this));
@@ -65,12 +61,6 @@ namespace ForgottenLight.Levels {
             //this.Entities.Add(new Ghost(250, 250, contentManager, this));
 
             this.Interface = new HUD(Width, Height, Player, contentManager);
-
-            this.mouseLight = new Light(0, 0, contentManager, 4, this);
-            this.playerLight = new Light(0, 0, contentManager, 1, this);
-            
-            this.Lights.Add(mouseLight);
-            this.Lights.Add(playerLight);
         }
 
         protected override void CreateWalls() {
@@ -94,24 +84,10 @@ namespace ForgottenLight.Levels {
 
         public override void Update(GameTime gameTime, KeyboardState keyboardState, MouseState mouseState) {
             base.Update(gameTime, keyboardState, mouseState);
-
-            mouseLight.Transform.Position = mouseState.Position.ToVector2();
-            playerLight.Transform.Position = Player.Transform.Position - Vector2.UnitY * Player.Collider.Height; // TODO: Create ability to get height of entity
-            playerLight.Transform.Scale = Player.Transform.Scale * 1.5f;
         }
 
         public override void Draw(SpriteBatch spriteBatch, GameTime gameTime) {
-            DrawBricks(spriteBatch, gameTime);
-
             base.Draw(spriteBatch, gameTime);
-        }
-    
-        private void DrawBricks(SpriteBatch spriteBatch, GameTime gameTime) {
-            for (int y = 0; y < Height; y += levelBackgroundTile.Height) {
-                for (int x = 0; x < Width; x += levelBackgroundTile.Width) {
-                    spriteBatch.Draw(levelBackgroundTile, new Rectangle(x, y, levelBackgroundTile.Width, levelBackgroundTile.Height), Color.White);
-                }
-            }
         }
 
     }

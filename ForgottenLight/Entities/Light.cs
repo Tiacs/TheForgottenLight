@@ -17,7 +17,7 @@ namespace ForgottenLight.Entities {
         private Animation texture;
         private AnimationPlayer animationPlayer;
 
-        public Light(Vector2 position, ContentManager content, float radius, Level level) : base(position, level) {
+        public Light(Vector2 position, ContentManager content, float radius, Scene level) : base(position, level) {
             Transform.Scale = radius * Vector2.One;
             this.texture = new Animation(content.Load<Texture2D>("light"), 64, 64, Vector2.Zero, 1, 0, false);
             this.animationPlayer = new AnimationPlayer(new Vector2(.5f, .5f));
@@ -25,7 +25,7 @@ namespace ForgottenLight.Entities {
             Transform.GizmosEnabled = true;
         }
 
-        public Light(float x, float y, ContentManager content, float radius, Level level) : this(new Vector2(x, y), content, radius, level) {
+        public Light(float x, float y, ContentManager content, float radius, Scene level) : this(new Vector2(x, y), content, radius, level) {
         }
         
         public override void Draw(SpriteBatch spriteBatch, GameTime gameTime) {

@@ -28,7 +28,7 @@ namespace ForgottenLight.Entities {
             get; set;
         }
 
-        public Door(Vector2 position, ContentManager content, Level level) : base(position, level) {
+        public Door(Vector2 position, ContentManager content, Scene level) : base(position, level, 1) {
 
             this.Collider = new BoxCollider(39, 63/2, new Vector2(.5f, 0), Transform, level);
             LoadContent(content);
@@ -36,7 +36,7 @@ namespace ForgottenLight.Entities {
             Transform.GizmosEnabled = true;
         }
 
-        public Door(float x, float y, ContentManager content, Level level) : this(new Vector2(x, y), content, level) {
+        public Door(float x, float y, ContentManager content, Scene level) : this(new Vector2(x, y), content, level) {
         }
 
         private void LoadContent(ContentManager content) {

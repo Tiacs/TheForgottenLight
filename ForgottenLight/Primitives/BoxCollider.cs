@@ -8,7 +8,7 @@ namespace ForgottenLight.Primitives {
     class BoxCollider {
 
         private Transform transform;
-        private Level level;
+        private Scene level;
 
         public Rectangle Rectangle {
             get; private set;
@@ -30,7 +30,7 @@ namespace ForgottenLight.Primitives {
             get; set;
         }
 
-        public BoxCollider(int width, int height, Vector2 pivot, Transform transform, Level level) {
+        public BoxCollider(int width, int height, Vector2 pivot, Transform transform, Scene level) {
             this.Width = width;
             this.Height = height;
             this.Pivot = pivot;
