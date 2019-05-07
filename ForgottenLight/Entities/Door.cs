@@ -82,5 +82,8 @@ namespace ForgottenLight.Entities {
             Console.WriteLine("Find the key first!");
             Level.Interface.DialogBox.Enqueue(new UI.DialogMessage("You must find the key first!", true));
         }
+
+        public void OnCollision(ICollidable collidingEntity) {
+        }
     }
 }

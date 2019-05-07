@@ -48,5 +48,7 @@ namespace ForgottenLight.Entities {
             Collider.Update(gameTime);
         }
 
+        public void OnCollision(ICollidable collidingEntity) {
+        }
     }
 }

@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
 using ForgottenLight.Entities;
+using ForgottenLight.Entities.Ghosts;
 using ForgottenLight.Pathfinding;
 using ForgottenLight.Primitives;
 using ForgottenLight.UI;
@@ -42,7 +43,7 @@ namespace ForgottenLight.Levels {
             };
             
             this.Player = new Player(100, 100, contentManager, this);
-            this.Ghost = new Ghost(250, 100, contentManager, this);
+            this.Ghost = new NormalGhost(250, 100, contentManager, this);
 
             this.Door = new Door(275, 10, contentManager, this);
 
@@ -55,9 +56,9 @@ namespace ForgottenLight.Levels {
             this.Entities.Add(Player);
             this.Entities.Add(Ghost);
 
-            this.Entities.Add(new Ghost(400, 100, contentManager, this));
-            this.Entities.Add(new Ghost(480, 100, contentManager, this));
-            this.Entities.Add(new Ghost(400, 200, contentManager, this));
+            this.Entities.Add(new NormalGhost(400, 100, contentManager, this));
+            this.Entities.Add(new NormalGhost(480, 100, contentManager, this));
+            this.Entities.Add(new NormalGhost(400, 200, contentManager, this));
             //this.Entities.Add(new Ghost(400, 350, contentManager, this));
             //this.Entities.Add(new Ghost(400, 150, contentManager, this));
             //this.Entities.Add(new Ghost(250, 200, contentManager, this));

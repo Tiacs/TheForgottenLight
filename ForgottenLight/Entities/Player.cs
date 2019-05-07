@@ -31,6 +31,10 @@ namespace ForgottenLight.Entities {
 
         private const float speed = 200.0f;
 
+        public bool IsDead {
+            get;set;
+        }
+
         public Item Item {
             get; set;
         }
@@ -207,6 +211,10 @@ namespace ForgottenLight.Entities {
         public override void Draw(SpriteBatch spriteBatch, GameTime gameTime) {
             base.Draw(spriteBatch, gameTime);
             this.animationPlayer.Draw(spriteBatch, gameTime, this.Transform.AbsolutePosition, this.Transform.AbsoluteScale);
+        }
+
+        public void OnCollision(ICollidable collidingEntity) {
+            
         }
 
         private enum AnimationState {

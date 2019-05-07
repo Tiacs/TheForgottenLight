@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
+using ForgottenLight.Entities.Ghosts;
 using ForgottenLight.Entities;
 using ForgottenLight.Primitives;
 using ForgottenLight.Levels;

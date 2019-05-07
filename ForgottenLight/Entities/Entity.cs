@@ -34,7 +34,6 @@ namespace ForgottenLight.Entities {
         public Entity(Vector2 position, Level level) : this(new Transform(position), level) {
 
         }
-        
 
         public virtual void Update(GameTime gameTime, KeyboardState keyboardState, MouseState mouseState) {
             this.Transform.Update();
@@ -50,8 +49,8 @@ namespace ForgottenLight.Entities {
                 return false;
             }
 
-            ICollidable entitiy = (ICollidable) e1;
-            if(!entitiy.Collidable) {
+            ICollidable entity = (ICollidable) e1;
+            if(!entity.Collidable) {
                 return false;
             }
 
@@ -59,14 +58,16 @@ namespace ForgottenLight.Entities {
             foreach(Entity e2 in e1.Level.Entities) {
                 if (e2 is ICollidable && e1 != e2) {
                     ICollidable entity2 = (ICollidable) e2;
-                    if(entity2.Collidable && entitiy.Collider.Intersects(((ICollidable)e2).Collider)) {
+                    if(entity2.Collidable && entity.Collider.Intersects(((ICollidable)e2).Collider)) {
+                        entity.OnCollision(entity2);
+                        entity2.OnCollision(entity);
                         return true;
                     }
                 }
             }
             return false;
         }
-
+        
         /// <summary>
         /// Get interactable entity for given entitiy.
         /// </summary>

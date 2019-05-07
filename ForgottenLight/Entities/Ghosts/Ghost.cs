@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Collections.Generic;
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -9,23 +9,18 @@ using ForgottenLight.Animations;
 using ForgottenLight.Primitives;
 using ForgottenLight.Levels;
 using ForgottenLight.Pathfinding;
-using System.Collections.Generic;
 
-namespace ForgottenLight.Entities {
-    class Ghost : Entity, ICollidable {
+namespace ForgottenLight.Entities.Ghosts {
+    abstract class Ghost : Entity, ICollidable {
 
-        private Animation idleAnimation;
+        protected Animation idleAnimation;
 
-        private AnimationPlayer animationPlayer;
+        protected AnimationPlayer animationPlayer;
 
         private const float speed = 50f;
 
-        private Queue<Waypoint> waypoints;
-
-        private Waypoint waypoint;
-
-        private Random random;
-
+        protected Queue<Waypoint> waypoints;
+        
         public BoxCollider Collider {
             get; private set;
         }
@@ -37,7 +32,7 @@ namespace ForgottenLight.Entities {
         private List<Vector2> path;
 
         private int currentPathNode;
-
+        
         public Ghost(Vector2 position, ContentManager contentManager, Level level) : base(position, level) {
             
             this.LoadContent(contentManager);
@@ -46,8 +41,6 @@ namespace ForgottenLight.Entities {
             this.Transform.Scale = Vector2.One * 1.5f;
             this.Transform.GizmosEnabled = true;
             
-            this.random = new Random();
-            // this.waypoint = new Vector2(random.Next(0, 800), random.Next(0,400));
             this.waypoints = new Queue<Waypoint>();
 
             this.path = new List<Vector2>();
@@ -56,46 +49,32 @@ namespace ForgottenLight.Entities {
             //this.waypoints.Enqueue(new Waypoint(100, 100));
             //this.waypoints.Enqueue(new Waypoint(100, 200));
             //this.waypoints.Enqueue(new Waypoint(100, 800));
+
         }
 
         public Ghost(float x, float y, ContentManager contentManager, Level level) : this(new Vector2(x,y), contentManager, level) {
 
         }
 
-        private void LoadContent(ContentManager contentManager) {
-            Texture2D atlas = contentManager.Load<Texture2D>("sprite_atlas");
-
-            this.idleAnimation = new Animation(atlas, 25, 22, new Vector2(304,0), 2, 0.5f, true);
-
-            this.animationPlayer = new AnimationPlayer(new Vector2(0.5f, 1));
-            this.animationPlayer.PlayAnimation(idleAnimation);
-        }
+        protected abstract void LoadContent(ContentManager contentManager);
 
         public override void Draw(SpriteBatch spriteBatch, GameTime gameTime) {
             base.Draw(spriteBatch, gameTime);
 
             this.animationPlayer.Draw(spriteBatch, gameTime, this.Transform.AbsolutePosition, this.Transform.AbsoluteScale);
         }
-        
-        public override void Update(GameTime gameTime, KeyboardState keyboardState, MouseState mouseState) {
-            base.Update(gameTime, keyboardState, mouseState);
-            //waypoints.Clear();
-            //waypoints.Enqueue(new Waypoint(Level.Player.Transform.AbsoluePosition));
-            /*
-             * 1. Create new waypoint
-             */
-            if(waypoints.Count == 0) {
-                this.waypoints.Enqueue(new Waypoint(random.Next(0, (int)Level.Width), random.Next(0, (int)Level.Height)));
-            } 
 
-            if(waypoints.Peek() != null) {
+        public override void Update(GameTime gameTime, KeyboardState keyboardState, MouseState mouseState) { // TODO: Pathfinding usage and waypoints processing needs refactor
+            base.Update(gameTime, keyboardState, mouseState);
+            
+            if(waypoints.Count > 0) {
                 Gizmos.Instance.DrawGizmo(new LineGizmo(Transform.AbsolutePosition, waypoints.Peek().Position, 2, Color.Orange));
             }
 
             /*
              * 2. If path done; create next it
              */
-            if(path.Count <= 0) {
+            if(path.Count <= 0 && waypoints.Count > 0) {
                 // this.waypoint = waypoints.Dequeue();
                 this.pathfinder.Update(gameTime);
                 this.path = pathfinder.FindPath(this.Transform.AbsolutePosition, this.waypoints.Peek().Position);
@@ -125,7 +104,7 @@ namespace ForgottenLight.Entities {
 
 
                 bool colliding = false;
-
+                
                 // Movement X
 
                 // add movement to current position
@@ -142,7 +121,7 @@ namespace ForgottenLight.Entities {
 
                 // add movement to current position
                 Transform.Position += movement * Vector2.UnitY;
-
+                
                 // update collider to current position and check colliding
                 this.Collider.Update(gameTime);
                 if (movement.Y != 0 && (colliding |= Entity.IsColliding(this))) { // if position has changed -> check colliding
@@ -187,8 +166,10 @@ namespace ForgottenLight.Entities {
 
             // final update of collider for future collision checks
             this.Collider.Update(gameTime);
-
+            
         }
+
+        public abstract void OnCollision(ICollidable collidingEntity);
 
         int collideCounter = 0;
         

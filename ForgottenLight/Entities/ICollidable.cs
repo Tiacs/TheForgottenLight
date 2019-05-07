@@ -9,5 +9,7 @@ namespace ForgottenLight.Entities {
         bool Collidable {
             get;
         }
+        
+        void OnCollision(ICollidable collidingEntity);
     }
 }
