@@ -210,6 +210,7 @@ namespace ForgottenLight.Entities {
         }
 
         private void Interact(IInteractable interactable) {
+            if (Level.Interface.DialogBox.IsDialogRunning) return; // If dialog is running, do not count interaction
             interactable.OnInteract(this);
         }
        
