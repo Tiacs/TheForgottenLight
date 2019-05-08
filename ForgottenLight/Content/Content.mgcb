@@ -71,6 +71,9 @@
 #begin levels/level_1.json
 /copy:levels/level_1.json
 
+#begin levels/level_2.json
+/copy:levels/level_2.json
+
 #begin light.png
 /importer:TextureImporter
 /processor:TextureProcessor

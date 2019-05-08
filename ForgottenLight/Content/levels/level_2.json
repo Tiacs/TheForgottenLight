@@ -1,6 +1,6 @@
 {
-	"name": "level_1",
-	"nextlevel": "level_2",
+	"name": "level_2",
+	"nextlevel": null,
 	"version": 1,
 	"player": {
 		"x": 100,
@@ -46,24 +46,13 @@
 			"entitytype": "CUPBOARD",
 			"x": 450,
 			"y": 100,
-//			"itemindex": 0
-		},
-		{
-			"entitytype": "CUPBOARD",
-			"x": 550,
-			"y": 100,
 			"randomfill": true
 		},
 		{
 			"entitytype": "CUPBOARD",
-			"x": 450,
+			"x": 550,
 			"y": 200,
 			"randomfill": true
-		},
-		{
-			"entitytype": "CUPBOARD",
-			"x": 550,
-			"y": 200
 		},
 		// outter walls
 		{
@@ -151,20 +140,8 @@
 			"itemcode": 2,
 			"name": "PotatoGlados",
 			"description": "What is this?",
-			"randomloot": false
-		},
-		{
-			"itemcode": 0,
-			"name": "Car Key",
-			"description": "You do not have a car!",
 			"randomloot": true,
 			"countlimit": 1
-		},
-		{
-			"itemcode": 0,
-			"name": "Boots",
-			"description": "They are not useful",
-			"randomloot": false
 		}
 	]
 }
