@@ -66,8 +66,8 @@ namespace ForgottenLight.Entities {
             
             Player player = (Player)entity;
             if(Opened) {
-                Console.WriteLine("Door opened!");
-                Level.Interface.DialogBox.Enqueue(new UI.DialogMessage("This door is already opened!", true));
+                Level.NextScene();
+
                 return;
             }
 
@@ -76,6 +76,9 @@ namespace ForgottenLight.Entities {
                 Level.Interface.DialogBox.Enqueue(new UI.DialogMessage("You opened the door!", false));
                 Level.Interface.DialogBox.Enqueue(new UI.DialogMessage("Lets see what is in it!", false));
                 Opened = true;
+
+                this.Description = "Press E to get into next level!";
+
                 return;
             }
 
