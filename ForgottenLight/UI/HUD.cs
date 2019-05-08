@@ -24,7 +24,6 @@ namespace ForgottenLight.UI {
 
         private void Initialize(ContentManager content) {
             this.interactLabel = new Label(MainFont) {
-                Text = "Hello world!",
                 Pivot = new Vector2(0, 1),
                 Position = new Vector2(10, Height-10),
                 Color = CustomColor.Beige,
