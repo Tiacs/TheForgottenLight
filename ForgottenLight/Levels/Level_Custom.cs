@@ -22,19 +22,28 @@ namespace ForgottenLight.Levels {
 
         private Random random;
 
-        public Level_Custom(ContentManager contentManager) : base(contentManager, 800, 480) {
+        private string levelName;
+        private string nextLevelName;
+
+        private const string PATH = "Content/levels/{0}.json";
+
+        public Level_Custom(string levelName) : base(800, 480) {
+
+            this.levelName = levelName;
+
         }
 
         public override void Draw(SpriteBatch spriteBatch, GameTime gameTime) {
             base.Draw(spriteBatch, gameTime);
         }
-        
-        public override void Initialize() {
-            base.Initialize();
+
+        public override void Initialize(ContentManager contentManager, Game1 game) {
+            base.Initialize(contentManager, game);
 
             this.random = new Random();
 
-            LevelWrapper levelWrapper = JsonConvert.DeserializeObject<LevelWrapper>(ReadFromJsonFile("Content/levels/level_1.json"));
+            LevelWrapper levelWrapper = JsonConvert.DeserializeObject<LevelWrapper>(ReadFromJsonFile(string.Format(PATH, levelName)));
+            LoadLevelMetadata(levelWrapper);
             LoadPlayer(levelWrapper);
             LoadItems(levelWrapper.Items);
             LoadEntities(levelWrapper.Entities);
@@ -54,6 +63,10 @@ namespace ForgottenLight.Levels {
 
         protected override void LoadContent(ContentManager content) {
             base.LoadContent(content);
+        }
+
+        private void LoadLevelMetadata(LevelWrapper levelWrapper) {
+            this.nextLevelName = levelWrapper.NextLevel;
         }
 
         private void LoadPlayer(LevelWrapper levelWrapper) {
@@ -144,6 +157,16 @@ namespace ForgottenLight.Levels {
             } catch (IOException) {
                 throw new IOException("Level json file could not be read!");
             }
+        }
+
+        public override void ReloadScene() {
+            Scene instance = new Level_Custom(this.levelName);
+            base.LoadScene(instance);
+        }
+
+        public override void NextScene() {
+            if (nextLevelName == null) return;
+            this.LoadScene(new Level_Custom(nextLevelName));
         }
     }
 }

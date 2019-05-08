@@ -18,6 +18,10 @@ namespace ForgottenLight.Events {
             }
         }
 
+        public static void ClearInstance() {
+            instance = null;
+        }
+
         public delegate void KeyboardEvent();
         
         private Dictionary<Keys, KeyboardEvent> downEvents;

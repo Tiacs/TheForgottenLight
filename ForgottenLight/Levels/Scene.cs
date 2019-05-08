@@ -19,8 +19,10 @@ using ForgottenLight.Events;
 namespace ForgottenLight.Levels {
     abstract class Scene {
 
-        protected ContentManager contentManager;
+        private Game1 game;
 
+        protected ContentManager contentManager;
+        
         public List<Entity> Entities {
             get; protected set;
         }
@@ -45,20 +47,22 @@ namespace ForgottenLight.Levels {
             get; protected set;
         }
 
-        public Scene(ContentManager contentManager, float width, float height) {
+        public Scene(float width, float height) {
             this.Width = width;
             this.Height = height;
-
-            this.contentManager = contentManager;
-            this.LoadContent(contentManager);
-
+            
             this.Entities = new List<Entity>();
             this.Lights = new List<Light>();
         }
 
         protected abstract void LoadContent(ContentManager contentManager);
 
-        public virtual void Initialize() {
+        public virtual void Initialize(ContentManager contentManager, Game1 game) {
+            this.game = game;
+
+            this.contentManager = contentManager;
+            this.LoadContent(contentManager);
+
             this.CreateWalls();
         }
 
@@ -91,6 +95,19 @@ namespace ForgottenLight.Levels {
 
         public void DrawUI(SpriteBatch spriteBatch, GameTime gameTime) {
             this.Interface.Draw(spriteBatch, gameTime);
+        }
+        
+        public void LoadScene(Scene scene) {
+            this.game.LoadScene(scene);
+        }
+        
+        public virtual void ReloadScene() {
+            Scene instance = (Scene) Activator.CreateInstance(this.GetType()); // create new instance from current type
+            this.game.LoadScene(instance); // Load new scene into gam
+        }
+
+        public virtual void NextScene() {
+
         }
     }
 }

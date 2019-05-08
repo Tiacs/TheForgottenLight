@@ -11,17 +11,17 @@ using Microsoft.Xna.Framework.Input;
 
 namespace ForgottenLight.Levels {
     class Level : Scene {
-
+        
         private Texture2D levelBackgroundTile;
 
         protected Light mouseLight;
         protected Light playerLight;
-
-        public Level(ContentManager contentManager, float width, float height) : base(contentManager, width, height) {
+        
+        public Level(float width, float height) : base(width, height) {
         }
 
-        public override void Initialize() {
-            base.Initialize();
+        public override void Initialize(ContentManager contentManager, Game1 game) {
+            base.Initialize(contentManager, game);
             
             this.mouseLight = new Light(0, 0, contentManager, 4, this);
             this.playerLight = new Light(0, 0, contentManager, 1, this);

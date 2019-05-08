@@ -14,7 +14,7 @@ namespace ForgottenLight {
     /// <summary>
     /// This is the main type for your game.
     /// </summary>
-    public class Game1 : Game {
+    class Game1 : Game {
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
 
@@ -68,13 +68,11 @@ namespace ForgottenLight {
             // Content will be loaded after base.Initialize() statement
 
             // register lightning key event
-            Input.Instance.RegisterOnKeyDownEvent(Keys.F2, this.OnLightningKeyPressed);
-            Input.Instance.RegisterOnKeyDownEvent(Keys.F11, this.ToggleFullscreen);
+            RegisterKeyEvents();
 
             // initialize level
-            this.level = new Level_Custom(Content);
             // this.level = new Level_Test(Content);
-            this.level.Initialize();
+            this.LoadScene(new Level_Custom("level_1"));
         }
 
         /// <summary>
@@ -191,6 +189,11 @@ namespace ForgottenLight {
             base.Draw(gameTime);
         }
 
+        private void RegisterKeyEvents() {
+            Input.Instance.RegisterOnKeyDownEvent(Keys.F2, this.OnLightningKeyPressed);
+            Input.Instance.RegisterOnKeyDownEvent(Keys.F11, this.ToggleFullscreen);
+        }
+
         private void ToggleFullscreen() {
             this.fullScreenEnabled = !fullScreenEnabled;
             SetFullscreen(this.fullScreenEnabled);
@@ -211,5 +214,16 @@ namespace ForgottenLight {
         private void OnLightningKeyPressed() {
             this.lightningEnabled = !this.lightningEnabled; // toggle
         }
+
+        public void LoadScene(Scene scene) {
+            this.level = scene;
+
+            Input.ClearInstance();
+            Gizmos.ClearInstance();
+            RegisterKeyEvents();
+
+            this.level.Initialize(Content, this);
+        }
+        
     }
 }

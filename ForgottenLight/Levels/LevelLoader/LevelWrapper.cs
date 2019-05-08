@@ -9,6 +9,10 @@ namespace ForgottenLight.Levels.LevelLoader {
         public int Version {
             get; set;
         }
+
+        public string NextLevel {
+            get; set;
+        }
         
         public PlayerWrapper Player {
             get; set;

@@ -22,6 +22,10 @@ namespace ForgottenLight.Primitives {
             }
         }
 
+        public static void ClearInstance() {
+            instance = null;
+        }
+
         public Texture2D PlainColor {
             get; private set;
         }

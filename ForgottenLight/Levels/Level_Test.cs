@@ -21,7 +21,7 @@ namespace ForgottenLight.Levels {
 
         private Door door;
 
-        public Level_Test(ContentManager contentManager) : base(contentManager, 800, 480) {
+        public Level_Test() : base(800, 480) {
 
         }
 
@@ -29,8 +29,8 @@ namespace ForgottenLight.Levels {
             base.LoadContent(contentManager);
         }
 
-        public override void Initialize() {
-            base.Initialize();
+        public override void Initialize(ContentManager contentManager, Game1 game) {
+            base.Initialize(contentManager, game);
 
 
             Item item = new Item {
