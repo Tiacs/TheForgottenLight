@@ -196,6 +196,11 @@ namespace ForgottenLight.Entities {
                 Transform.Position -= movement * Vector2.UnitY;
 
             }
+
+            if(this.IsDead && !Level.Interface.DialogBox.IsDialogRunning) {
+                Level.ReloadScene();
+            }
+
         }
 
         private void InteractKeyDown() {
@@ -214,7 +219,10 @@ namespace ForgottenLight.Entities {
         }
 
         public void OnCollision(ICollidable collidingEntity) {
-            
+            if (collidingEntity is Ghosts.Ghost && !this.IsDead) {
+                this.IsDead = true;
+                Level.Interface.DialogBox.Enqueue("You got caught by the ghosts!");
+            }
         }
 
         private enum AnimationState {

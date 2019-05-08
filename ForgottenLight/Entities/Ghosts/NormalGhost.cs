@@ -8,7 +8,6 @@ using Microsoft.Xna.Framework.Input;
 using ForgottenLight.Animations;
 using ForgottenLight.Levels;
 using ForgottenLight.Pathfinding;
-using System;
 
 namespace ForgottenLight.Entities.Ghosts {
     class NormalGhost : Ghost {
@@ -16,8 +15,9 @@ namespace ForgottenLight.Entities.Ghosts {
         public List<Waypoint> Patrol {
             get;set;
         }
-        private int currentPatrol;
 
+        private int currentPatrol;
+        
         public NormalGhost(Vector2 position, ContentManager contentManager, Scene level) : base(position, contentManager, level) {
             this.Patrol = new List<Waypoint>();
         }
@@ -42,7 +42,7 @@ namespace ForgottenLight.Entities.Ghosts {
             //waypoints.Clear();
             //waypoints.Enqueue(new Waypoint(Level.Player.Transform.AbsolutePosition));
 
-            if (waypoints.Count == 0) { // If no more waypoints in queue -> set next patrol point
+            if (waypoints.Count == 0 && Patrol.Count > 0) { // If no more waypoints in queue -> set next patrol point
                 this.waypoints.Enqueue(Patrol[currentPatrol++ % Patrol.Count]);
             }
             
@@ -54,10 +54,7 @@ namespace ForgottenLight.Entities.Ghosts {
         }
 
         public override void OnCollision(ICollidable collidingEntity) {
-            if(collidingEntity is Player && !((Player)collidingEntity).IsDead) {
-                ((Player)collidingEntity).IsDead = true;
-                Level.Interface.DialogBox.Enqueue("You got caught by the ghosts!");
-            }
+
         }
     }
 }
