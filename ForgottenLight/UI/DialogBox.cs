@@ -139,7 +139,6 @@ namespace ForgottenLight.UI {
 
             // Show animation
             animationState = currentMessage.AutoContinue ? AnimationState.DEFAULT : AnimationState.WAITING;
-            IsDialogRunning = true;
         }
 
         private void NextChar(GameTime gameTime) {
@@ -176,6 +175,7 @@ namespace ForgottenLight.UI {
         public void Enqueue(DialogMessage message) {
             if (IsDialogRunning) return;
             this.Messages.Enqueue(message);
+            IsDialogRunning = true;
         }
 
         public void Enqueue(string message, bool autoContinue=false) {
