@@ -34,11 +34,11 @@ namespace ForgottenLight.Entities {
         public bool IsDead {
             get;set;
         }
-
-        public Item Item {
+        
+        public Inventory Inventory {
             get; set;
         }
-        
+
         public BoxCollider Collider {
             get; private set;
         }
@@ -60,6 +60,7 @@ namespace ForgottenLight.Entities {
             this.Collider = new BoxCollider(22, 38, new Vector2(.5f, 1), Transform, level);
 
             this.Transform.Scale = Vector2.One * 1.5f;
+            this.Inventory = new Inventory();
             this.LoadContent(content);
 
             this.Transform.GizmosEnabled = true;

@@ -71,7 +71,7 @@ namespace ForgottenLight.Entities {
                 return;
             }
 
-            if (player.Item != null && player.Item.ID == ItemCode.KEY) {
+            if (player.Inventory.ContainsItem(ItemCode.KEY)) {
                 Console.WriteLine("Door opened!");
                 Level.Interface.DialogBox.Enqueue(new UI.DialogMessage("You opened the door!", false));
                 Level.Interface.DialogBox.Enqueue(new UI.DialogMessage("Lets see what is in it!", false));

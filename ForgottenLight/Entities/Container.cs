@@ -39,7 +39,7 @@ namespace ForgottenLight.Entities {
                 if (Item != null) {
                     Console.WriteLine("You found '{0}'! {1}", Item.Name, Item.Description);
                     Level.Interface.DialogBox.Enqueue(new UI.DialogMessage(string.Format("You found {0}! {1}", Item.Name, Item.Description), false));
-                    player.Item = Item;
+                    player.Inventory.AddItem(Item);
                     this.Item = null;
                 } else {
                     Console.WriteLine("Storage is empty!");
