@@ -23,7 +23,7 @@ namespace ForgottenLight.Levels {
         public override void Initialize(ContentManager contentManager, Game1 game) {
             base.Initialize(contentManager, game);
             
-            this.mouseLight = new Light(0, 0, contentManager, 4, this);
+            this.mouseLight = new Light(0, 0, contentManager, 2, this);
             this.playerLight = new Light(0, 0, contentManager, 1, this);
 
             this.Lights.Add(mouseLight);
@@ -34,7 +34,7 @@ namespace ForgottenLight.Levels {
             base.Update(gameTime, keyboardState, mouseState);
 
             mouseLight.Transform.Position = mouseState.Position.ToVector2();
-            playerLight.Transform.Position = Player.Transform.Position - Vector2.UnitY * Player.Collider.Height; // TODO: Create ability to get height of entity
+            playerLight.Transform.Position = Player.Transform.Position - Vector2.UnitY * Player.Collider.Height/2; // TODO: Create ability to get height of entity
             playerLight.Transform.Scale = Player.Transform.Scale * 1.5f;
         }
 

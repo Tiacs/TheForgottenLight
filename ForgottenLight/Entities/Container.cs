@@ -17,7 +17,7 @@ namespace ForgottenLight.Entities {
             get; protected set;
         }
 
-        public bool Collidable => false;
+        public virtual bool Collidable => false;
 
         public virtual string Description => "press e to open";
 

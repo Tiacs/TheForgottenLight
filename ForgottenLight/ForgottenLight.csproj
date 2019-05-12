@@ -44,6 +44,7 @@
   <ItemGroup>
     <Compile Include="Animations\Animation.cs" />
     <Compile Include="Animations\AnimationPlayer.cs" />
+    <Compile Include="Entities\Bookshelf.cs" />
     <Compile Include="Entities\Cupboard.cs" />
     <Compile Include="Entities\Door.cs" />
     <Compile Include="Entities\Entity.cs" />
@@ -53,6 +54,7 @@
     <Compile Include="Entities\IInteractable.cs" />
     <Compile Include="Entities\Light.cs" />
     <Compile Include="Entities\Container.cs" />
+    <Compile Include="Entities\Table.cs" />
     <Compile Include="Entities\Wall.cs" />
     <Compile Include="Events\Input.cs" />
     <Compile Include="Game1.cs" />
@@ -152,6 +154,8 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="app.manifest" />
+    <None Include="Content\levels\level_1.json" />
+    <None Include="Content\levels\level_2.json" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

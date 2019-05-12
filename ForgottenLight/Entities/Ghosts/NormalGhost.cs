@@ -28,9 +28,9 @@ namespace ForgottenLight.Entities.Ghosts {
         }
 
         protected override void LoadContent(ContentManager contentManager) {
-            Texture2D atlas = contentManager.Load<Texture2D>("sprite_atlas");
+            Texture2D atlas = contentManager.Load<Texture2D>("sprites/sprite_atlas");
 
-            this.idleAnimation = new Animation(atlas, 25, 22, new Vector2(304, 0), 2, 0.5f, true);
+            this.idleAnimation = new Animation(atlas, 25, 22, new Vector2(0, 0), 2, 0.5f, true);
 
             this.animationPlayer = new AnimationPlayer(new Vector2(0.5f, 1));
             this.animationPlayer.PlayAnimation(idleAnimation);

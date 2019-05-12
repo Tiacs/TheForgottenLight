@@ -28,8 +28,8 @@ namespace ForgottenLight.Entities {
 
         private Orientation orientation = Orientation.FRONT;
         private Orientation prevOrientation;
-
-        private const float speed = 200.0f;
+        
+        private const float speed = 100.0f;
 
         public bool IsDead {
             get;set;
@@ -55,11 +55,10 @@ namespace ForgottenLight.Entities {
 
         public bool Collidable => true;
 
-        public Player(Vector2 position, ContentManager content, Scene level) : base(position, level, 100) {
+        public Player(Vector2 position, ContentManager content, Scene level) : base(position, Vector2.One , level, 100) {
 
             this.Collider = new BoxCollider(22, 38, new Vector2(.5f, 1), Transform, level);
 
-            this.Transform.Scale = Vector2.One * 1.5f;
             this.Inventory = new Inventory();
             this.LoadContent(content);
 

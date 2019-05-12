@@ -81,7 +81,13 @@ namespace ForgottenLight.Levels {
                         this.Entities.Add(DeserializeNormalGhost(entity));
                         break;
                     case EntityWrapper.Type.CUPBOARD:
-                        this.Entities.Add(DeserializeCupboard(entity));
+                        this.Entities.Add(DeserializeContainer(new Cupboard(entity.X, entity.Y, contentManager, this), entity));
+                        break;
+                    case EntityWrapper.Type.TABLE:
+                        this.Entities.Add(DeserializeContainer(new Table(entity.X, entity.Y, contentManager, this), entity));
+                        break;
+                    case EntityWrapper.Type.BOOKSHELF:
+                        this.Entities.Add(DeserializeContainer(new Bookshelf(entity.X, entity.Y, contentManager, this), entity));
                         break;
                     case EntityWrapper.Type.DOOR:
                         this.Entities.Add(new Door(entity.X, entity.Y, contentManager, this));
@@ -93,11 +99,10 @@ namespace ForgottenLight.Levels {
             }
         }
 
-        private Cupboard DeserializeCupboard(EntityWrapper entity) {
-            Cupboard cupboard = new Cupboard(entity.X, entity.Y, contentManager, this);
-            if(entity.ItemIndex >= 0 && entity.ItemIndex < items.Count) cupboard.Item = items[entity.ItemIndex];
-            if (entity.RandomFill) cupboard.Item = GetRandomItem();
-            return cupboard;
+        private Container DeserializeContainer(Container container, EntityWrapper entity) {
+            if(entity.ItemIndex >= 0 && entity.ItemIndex < items.Count) container.Item = items[entity.ItemIndex];
+            if (entity.RandomFill) container.Item = GetRandomItem();
+            return container;
         }
         
         private NormalGhost DeserializeNormalGhost(EntityWrapper entity) {

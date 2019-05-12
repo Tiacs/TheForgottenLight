@@ -33,18 +33,17 @@ namespace ForgottenLight.Entities.Ghosts {
 
         private int currentPathNode;
         
-        public Ghost(Vector2 position, ContentManager contentManager, Scene level) : base(position, level, 50) {
+        public Ghost(Vector2 position, ContentManager contentManager, Scene level) : base(position, Vector2.One, level, 50) {
             
             this.LoadContent(contentManager);
             this.Collider = new BoxCollider(22, 25, new Vector2(.5f, 1), Transform, level);
-
-            this.Transform.Scale = Vector2.One * 1.5f;
+            
             this.Transform.GizmosEnabled = true;
             
             this.waypoints = new Queue<Waypoint>();
 
             this.path = new List<Vector2>();
-            this.pathfinder = new Pathfinder(3*16, 3*9, this);
+            this.pathfinder = new Pathfinder(4*16, 4*9, this);
 
             //this.waypoints.Enqueue(new Waypoint(100, 100));
             //this.waypoints.Enqueue(new Waypoint(100, 200));

@@ -28,7 +28,7 @@ namespace ForgottenLight.Entities {
             get; set;
         }
 
-        public Door(Vector2 position, ContentManager content, Scene level) : base(position, level, 1) {
+        public Door(Vector2 position, ContentManager content, Scene level) : base(position, Vector2.One * .75f, level, 1) {
 
             this.Collider = new BoxCollider(39, 63/2, new Vector2(.5f, 0), Transform, level);
             LoadContent(content);
@@ -41,9 +41,9 @@ namespace ForgottenLight.Entities {
 
         private void LoadContent(ContentManager content) {
 
-            Texture2D atlas = content.Load<Texture2D>("sprite_atlas");
+            Texture2D atlas = content.Load<Texture2D>("sprites/sprite_atlas");
 
-            idleAnimation = new Animation(atlas, 63, 39, new Vector2(326, 0), 1, 0, false);
+            idleAnimation = new Animation(atlas, 63, 39, new Vector2(66, 0), 1, 0, false);
 
             animationPlayer = new AnimationPlayer(new Vector2(0.5f, 0));
             animationPlayer.PlayAnimation(idleAnimation);

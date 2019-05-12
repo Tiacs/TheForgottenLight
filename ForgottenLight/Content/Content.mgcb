@@ -117,7 +117,7 @@
 /processorParam:TextureFormat=Color
 /build:player_attack.png
 
-#begin sprite_atlas.png
+#begin sprites/sprite_atlas.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -127,7 +127,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:sprite_atlas.png
+/build:sprites/sprite_atlas.png
 
 #begin sprites/bricks.png
 /importer:TextureImporter

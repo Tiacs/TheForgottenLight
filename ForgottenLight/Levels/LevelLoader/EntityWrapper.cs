@@ -3,8 +3,8 @@ namespace ForgottenLight.Levels.LevelLoader {
     class EntityWrapper {
 
         public Type EntityType {
-            get;set;
-        }
+            get; set;
+        } = Type.NONE;
 
         public float X {
             get;set;
@@ -23,8 +23,8 @@ namespace ForgottenLight.Levels.LevelLoader {
         }
 
         public WaypointWrapper[] Path {
-            get;set;
-        }
+            get; set;
+        } = new WaypointWrapper[0];
 
         public int ItemIndex {
             get; set;
@@ -35,7 +35,7 @@ namespace ForgottenLight.Levels.LevelLoader {
         } = false;
 
         public enum Type {
-            NORMAL_GHOST, CUPBOARD, DOOR, WALL
+            NONE, NORMAL_GHOST, CUPBOARD, TABLE, DOOR, WALL, BOOKSHELF
         }
 
     }
