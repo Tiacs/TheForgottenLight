@@ -62,7 +62,14 @@ namespace ForgottenLight.Entities {
             foreach(Entity e2 in e1.Level.Entities) {
                 if (e2 is ICollidable && e1 != e2) {
                     ICollidable entity2 = (ICollidable) e2;
-                    if(entity2.Collidable && entity.Collider.Intersects(((ICollidable)e2).Collider)) {
+                    if(entity2.Collidable && entity.Collider.Intersects(entity2.Collider)) {
+                        entity.OnCollision(entity2);
+                        entity2.OnCollision(entity);
+                        return true;
+                    }
+
+                    // Edge cases if second entity is player -> also check interact collider
+                    if (entity2 is Player && entity.Collider.Intersects(((Player) entity2).InteractCollider)) {
                         entity.OnCollision(entity2);
                         entity2.OnCollision(entity);
                         return true;
@@ -77,16 +84,11 @@ namespace ForgottenLight.Entities {
         /// </summary>
         /// <param name="entity">Entity which a interectable should be found for</param>
         /// <returns>First interactable found colliding with entity. Returns null if not found or entity does not implement ICollidable.</returns>
-        public static IInteractable GetInteractable(Entity entity) {
-            if (!(entity is ICollidable)) {
-                return null;
-            }
-
-            ICollidable e1 = (ICollidable)entity;
-            foreach (Entity e2 in entity.Level.Entities) {
-                if(e2 is IInteractable && e1 != e2) {
+        public static IInteractable GetInteractable(Player player) {
+            foreach (Entity e2 in player.Level.Entities) {
+                if(e2 is IInteractable && player != e2) {
                     IInteractable entity2 = (IInteractable) e2;
-                    if (e1.Collider.Intersects(entity2.Collider)) {
+                    if (player.InteractCollider.Intersects(entity2.Collider)) {
                         return entity2;
                     }
                 }

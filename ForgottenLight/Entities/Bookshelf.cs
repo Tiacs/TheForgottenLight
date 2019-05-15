@@ -20,7 +20,7 @@ namespace ForgottenLight.Entities {
 
         public override string Description => "press e to open";
 
-        public override bool Collidable => false;
+        public override bool Collidable => true;
 
         public Bookshelf(Vector2 position, ContentManager content, Scene level) : base(position, Vector2.One, level) {
 

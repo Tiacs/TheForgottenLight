@@ -43,6 +43,10 @@ namespace ForgottenLight.Entities {
             get; private set;
         }
 
+        public BoxCollider InteractCollider {
+            get; private set;
+        }
+
         private Input keyboardEventHandler;
 
         public bool Flipped {
@@ -55,9 +59,11 @@ namespace ForgottenLight.Entities {
 
         public bool Collidable => true;
 
-        public Player(Vector2 position, ContentManager content, Scene level) : base(position, Vector2.One , level, 100) {
+        public Player(Vector2 position, ContentManager content, Scene level) : base(position, Vector2.One, level, 100) {
 
-            this.Collider = new BoxCollider(22, 38, new Vector2(.5f, 1), Transform, level);
+            this.Collider = new BoxCollider(22, 38/3, new Vector2(.5f, 1), Transform, level);
+
+            this.InteractCollider = new BoxCollider(22, 38, new Vector2(.5f, 1), Transform, level);
 
             this.Inventory = new Inventory();
             this.LoadContent(content);
@@ -201,6 +207,7 @@ namespace ForgottenLight.Entities {
                 Level.ReloadScene();
             }
 
+            InteractCollider.Update(gameTime);
         }
 
         private void InteractKeyDown() {
@@ -225,7 +232,7 @@ namespace ForgottenLight.Entities {
                 Level.Interface.DialogBox.Enqueue("You got caught by the ghosts!");
             }
         }
-
+        
         private enum AnimationState {
             IDLE, WALKING
         }
