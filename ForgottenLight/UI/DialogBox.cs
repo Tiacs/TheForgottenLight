@@ -110,7 +110,7 @@ namespace ForgottenLight.UI {
                 return;
             }
 
-            if (currentMessage == null || !currentMessage.AutoContinue) { // Wait for input if no autocontinue
+            if (currentMessage != null && !currentMessage.AutoContinue) { // Wait for input if no autocontinue
                 return;
             }
 
@@ -151,20 +151,20 @@ namespace ForgottenLight.UI {
         }
         
         private void OnNextKey() {
-            if (!IsDialogRunning) return;
+            if (!IsDialogRunning || currentMessage == null) return;
 
-            if(this.Messages.Count > 0) { // If more messages; show next one
-                NextMessage();
-                return;
-            }
-            
-            if(currentCharacterIndex < currentMessage.Length) { // if last message -> complete message
+            if(currentCharacterIndex < currentMessage.Length) { // if last character -> complete message
                 currentCharacterIndex = currentMessage.Length; // set index to end
                 messageLabel.Text = currentMessage.Text; // set whole message to label
                 return;
             }
 
-            if(currentCharacterIndex >= currentMessage.Length && this.Messages.Count == 0) { // If last message and next hit -> clear dialogbox
+            if (this.Messages.Count > 0) { // If more messages; show next one
+                NextMessage();
+                return;
+            }
+
+            if (currentCharacterIndex >= currentMessage.Length && this.Messages.Count == 0) { // If last message and next hit -> clear dialogbox
                 messageLabel.Text = "";
                 this.currentCharacterIndex = 0;
                 this.currentMessage = null;
@@ -173,7 +173,6 @@ namespace ForgottenLight.UI {
         }
         
         public void Enqueue(DialogMessage message) {
-            if (IsDialogRunning) return;
             this.Messages.Enqueue(message);
             IsDialogRunning = true;
         }
