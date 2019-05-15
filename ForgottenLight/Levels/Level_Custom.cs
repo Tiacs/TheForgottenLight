@@ -18,7 +18,7 @@ using System;
 namespace ForgottenLight.Levels {
     class Level_Custom : Level {
 
-        private List<Item> items;
+        private List<Item> items, limitedItems;
 
         private Random random;
 
@@ -114,6 +114,13 @@ namespace ForgottenLight.Levels {
         }
 
         private Item GetRandomItem() {
+            if(limitedItems.Count != 0) { // As long as limited items remaining, return one of them
+                return GetRandomItem(limitedItems);
+            }
+            return GetRandomItem(items); // Afterwards return some random unlimited items
+        }
+
+        private Item GetRandomItem(List<Item> items) {
             if (!HasRandomLoot()) return null;
             Item item;
             while (!(item = items[random.Next(items.Count)]).RandomLoot) {
@@ -137,14 +144,21 @@ namespace ForgottenLight.Levels {
 
         private void LoadItems(ItemWrapper[] items) {
             this.items = new List<Item>();
+            this.limitedItems = new List<Item>();
             foreach (ItemWrapper item in items) {
-                this.items.Add(new Item() {
-                    ID=item.ItemCode,
-                    Name=item.Name,
-                    Description=item.Description,
-                    RandomLoot=item.RandomLoot,
-                    CountLimit=item.CountLimit
-                });
+                Item newItem = new Item() {
+                    ID = item.ItemCode,
+                    Name = item.Name,
+                    Description = item.Description,
+                    RandomLoot = item.RandomLoot,
+                    CountLimit = item.CountLimit
+                };
+
+                if(newItem.CountLimit < 0) {
+                    this.items.Add(newItem);
+                } else {
+                    this.limitedItems.Add(newItem);
+                }
             }
         }
 
