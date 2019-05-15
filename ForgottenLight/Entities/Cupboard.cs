@@ -19,6 +19,7 @@ namespace ForgottenLight.Entities {
         private AnimationPlayer animationPlayer;
 
         public override string Description => "press e to open";
+        public override bool Collidable => true;
 
         public Cupboard(Vector2 position, ContentManager content, Scene level) : base(position, Vector2.One, level) {
 
