@@ -50,7 +50,7 @@ namespace ForgottenLight.UI {
             base.Update(gameTime, keyboardState, mouseState);
 
             if(player.Interactable != null) {
-                interactLabel.Text = player.Interactable.Description;
+                interactLabel.Text = player.Interactable.Description.ToUpper();
             } else {
                 interactLabel.Text = "";
             }

@@ -11,6 +11,9 @@ using System.Threading.Tasks;
 namespace ForgottenLight.UI {
     class Label : UIComponent {
 
+        // static font scaling because of font overscaling in content pipeline; used because pixel font is not made for preferred font scaling
+        private const float FONT_SCALE = .5f;
+
         private string text = "";
         public string Text {
             get => text;
@@ -43,7 +46,7 @@ namespace ForgottenLight.UI {
             get; set;
         }
         
-        protected override Vector2 Bounds => Font.MeasureString(FormattedText) * Transform.Scale;
+        protected override Vector2 Bounds => Font.MeasureString(FormattedText) * Transform.Scale * FONT_SCALE;
 
         public override float Width => Bounds.X;
         public override float Height => Bounds.Y;
@@ -72,7 +75,7 @@ namespace ForgottenLight.UI {
             // Gizmos.Instance.DrawGizmo(new BoxGizmo(Transform.AbsolutePosition, MaxWidth, Height, 1, Color.Gray)); // Draw MaxWdith box
             //Gizmos.Instance.DrawGizmo(new BoxGizmo(AbsolutePosition, Width, Height, 1, Color.Orange)); // Draw actual text box
 
-            spriteBatch.DrawString(Font, FormattedText, AbsolutePosition, Color, 0, Vector2.Zero, Transform.Scale, SpriteEffects.None, 0);
+            spriteBatch.DrawString(Font, FormattedText, AbsolutePosition, Color, 0, Vector2.Zero, Transform.Scale * FONT_SCALE, SpriteEffects.None, 0);
         }
 
         private void UpdateFormattedText() {
@@ -84,10 +87,10 @@ namespace ForgottenLight.UI {
             if(MaxWidth <= 0) {
                 return text;
             }
-
+            
             string result = "";
             foreach (string c in text.Split(' ')) {
-                Vector2 bounds = Font.MeasureString(result + c + " ") * Transform.Scale;
+                Vector2 bounds = Font.MeasureString(result + c + " ") * Transform.Scale * FONT_SCALE;
                 if(bounds.X > this.MaxWidth) {
                     result += "\n";
                 }

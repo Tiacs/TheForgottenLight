@@ -58,7 +58,7 @@ namespace ForgottenLight.UI {
 
             this.messageLabel = new Label(font) {
                 MaxWidth = 360,
-                Position = new Vector2(20, 15),
+                Position = new Vector2(20, 20),
                 Scale = Vector2.One * 1,
                 Pivot = new Vector2(0,0),
                 Color = TextColor,
