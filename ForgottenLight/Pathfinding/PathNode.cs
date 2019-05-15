@@ -68,7 +68,7 @@ namespace ForgottenLight.Pathfinding {
 
             if(Pathfinder.Entity is ICollidable) {
                 ICollidable entity = (ICollidable)Pathfinder.Entity;
-                this.Collider = new BoxCollider((int)(width + entity.Collider.Width * 2), (int)(height + entity.Collider.Height), new Vector2(0.5f, 1f), new Transform(position), pathFinder.Entity.Level);
+                this.Collider = new BoxCollider(entity.Collider.Width, entity.Collider.Height, new Vector2(0.5f,1f), new Transform(position), pathFinder.Entity.Level);
             } else {
                 this.Collider = new BoxCollider((int)width, (int)height, new Vector2(0.5f, 0.5f), new Transform(position), pathFinder.Entity.Level);
             }

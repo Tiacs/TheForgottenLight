@@ -47,12 +47,15 @@ namespace ForgottenLight.Pathfinding {
             }
 
             List<PathNode> neighbours = GetNeighbours(node);
-            foreach(PathNode neigbour in neighbours) {
-                if(neigbour.F >= 0) {
-                    return neigbour;
+            if (neighbours.Count == 0) return node;
+
+            PathNode nearest = neighbours[0];
+            for(int i = 1; i < neighbours.Count; i++) {
+                if(neighbours[i].F >= 0 && (position - neighbours[i].Position).Length() < (position - nearest.Position).Length()) { // TODO: Do not return first positiv cost node; instead compare all surounding nodes and take nearest one (smallest distance)
+                    nearest = neighbours[i];                                                                              
                 }
             }
-            return node;
+            return nearest.F >= 0 ? nearest : node;
         }
 
         public List<Vector2> FindPath(Vector2 start, Vector2 end) {
