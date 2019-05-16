@@ -40,8 +40,8 @@ namespace ForgottenLight {
 
         private bool fullScreenEnabled = false;
 
-        private int WIDTH = 800;
-        private int HEIGHT = 480;
+        private const int WIDTH = 800;
+        private const int HEIGHT = 480;
 
         public Game1() {
             graphics = new GraphicsDeviceManager(this);
@@ -225,5 +225,14 @@ namespace ForgottenLight {
             this.level.Initialize(Content, this);
         }
         
+        /// <summary>
+        /// Converts screen position to position in game. (Is needed for multiple screen resolutions in fullscreen mode, when using mouse position.)
+        /// </summary>
+        /// <param name="screenPosition">Position on screen</param>
+        /// <returns>Position in game</returns>
+        public Vector2 ScreenToGamePosition(Vector2 screenPosition) {
+            return screenPosition * new Vector2(((float)WIDTH)/graphics.PreferredBackBufferWidth, ((float)HEIGHT)/graphics.PreferredBackBufferHeight);
+        }
+
     }
 }

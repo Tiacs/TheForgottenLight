@@ -109,5 +109,14 @@ namespace ForgottenLight.Levels {
         public virtual void NextScene() {
 
         }
+
+        /// <summary>
+        /// Converts screen position to position in game. (Is needed for multiple screen resolutions in fullscreen mode, when using mouse position.)
+        /// </summary>
+        /// <param name="screenPosition">Position on screen</param>
+        /// <returns>Position in game</returns>
+        public Vector2 ScreenToGamePosition(Vector2 screenPosition) {
+            return game.ScreenToGamePosition(screenPosition);
+        }
     }
 }

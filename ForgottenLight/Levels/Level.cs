@@ -33,8 +33,8 @@ namespace ForgottenLight.Levels {
         public override void Update(GameTime gameTime, KeyboardState keyboardState, MouseState mouseState) {
             base.Update(gameTime, keyboardState, mouseState);
 
-            if (!Interface.DialogBox.IsDialogRunning) { // block mouse light position, if dialog is running
-                mouseLight.Transform.Position = mouseState.Position.ToVector2();
+            if (!Hud.DialogBox.IsDialogRunning) { // block mouse light position, if dialog is running
+                mouseLight.Transform.Position = ScreenToGamePosition(mouseState.Position.ToVector2());
             }
             playerLight.Transform.Position = Player.Transform.Position - 3 * Vector2.UnitY * Player.Collider.Height/2; // TODO: Create ability to get height of entity
             playerLight.Transform.Scale = Player.Transform.Scale * 1.5f;
