@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Input;
 using ForgottenLight.Animations;
 using ForgottenLight.Events;
 using ForgottenLight.Primitives;
+using ForgottenLight.Levels;
 
 namespace ForgottenLight.UI {
     class DialogBox : UIComponent {
@@ -50,13 +51,13 @@ namespace ForgottenLight.UI {
             }
         }
 
-        public DialogBox(SpriteFont font, ContentManager content) {
+        public DialogBox(SpriteFont font, ContentManager content, Scene scene) : base(scene) {
             this.font = font;
             this.Messages = new Queue<DialogMessage>();
 
             LoadContent(content);
 
-            this.messageLabel = new Label(font) {
+            this.messageLabel = new Label(font, Scene) {
                 MaxWidth = 360,
                 Position = new Vector2(20, 20),
                 Scale = Vector2.One * 1,

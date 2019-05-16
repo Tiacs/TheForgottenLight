@@ -21,6 +21,8 @@ namespace ForgottenLight.Entities {
 
         public virtual string Description => "press e to open";
 
+        private Level Level => (Level)Scene;
+
         public Item Item {
             get; set;
         } 
@@ -41,16 +43,16 @@ namespace ForgottenLight.Entities {
 
                     string[] descriptions = Item.Description.Split('\n');
 
-                    Level.Interface.DialogBox.Enqueue(new UI.DialogMessage(string.Format("You found {0}!\n{1}", Item.Name, descriptions[0]), false));
+                    Level.Hud.DialogBox.Enqueue(new UI.DialogMessage(string.Format("You found {0}!\n{1}", Item.Name, descriptions[0]), false));
                     for(int i = 1; i < descriptions.Length; i++) {
-                        Level.Interface.DialogBox.Enqueue(new UI.DialogMessage(descriptions[i]));
+                        Level.Hud.DialogBox.Enqueue(new UI.DialogMessage(descriptions[i]));
                     }
 
                     player.Inventory.AddItem(Item);
                     this.Item = null;
                 } else {
                     Console.WriteLine("Storage is empty!");
-                    Level.Interface.DialogBox.Enqueue(new UI.DialogMessage("This storage is empty!", true));
+                    Level.Hud.DialogBox.Enqueue(new UI.DialogMessage("This storage is empty!", true));
                 }
             }
         }

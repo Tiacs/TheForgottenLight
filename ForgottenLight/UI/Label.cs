@@ -1,4 +1,5 @@
-﻿using ForgottenLight.Primitives;
+﻿using ForgottenLight.Levels;
+using ForgottenLight.Primitives;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -57,17 +58,17 @@ namespace ForgottenLight.UI {
             set => maxWidth = value;
         }
 
-        public Label(SpriteFont font) {
+        public Label(SpriteFont font, Scene scene) : base(scene) {
             this.Font = font;
         }
 
-        public Label(string text, Vector2 position, SpriteFont font, Color color) : base(position) {
+        public Label(string text, Vector2 position, SpriteFont font, Color color, Scene scene) : base(position, scene) {
             this.Text = text;
             this.Font = font;
             this.Color = color;
         }
 
-        public Label(string text, Vector2 position, SpriteFont font) : this(text, position, font, Color.White) {
+        public Label(string text, Vector2 position, SpriteFont font, Scene scene) : this(text, position, font, Color.White, scene) {
 
         }
         
@@ -98,10 +99,6 @@ namespace ForgottenLight.UI {
             }
             return result;
         }
-
-        public override void OnClick() {
-            Console.WriteLine("Clicked!");
-        }
-
+        
     }
 }

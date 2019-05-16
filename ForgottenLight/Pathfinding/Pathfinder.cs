@@ -35,8 +35,8 @@ namespace ForgottenLight.Pathfinding {
         }
 
         private PathNode FindNearestNode(Vector2 position) {
-            int x = (int) (position.X / Entity.Level.Width * horizontalDivision);
-            int y = (int)(position.Y / Entity.Level.Height * verticalDivision);
+            int x = (int) (position.X / Entity.Scene.Width * horizontalDivision);
+            int y = (int)(position.Y / Entity.Scene.Height * verticalDivision);
             if (y < 0 || y >= nodes.GetLength(0) || x < 0 || x >= nodes.GetLength(1)) {
                 return null;
             }
@@ -158,8 +158,8 @@ namespace ForgottenLight.Pathfinding {
         }
 
         private void CreateNodes() {
-            float cellWidth = Entity.Level.Width / horizontalDivision;
-            float cellHeight = Entity.Level.Height / verticalDivision;
+            float cellWidth = Entity.Scene.Width / horizontalDivision;
+            float cellHeight = Entity.Scene.Height / verticalDivision;
 
             for (int y = 0; y < nodes.GetLength(0); y++) {
                 for(int x = 0; x < nodes.GetLength(1); x++) {

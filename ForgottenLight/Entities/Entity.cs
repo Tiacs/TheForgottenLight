@@ -18,24 +18,24 @@ namespace ForgottenLight.Entities {
             get; set;
         }
 
-        public Scene Level {
+        public Scene Scene {
             get; private set;
         }
 
         private int depthIndex;
         public int DepthIndex => depthIndex;
 
-        public Entity(Transform transform, Scene level, int depthIndex = 0) {
+        public Entity(Transform transform, Scene scene, int depthIndex = 0) {
             this.Transform = transform;
-            this.Level = level;
+            this.Scene = scene;
             this.depthIndex = depthIndex;
         }
 
-        public Entity(Vector2 position, Vector2 scale, Scene level, int depthIndex = 0) : this(new Transform(position, scale), level, depthIndex) {
+        public Entity(Vector2 position, Vector2 scale, Scene scene, int depthIndex = 0) : this(new Transform(position, scale), scene, depthIndex) {
 
         }
 
-        public Entity(Vector2 position, Scene level, int depthIndex = 0) : this(new Transform(position), level, depthIndex) {
+        public Entity(Vector2 position, Scene scene, int depthIndex = 0) : this(new Transform(position), scene, depthIndex) {
 
         }
 
@@ -59,7 +59,7 @@ namespace ForgottenLight.Entities {
             }
 
             Vector2 o = Vector2.Zero;
-            foreach(Entity e2 in e1.Level.Entities) {
+            foreach(Entity e2 in e1.Scene.Entities) {
                 if (e2 is ICollidable && e1 != e2) {
                     ICollidable entity2 = (ICollidable) e2;
                     if(entity2.Collidable && entity.Collider.Intersects(entity2.Collider)) {
@@ -85,7 +85,7 @@ namespace ForgottenLight.Entities {
         /// <param name="entity">Entity which a interectable should be found for</param>
         /// <returns>First interactable found colliding with entity. Returns null if not found or entity does not implement ICollidable.</returns>
         public static IInteractable GetInteractable(Player player) {
-            foreach (Entity e2 in player.Level.Entities) {
+            foreach (Entity e2 in player.Scene.Entities) {
                 if(e2 is IInteractable && player != e2) {
                     IInteractable entity2 = (IInteractable) e2;
                     if (player.InteractCollider.Intersects(entity2.Collider)) {

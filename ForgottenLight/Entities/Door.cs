@@ -24,11 +24,13 @@ namespace ForgottenLight.Entities {
 
         public bool Collidable => false;
 
+        public Level Level => (Level)Scene;
+
         private bool Opened {
             get; set;
         }
 
-        public Door(Vector2 position, ContentManager content, Scene level) : base(position, Vector2.One * .75f, level, 1) {
+        public Door(Vector2 position, ContentManager content, Level level) : base(position, Vector2.One * .75f, level, 1) {
 
             this.Collider = new BoxCollider(39, 63/2, new Vector2(.5f, 0), Transform, level);
             LoadContent(content);
@@ -36,7 +38,7 @@ namespace ForgottenLight.Entities {
             Transform.GizmosEnabled = true;
         }
 
-        public Door(float x, float y, ContentManager content, Scene level) : this(new Vector2(x, y), content, level) {
+        public Door(float x, float y, ContentManager content, Level level) : this(new Vector2(x, y), content, level) {
         }
 
         private void LoadContent(ContentManager content) {
@@ -66,15 +68,15 @@ namespace ForgottenLight.Entities {
             
             Player player = (Player)entity;
             if(Opened) {
-                Level.NextScene();
+                Scene.NextScene();
 
                 return;
             }
 
             if (player.Inventory.ContainsItem(ItemCode.KEY)) {
                 Console.WriteLine("Door opened!");
-                Level.Interface.DialogBox.Enqueue(new UI.DialogMessage("You opened the door!", false));
-                Level.Interface.DialogBox.Enqueue(new UI.DialogMessage("Lets see what is in it!", false));
+                Level.Hud.DialogBox.Enqueue(new UI.DialogMessage("You opened the door!", false));
+                Level.Hud.DialogBox.Enqueue(new UI.DialogMessage("Lets see what is in it!", false));
                 Opened = true;
 
                 this.Description = "Press E to get into next level!";
@@ -83,7 +85,7 @@ namespace ForgottenLight.Entities {
             }
 
             Console.WriteLine("Find the key first!");
-            Level.Interface.DialogBox.Enqueue(new UI.DialogMessage("You must find the key first!", true));
+            Level.Hud.DialogBox.Enqueue(new UI.DialogMessage("You must find the key first!", true));
         }
 
         public void OnCollision(ICollidable collidingEntity) {

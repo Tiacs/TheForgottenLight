@@ -57,6 +57,11 @@ with.
         <Start>&#32;</Start>
         <End>&#126;</End>
       </CharacterRegion>
+      <!-- Allow copyright symbol -->
+      <CharacterRegion>
+        <Start>&#169;</Start>
+        <End>&#169;</End>
+      </CharacterRegion>
     </CharacterRegions>
     <!--
     ResourceFiles control the charaters which will be in the font. It does this

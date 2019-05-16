@@ -24,7 +24,7 @@ namespace ForgottenLight.Entities {
 
         public Bookshelf(Vector2 position, ContentManager content, Scene level) : base(position, Vector2.One, level) {
 
-            this.Collider = new BoxCollider(96, 54, new Vector2(.5f, 1), Transform, Level);
+            this.Collider = new BoxCollider(96, 54, new Vector2(.5f, 1), Transform, Scene);
             LoadContent(content);
         }
 

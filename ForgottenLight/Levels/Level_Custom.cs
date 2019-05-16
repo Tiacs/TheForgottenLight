@@ -48,9 +48,6 @@ namespace ForgottenLight.Levels {
             LoadItems(levelWrapper.Items);
             LoadEntities(levelWrapper.Entities);
             LoadLights(levelWrapper.Lights);
-
-            this.Interface = new HUD(Width, Height, Player, contentManager);
-
         }
 
         public override void Update(GameTime gameTime, KeyboardState keyboardState, MouseState mouseState) {

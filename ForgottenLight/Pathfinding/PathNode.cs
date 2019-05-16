@@ -68,9 +68,9 @@ namespace ForgottenLight.Pathfinding {
 
             if(Pathfinder.Entity is ICollidable) {
                 ICollidable entity = (ICollidable)Pathfinder.Entity;
-                this.Collider = new BoxCollider(entity.Collider.Width, entity.Collider.Height, new Vector2(0.5f,1f), new Transform(position), pathFinder.Entity.Level);
+                this.Collider = new BoxCollider(entity.Collider.Width, entity.Collider.Height, new Vector2(0.5f,1f), new Transform(position), pathFinder.Entity.Scene);
             } else {
-                this.Collider = new BoxCollider((int)width, (int)height, new Vector2(0.5f, 0.5f), new Transform(position), pathFinder.Entity.Level);
+                this.Collider = new BoxCollider((int)width, (int)height, new Vector2(0.5f, 0.5f), new Transform(position), pathFinder.Entity.Scene);
             }
 
             this.Collider.Debug = false;
@@ -79,7 +79,7 @@ namespace ForgottenLight.Pathfinding {
         public void UpdateCollision(GameTime gameTime) {
             this.Collided = false;
             this.Collider.Update(gameTime);
-            foreach (Entity e2 in Pathfinder.Entity.Level.Entities) {
+            foreach (Entity e2 in Pathfinder.Entity.Scene.Entities) {
                 if (e2 != Pathfinder.Entity && e2 is ICollidable && !(e2 is Player)) {
                     ICollidable entity2 = (ICollidable)e2;
                     if (entity2.Collidable && Collider.Intersects(((ICollidable)e2).Collider)) {

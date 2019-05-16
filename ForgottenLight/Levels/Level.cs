@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ForgottenLight.Entities;
+using ForgottenLight.UI;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -11,7 +12,8 @@ using Microsoft.Xna.Framework.Input;
 
 namespace ForgottenLight.Levels {
     class Level : Scene {
-        
+
+        public HUD Hud => (HUD) Interface;
         private Texture2D levelBackgroundTile;
 
         protected Light mouseLight;
@@ -22,7 +24,11 @@ namespace ForgottenLight.Levels {
 
         public override void Initialize(ContentManager contentManager, Game1 game) {
             base.Initialize(contentManager, game);
-            
+
+            game.IsMouseVisible = false;
+
+            this.Interface = new HUD(Width, Height, this, contentManager);
+
             this.mouseLight = new Light(0, 0, contentManager, 2, this);
             this.playerLight = new Light(0, 0, contentManager, 1, this);
 
@@ -38,6 +44,8 @@ namespace ForgottenLight.Levels {
             }
             playerLight.Transform.Position = Player.Transform.Position - 3 * Vector2.UnitY * Player.Collider.Height/2; // TODO: Create ability to get height of entity
             playerLight.Transform.Scale = Player.Transform.Scale * 1.5f;
+
+            this.IsPaused = Hud.DialogBox.IsDialogRunning;
         }
 
         public override void Draw(SpriteBatch spriteBatch, GameTime gameTime) {

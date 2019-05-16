@@ -35,7 +35,7 @@ namespace ForgottenLight.Entities {
             this.Width = width;
             this.Height = height;
 
-            this.Collider = new BoxCollider(Width, Height, Vector2.Zero, Transform, Level);
+            this.Collider = new BoxCollider(Width, Height, Vector2.Zero, Transform, Scene);
         }
 
         public Wall(int width, int height, Vector2 position, Scene level) : this(width, height, new Transform(position), level) {

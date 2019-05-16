@@ -59,8 +59,6 @@ namespace ForgottenLight.Levels {
             //this.Entities.Add(new Ghost(400, 150, contentManager, this));
             //this.Entities.Add(new Ghost(250, 200, contentManager, this));
             //this.Entities.Add(new Ghost(250, 250, contentManager, this));
-
-            this.Interface = new HUD(Width, Height, Player, contentManager);
         }
 
         protected override void CreateWalls() {

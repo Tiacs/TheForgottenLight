@@ -21,7 +21,7 @@ namespace ForgottenLight.Entities {
         public override bool Collidable => true;
 
         public Table(Vector2 position, ContentManager content, Scene level) : base(position, Vector2.One, level) {
-            this.Collider = new BoxCollider(64, 25, new Vector2(.5f, 1), Transform, Level);
+            this.Collider = new BoxCollider(64, 25, new Vector2(.5f, 1), Transform, Scene);
             LoadContent(content);
             Transform.GizmosEnabled = true;
         }

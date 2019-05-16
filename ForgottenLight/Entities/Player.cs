@@ -31,6 +31,8 @@ namespace ForgottenLight.Entities {
         
         private const float speed = 100.0f;
 
+        public Level Level => (Level)Scene;
+
         public bool IsDead {
             get;set;
         }
@@ -56,10 +58,10 @@ namespace ForgottenLight.Entities {
         public IInteractable Interactable {
             get; private set;
         }
-
+        
         public bool Collidable => true;
 
-        public Player(Vector2 position, ContentManager content, Scene level) : base(position, Vector2.One, level, 100) {
+        public Player(Vector2 position, ContentManager content, Level level) : base(position, Vector2.One, level, 100) {
 
             this.Collider = new BoxCollider(22, 38/3, new Vector2(.5f, 1), Transform, level);
 
@@ -71,7 +73,7 @@ namespace ForgottenLight.Entities {
             this.Transform.GizmosEnabled = true;
         }
         
-        public Player(float x, float y, ContentManager content, Scene level) : this(new Vector2(x, y), content, level) {
+        public Player(float x, float y, ContentManager content, Level level) : this(new Vector2(x, y), content, level) {
         }
 
         private void LoadContent(ContentManager content) {
@@ -203,8 +205,8 @@ namespace ForgottenLight.Entities {
 
             }
 
-            if(this.IsDead && !Level.Interface.DialogBox.IsDialogRunning) {
-                Level.ReloadScene();
+            if(this.IsDead && !Level.Hud.DialogBox.IsDialogRunning) {
+                Scene.ReloadScene();
             }
 
             InteractCollider.Update(gameTime);
@@ -217,7 +219,7 @@ namespace ForgottenLight.Entities {
         }
 
         private void Interact(IInteractable interactable) {
-            if (Level.Interface.DialogBox.IsDialogRunning) return; // If dialog is running, do not count interaction
+            if (Level.Hud.DialogBox.IsDialogRunning) return; // If dialog is running, do not count interaction
             interactable.OnInteract(this);
         }
        
@@ -229,7 +231,7 @@ namespace ForgottenLight.Entities {
         public void OnCollision(ICollidable collidingEntity) {
             if (collidingEntity is Ghosts.Ghost && !this.IsDead) {
                 this.IsDead = true;
-                Level.Interface.DialogBox.Enqueue("You got caught by the ghosts!");
+                Level.Hud.DialogBox.Enqueue("You got caught by the ghosts!");
             }
         }
         

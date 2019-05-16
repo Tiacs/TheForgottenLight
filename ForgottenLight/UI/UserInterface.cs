@@ -1,4 +1,5 @@
 ﻿using ForgottenLight.Entities;
+using ForgottenLight.Levels;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -16,7 +17,7 @@ namespace ForgottenLight.UI {
             get; protected set;
         }
 
-        public UserInterface(float width, float height, ContentManager content) : base(Vector2.Zero) {
+        public UserInterface(float width, float height, ContentManager content, Scene scene) : base(Vector2.Zero, scene) {
             this.Width = width;
             this.Height = height;
             LoadContent(content);

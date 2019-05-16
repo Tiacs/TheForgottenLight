@@ -43,8 +43,12 @@ namespace ForgottenLight.Levels {
             get; protected set;
         }
 
-        public HUD Interface {
+        public UserInterface Interface {
             get; protected set;
+        }
+
+        public bool IsPaused {
+            get; set;
         }
 
         public Scene(float width, float height) {
@@ -73,7 +77,7 @@ namespace ForgottenLight.Levels {
         public virtual void Update(GameTime gameTime, KeyboardState keyboardState, MouseState mouseState) {
             Input.Instance.Update();
 
-            if (!Interface.DialogBox.IsDialogRunning) {
+            if (!IsPaused) {
                 this.Entities.ForEach(entity => entity.Update(gameTime, keyboardState, mouseState));
                 this.Lights.ForEach(light => light.Update(gameTime, keyboardState, mouseState));
             }
@@ -117,6 +121,13 @@ namespace ForgottenLight.Levels {
         /// <returns>Position in game</returns>
         public Vector2 ScreenToGamePosition(Vector2 screenPosition) {
             return game.ScreenToGamePosition(screenPosition);
+        }
+
+        /// <summary>
+        /// Exit the game.
+        /// </summary>
+        public void Exit() {
+            this.game.Exit();
         }
     }
 }

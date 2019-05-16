@@ -1,4 +1,5 @@
-﻿using ForgottenLight.Primitives;
+﻿using ForgottenLight.Levels;
+using ForgottenLight.Primitives;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -11,6 +12,10 @@ using System.Threading.Tasks;
 namespace ForgottenLight.UI {
 
     abstract class UIComponent {
+
+        public Scene Scene {
+            get; private set;
+        }
         
         private bool visible = true;
         public bool Visible {
@@ -85,26 +90,25 @@ namespace ForgottenLight.UI {
         public List<UIComponent> Childs {
             get; private set;
         }
+        
+        private MouseState prevMouseState;
 
-        private ButtonState prevMouseLeftButton;
-
-        public UIComponent() {
-            this.Transform = new Transform(Vector2.Zero);
-
-            this.Childs = new List<UIComponent>();
+        public UIComponent(Scene scene) : this(new Transform(Vector2.Zero), scene) {
+            
         }
         
-        public UIComponent(Transform transform) {
+        public UIComponent(Transform transform, Scene scene) {
             this.Transform = transform;
+            this.Scene = scene;
 
             this.Childs = new List<UIComponent>();
         }
 
-        public UIComponent(Vector2 position, Vector2 scale) : this(new Transform(Vector2.Zero, Vector2.One) { Position = position, Scale = scale }) {
+        public UIComponent(Vector2 position, Vector2 scale, Scene scene) : this(new Transform(Vector2.Zero, Vector2.One) { Position = position, Scale = scale }, scene) {
 
         }
 
-        public UIComponent(Vector2 position) : this(position, Vector2.One) {
+        public UIComponent(Vector2 position, Scene scene) : this(position, Vector2.One, scene) {
 
         }
 
@@ -129,14 +133,42 @@ namespace ForgottenLight.UI {
         }
 
         private void CheckEvents(GameTime gameTime, KeyboardState keyboardState, MouseState mouseState) {
-            if (mouseState.LeftButton == ButtonState.Pressed && mouseState.LeftButton != prevMouseLeftButton) {
-                this.OnClick();
+
+            if(InsideBounds(mouseState.Position)) {
+
+                if (mouseState.LeftButton == ButtonState.Pressed && mouseState.LeftButton != prevMouseState.LeftButton) {
+                    this.OnClick();
+                }
+
+
+                if (!InsideBounds(prevMouseState.Position)) {
+                    this.OnMouseEnter();
+                }
+
+            } else {
+                if (InsideBounds(prevMouseState.Position)) {
+                    this.OnMouseLeave();
+                }
             }
-            prevMouseLeftButton = mouseState.LeftButton;
+
+            prevMouseState = mouseState;
 
         }
 
-        public virtual void OnClick() {
+        private bool InsideBounds(Point position) {
+            Rectangle rect = new Rectangle(this.AbsolutePosition.ToPoint(), this.Bounds.ToPoint());
+            return rect.Contains(Scene.ScreenToGamePosition(position.ToVector2()));
+        }
+
+        protected virtual void OnMouseEnter() {
+
+        }
+
+        protected virtual void OnMouseLeave() {
+
+        }
+
+        protected virtual void OnClick() {
 
         }
         

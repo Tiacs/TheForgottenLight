@@ -72,7 +72,8 @@ namespace ForgottenLight {
 
             // initialize level
             // this.level = new Level_Test(Content);
-            this.LoadScene(new Level_Custom("level_1"));
+            //this.LoadScene(new Level_Custom("level_1"));
+            this.LoadScene(new MainMenuScene());
         }
 
         /// <summary>
@@ -101,8 +102,9 @@ namespace ForgottenLight {
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime) {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
+            if((GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape)) && !(this.level is MainMenuScene)) {
+                this.LoadScene(new MainMenuScene());
+            }
 
             MouseState mouseState = Mouse.GetState();
             KeyboardState keyboardState = Keyboard.GetState();
@@ -141,7 +143,7 @@ namespace ForgottenLight {
             // DRAW MAIN SCENE
 
             GraphicsDevice.SetRenderTarget(mainTarget);
-            GraphicsDevice.Clear(Color.DarkOliveGreen);
+            GraphicsDevice.Clear(Color.Black);
 
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp);
             
