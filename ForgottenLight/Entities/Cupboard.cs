@@ -32,9 +32,9 @@ namespace ForgottenLight.Entities {
         }
 
         private void LoadContent(ContentManager content) {
-            Texture2D atlas = content.Load<Texture2D>("sprite_atlas");
+            Texture2D atlas = content.Load<Texture2D>("sprites/sprite_atlas");
 
-            idleAnimation = new Animation(atlas, 42, 32, new Vector2(365, 0), 1, 0, false);
+            idleAnimation = new Animation(atlas, 42, 32, new Vector2(0, 63), 1, 0, false);
             animationPlayer = new AnimationPlayer(new Vector2(.5f, 1));
 
             animationPlayer.PlayAnimation(idleAnimation);
