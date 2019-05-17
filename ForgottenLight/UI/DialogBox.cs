@@ -82,8 +82,13 @@ namespace ForgottenLight.UI {
         public override void Update(GameTime gameTime, KeyboardState keyboardState, MouseState mouseState) {
             base.Update(gameTime, keyboardState, mouseState);
             
-            if (currentMessage == null && Messages.Count > 0) { // Change message if done and new message waiting
-                NextMessage();
+            if (currentMessage == null) { // Change message if done and new message waiting
+
+                if(Messages.Count > 0) {
+                    NextMessage();
+                } else {
+                    IsDialogRunning = false;
+                }
             }
 
             PerformCurrentMessage(gameTime); // write current message to output and wait for next one
@@ -169,7 +174,6 @@ namespace ForgottenLight.UI {
                 messageLabel.Text = "";
                 this.currentCharacterIndex = 0;
                 this.currentMessage = null;
-                this.IsDialogRunning = false;
             }
         }
         
