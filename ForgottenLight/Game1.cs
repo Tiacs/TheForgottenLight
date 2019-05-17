@@ -102,9 +102,6 @@ namespace ForgottenLight {
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime) {
-            if((GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape)) && !(this.level is MainMenuScene)) {
-                this.LoadScene(new MainMenuScene());
-            }
 
             MouseState mouseState = Mouse.GetState();
             KeyboardState keyboardState = Keyboard.GetState();
@@ -194,6 +191,7 @@ namespace ForgottenLight {
         private void RegisterKeyEvents() {
             Input.Instance.RegisterOnKeyDownEvent(Keys.F2, this.OnLightningKeyPressed);
             Input.Instance.RegisterOnKeyDownEvent(Keys.F11, this.ToggleFullscreen);
+            Input.Instance.RegisterOnKeyDownEvent(Keys.Escape, this.OnExitKeyPressed);
         }
 
         private void ToggleFullscreen() {
@@ -215,6 +213,14 @@ namespace ForgottenLight {
 
         private void OnLightningKeyPressed() {
             this.lightningEnabled = !this.lightningEnabled; // toggle
+        }
+
+        private void OnExitKeyPressed() {
+            if (!(this.level is MainMenuScene)) {
+                this.LoadScene(new MainMenuScene());
+            } else {
+                Exit();
+            }
         }
 
         public void LoadScene(Scene scene) {
