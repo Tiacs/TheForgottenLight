@@ -17,14 +17,14 @@ namespace ForgottenLight.Levels {
         private AnimationPlayer animationPlayer;
         private Animation playerAnimation;
 
-        public MainMenuScene() : base(800, 480) {
+        public MainMenuScene() : base(1920, 1080) {
         }
 
         public override void Draw(SpriteBatch spriteBatch, GameTime gameTime) {
             base.Draw(spriteBatch, gameTime);
 
             // Draw Player dummy
-            animationPlayer.Draw(spriteBatch, gameTime, new Vector2(Width - 200, Height + Height / 2), Vector2.One * 20);
+            animationPlayer.Draw(spriteBatch, gameTime, new Vector2(Width - 480, Height + Height / 2), Vector2.One * 40);
         }
 
         public override void Initialize(ContentManager contentManager, Game1 game) {
@@ -41,7 +41,7 @@ namespace ForgottenLight.Levels {
 
             this.animationPlayer.PlayAnimation(playerAnimation);
 
-            this.Lights.Add(new Light(new Vector2(600, 250), contentManager, 10, this));
+            this.Lights.Add(new Light(new Vector2(1440, 562), contentManager, 20, this));
 
         }
 

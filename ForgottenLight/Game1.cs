@@ -15,6 +15,9 @@ namespace ForgottenLight {
     /// This is the main type for your game.
     /// </summary>
     class Game1 : Game {
+
+        public string Version => "v1.0 Snapshot#1";
+
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
 
@@ -40,8 +43,8 @@ namespace ForgottenLight {
 
         private bool fullScreenEnabled = false;
 
-        private const int WIDTH = 800;
-        private const int HEIGHT = 480;
+        private const int WINDOWED_WIDTH = 800;
+        private const int WINDOWED_HEIGHT = 480;
 
         public Game1() {
             graphics = new GraphicsDeviceManager(this);
@@ -55,25 +58,18 @@ namespace ForgottenLight {
         /// and initialize them as well.
         /// </summary>
         protected override void Initialize() {
-
-            this.SetFullscreen(fullScreenEnabled);
-
-            this.mainTarget = new RenderTarget2D(GraphicsDevice, WIDTH, HEIGHT);
-            this.lightningTarget = new RenderTarget2D(GraphicsDevice, WIDTH, HEIGHT);
-
-            this.target = new RenderTarget2D(GraphicsDevice, WIDTH, HEIGHT);
-
             base.Initialize();
 
+            this.LoadScene(new MainMenuScene());
+
             // Content will be loaded after base.Initialize() statement
-
-            // register lightning key event
-            RegisterKeyEvents();
-
+            
             // initialize level
             // this.level = new Level_Test(Content);
             //this.LoadScene(new Level_Custom("level_1"));
-            this.LoadScene(new MainMenuScene());
+
+            this.SetFullscreen(fullScreenEnabled);
+
         }
 
         /// <summary>
@@ -205,8 +201,8 @@ namespace ForgottenLight {
                 graphics.PreferredBackBufferWidth = GraphicsDevice.DisplayMode.Width;
                 graphics.PreferredBackBufferHeight = GraphicsDevice.DisplayMode.Height;
             } else {
-                graphics.PreferredBackBufferWidth = WIDTH;
-                graphics.PreferredBackBufferHeight = HEIGHT;
+                graphics.PreferredBackBufferWidth = (int) WINDOWED_WIDTH;
+                graphics.PreferredBackBufferHeight = (int) WINDOWED_HEIGHT;
             }
             graphics.ApplyChanges();
         }
@@ -230,6 +226,11 @@ namespace ForgottenLight {
             Gizmos.ClearInstance();
             RegisterKeyEvents();
 
+            this.mainTarget = new RenderTarget2D(GraphicsDevice, (int)level.Width, (int)level.Height);
+            this.lightningTarget = new RenderTarget2D(GraphicsDevice, (int)level.Width, (int)level.Height);
+
+            this.target = new RenderTarget2D(GraphicsDevice, (int)level.Width, (int)level.Height);
+
             this.level.Initialize(Content, this);
         }
         
@@ -239,7 +240,7 @@ namespace ForgottenLight {
         /// <param name="screenPosition">Position on screen</param>
         /// <returns>Position in game</returns>
         public Vector2 ScreenToGamePosition(Vector2 screenPosition) {
-            return screenPosition * new Vector2(((float)WIDTH)/graphics.PreferredBackBufferWidth, ((float)HEIGHT)/graphics.PreferredBackBufferHeight);
+            return screenPosition * new Vector2(((float)level.Width)/graphics.PreferredBackBufferWidth, ((float)level.Height)/graphics.PreferredBackBufferHeight);
         }
 
     }

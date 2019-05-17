@@ -20,9 +20,11 @@ namespace ForgottenLight.Levels {
     abstract class Scene {
 
         private Game1 game;
-
-        protected ContentManager contentManager;
         
+        protected ContentManager contentManager;
+
+        public string Version => game.Version;
+
         public List<Entity> Entities {
             get; protected set;
         }
