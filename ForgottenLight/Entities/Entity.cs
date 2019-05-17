@@ -58,6 +58,8 @@ namespace ForgottenLight.Entities {
                 return false;
             }
 
+            bool colliding = false;
+
             Vector2 o = Vector2.Zero;
             foreach(Entity e2 in e1.Scene.Entities) {
                 if (e2 is ICollidable && e1 != e2) {
@@ -65,18 +67,18 @@ namespace ForgottenLight.Entities {
                     if(entity2.Collidable && entity.Collider.Intersects(entity2.Collider)) {
                         entity.OnCollision(entity2);
                         entity2.OnCollision(entity);
-                        return true;
+                        colliding = true;
                     }
 
                     // Edge cases if second entity is player -> also check interact collider
                     if (entity2 is Player && entity.Collider.Intersects(((Player) entity2).InteractCollider)) {
                         entity.OnCollision(entity2);
                         entity2.OnCollision(entity);
-                        return true;
+                        colliding = true;
                     }
                 }
             }
-            return false;
+            return colliding;
         }
         
         /// <summary>
