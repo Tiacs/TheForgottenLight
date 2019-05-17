@@ -3,7 +3,7 @@
 	"nextlevel": "level_2",
 	"version": 1,
 	"player": {
-		"x": 315,
+		"x": 275,
 		"y": 350
 	},
 	"entities": [
@@ -36,43 +36,43 @@
 			"width": 800,
 			"height": 25
 		},
-		// right room
+		// library
 		{
 			"entitytype": "WALL", // upper
-			"x": 350,
-			"y": 100,
-			"width": 300,
+			"x": 300,
+			"y": 210,
+			"width": 400,
 			"height": 20
 		},
 		{
-			"entitytype": "WALL", // lower
-			"x": 350,
-			"y": 350,
-			"width": 300,
+			"entitytype": "WALL", // bottom
+			"x": 300,
+			"y": 400,
+			"width": 400,
 			"height": 20
 		},
 		{
 			"entitytype": "WALL", // left
-			"x": 350,
-			"y": 100,
+			"x": 300,
+			"y": 210,
 			"width": 20,
-			"height": 250
+			"height": 190
 		},
 		{
 			"entitytype": "WALL", // right up
-			"x": 650,
-			"y": 100,
+			"x": 700,
+			"y": 210,
 			"width": 20,
-			"height": 75
+			"height": 55
 		},
 		{
 			"entitytype": "WALL", // right down
-			"x": 650,
-			"y": 295,
+			"x": 700,
+			"y": 325,
 			"width": 20,
-			"height": 75
+			"height": 95
 		},
-		// room seperator
+		// desk room
 		{
 			"entitytype": "WALL",
 			"x": 225,
@@ -82,16 +82,63 @@
 		},
 		{
 			"entitytype": "WALL",
+			"x": 225,
+			"y": 150,
+			"width": 20,
+			"height": 70
+		},
+		{
+			"entitytype": "WALL",
+			"x": 0,
+			"y": 150,
+			"width": 400,
+			"height": 20
+		},
+		{
+			"entitytype": "WALL",
 			"x": 0,
 			"y": 350,
 			"width": 225,
 			"height": 20
+		},
+		// upper room
+		{
+			"entitytype": "WALL",
+			"x": 450,
+			"y": 150,
+			"width": 100,
+			"height": 20
+		},
+		{
+			"entitytype": "WALL",
+			"x": 550,
+			"y": 0,
+			"width": 20,
+			"height": 210
 		},
 		// probs
 		{
 			"entitytype": "CUPBOARD",
 			"x": 750,
 			"y": 75,
+			"randomfill": true
+		},
+		{
+			"entitytype": "CUPBOARD",
+			"x": 50,
+			"y": 405,
+			"randomfill": true
+		},
+		{
+			"entitytype": "CUPBOARD",
+			"x": 340,
+			"y": 370,
+			"randomfill": true
+		},
+		{
+			"entitytype": "TABLE",
+			"x": 150,
+			"y": 400,
 			"randomfill": true
 		},
 		{
@@ -102,28 +149,89 @@
 		},
 		{
 			"entitytype": "DOOR",
-			"x": 400,
-			"y": 200
+			"x": 340,
+			"y": 220
 		},
 		{
 			"entitytype": "BOOKSHELF",
+			"x": 410,
+			"y": 270,
+			"randomfill": true
+		},
+		{
+			"entitytype": "BOOKSHELF",
+			"x": 506,
+			"y": 270,
+			"randomfill": true
+		},
+		{
+			"entitytype": "BOOKSHELF",
+			"x": 602,
+			"y": 270,
+			"randomfill": true
+		},
+		{
+			"entitytype": "BOOKSHELF",
+			"x": 410,
+			"y": 370,
+			"randomfill": true
+		},
+		{
+			"entitytype": "BOOKSHELF",
+			"x": 506,
+			"y": 370,
+			"randomfill": true
+		},
+		{
+			"entitytype": "BOOKSHELF",
+			"x": 602,
+			"y": 370,
+			"randomfill": true
+		},
+		{
+			"entitytype": "TABLE",
+			"x": 100,
+			"y": 100,
+			"randomfill": true
+		},
+		{
+			"entitytype": "CUPBOARD",
 			"x": 450,
-			"y": 175
+			"y": 100,
+			"randomfill": true
+		},
+		{
+			"entitytype": "BOOKSHELF",
+			"x": 300,
+			"y": 90,
+			"randomfill": true
+		},
+		{
+			"entitytype": "BOOKSHELF",
+			"x": 625,
+			"y": 70,
+			"randomfill": true
+		},
+		{
+			"entitytype": "TABLE",
+			"x": 625,
+			"y": 180,
+			"randomfill": true
 		},
 		// ghosts
 		{
-			"entitytype": "NORMAL_GHOST",
-			"x": 700,
-			"y": 430,
+			"entitytype": "NORMAL_GHOST", // long floor
+			"x": 750,
+			"y": 440,
 			"path": [
 				{
-					"x": 700,
-					"y": 430
+					"x": 750,
+					"y": 440
 				},
 				{
 					"x": 75,
-					"y": 430
-				},
+					"y": 440
+				}
 			]
 		},
 		{
@@ -137,11 +245,11 @@
 				},
 				{
 					"x": 165,
-					"y": 325
+					"y": 320
 				},
 				{
 					"x": 75,
-					"y": 325
+					"y": 320
 				},
 				{
 					"x": 75,
@@ -152,11 +260,11 @@
 		{
 			"entitytype": "NORMAL_GHOST",
 			"x": 75,
-			"y": 325,
+			"y": 320,
 			"path": [
 				{
 					"x": 75,
-					"y": 325
+					"y": 320
 				},
 				{
 					"x": 75,
@@ -168,7 +276,37 @@
 				},
 				{
 					"x": 165,
-					"y": 325
+					"y": 320
+				}
+			]
+		},
+		{
+			"entitytype": "NORMAL_GHOST", // library
+			"x": 370,
+			"y": 300,
+			"path": [
+				{
+					"x": 370,
+					"y": 300
+				},
+				{
+					"x": 750,
+					"y": 300
+				}
+			]
+		},
+		{
+			"entitytype": "NORMAL_GHOST",
+			"x": 275,
+			"y": 200,
+			"path": [
+				{
+					"x": 275,
+					"y": 200,
+				},
+				{
+					"x": 150,
+					"y": 100
 				}
 			]
 		}
@@ -194,7 +332,33 @@
 			"itemcode": 0,
 			"name": "Boots",
 			"description": "They are not useful",
-			"randomloot": false
+			"randomloot": true,
+		},
+		{
+			"itemcode": 0,
+			"name": "10 Euros",
+			"description": "Too bad you left the EU...",
+			"randomloot": true,
+			"countlimit": 1
+		},
+		{
+			"itemcode": 0,
+			"name": "A Blue Rabbit Plushie",
+			"description": "Woogie...\nLily behave!\nWoogie...",
+			"randomloot": true,
+			"countlimit": 1
+		},
+		{
+			"itemcode": 0,
+			"name": "A Volleyball",
+			"description": "As a friend always said: Time for Volleyball",
+			"randomloot": true
+		},
+		{
+			"itemcode": 0,
+			"name": "A Will to Live",
+			"description": "Haha, just kidding!",
+			"randomloot": true
 		}
 	]
 }
