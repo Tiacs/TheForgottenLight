@@ -22,5 +22,9 @@ namespace ForgottenLight.Levels.LevelLoader {
         public int CountLimit {
             get; set;
         } = -1;
+
+        public bool Collectable {
+            get; set;
+        } = true;
     }
 }

@@ -26,6 +26,10 @@ namespace ForgottenLight.Items {
         public int CountLimit {
             get; set;
         } = -1;
+
+        public bool Colectable {
+            get; set;
+        } = true;
     }
 
     public enum ItemCode {

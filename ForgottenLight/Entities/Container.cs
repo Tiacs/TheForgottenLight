@@ -47,7 +47,7 @@ namespace ForgottenLight.Entities {
                     }
 
                     player.Inventory.AddItem(Item);
-                    this.Item = null; // Remove item from container
+                    if(Item.Colectable) this.Item = null; // Remove item from container if collectable
                 } else {
                     Level.Hud.DialogBox.Enqueue(new UI.DialogMessage("This storage is empty!", true));
                 }
