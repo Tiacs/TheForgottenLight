@@ -49,6 +49,8 @@
     <Compile Include="Entities\Door.cs" />
     <Compile Include="Entities\Entity.cs" />
     <Compile Include="Entities\Ghosts\Ghost.cs" />
+    <Compile Include="Entities\Ghosts\HunterGhost.cs" />
+    <Compile Include="Entities\Ghosts\WallWalkerGhoster.cs" />
     <Compile Include="Entities\Ghosts\NormalGhost.cs" />
     <Compile Include="Entities\ICollidable.cs" />
     <Compile Include="Entities\IInteractable.cs" />

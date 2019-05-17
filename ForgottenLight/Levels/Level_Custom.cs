@@ -77,6 +77,12 @@ namespace ForgottenLight.Levels {
                     case EntityWrapper.Type.NORMAL_GHOST:
                         this.Entities.Add(DeserializeNormalGhost(entity));
                         break;
+                    case EntityWrapper.Type.WALLWALKER_GHOST:
+                        this.Entities.Add(DeserializeWallwalkerGhost(entity));
+                        break;
+                    case EntityWrapper.Type.HUNTER_GHOST:
+                        this.Entities.Add(DeserializeHunterGhost(entity));
+                        break;
                     case EntityWrapper.Type.CUPBOARD:
                         this.Entities.Add(DeserializeContainer(new Cupboard(entity.X, entity.Y, contentManager, this), entity));
                         break;
@@ -107,6 +113,19 @@ namespace ForgottenLight.Levels {
             foreach (WaypointWrapper waypoint in entity.Path) {
                 ghost.Patrol.Add(new Pathfinding.Waypoint(waypoint.X, waypoint.Y));
             }
+            return ghost;
+        }
+
+        private WallWalkerGhost DeserializeWallwalkerGhost(EntityWrapper entity) {
+            WallWalkerGhost ghost = new WallWalkerGhost(entity.X, entity.Y, contentManager, this);
+            foreach (WaypointWrapper waypoint in entity.Path) {
+                ghost.Patrol.Add(new Pathfinding.Waypoint(waypoint.X, waypoint.Y));
+            }
+            return ghost;
+        }
+
+        private HunterGhost DeserializeHunterGhost(EntityWrapper entity) {
+            HunterGhost ghost = new HunterGhost(entity.X, entity.Y, contentManager, this);
             return ghost;
         }
 

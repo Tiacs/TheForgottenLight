@@ -35,7 +35,7 @@ namespace ForgottenLight.Levels.LevelLoader {
         } = false;
 
         public enum Type {
-            NONE, NORMAL_GHOST, CUPBOARD, TABLE, DOOR, WALL, BOOKSHELF
+            NONE, NORMAL_GHOST, WALLWALKER_GHOST, HUNTER_GHOST, CUPBOARD, TABLE, DOOR, WALL, BOOKSHELF
         }
 
     }
