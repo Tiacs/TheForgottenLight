@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ForgottenLight.Entities.Ghosts;
 
 namespace ForgottenLight.Pathfinding {
     class PathNode : IHeapItem<PathNode> {
@@ -68,7 +69,7 @@ namespace ForgottenLight.Pathfinding {
 
             if(Pathfinder.Entity is ICollidable) {
                 ICollidable entity = (ICollidable)Pathfinder.Entity;
-                this.Collider = new BoxCollider(entity.Collider.Width, entity.Collider.Height, new Vector2(0.5f,1f), new Transform(position), pathFinder.Entity.Scene);
+                this.Collider = new BoxCollider((int) entity.Collider.Width, (int) entity.Collider.Height, new Vector2(0.5f,1f), new Transform(position), pathFinder.Entity.Scene);
             } else {
                 this.Collider = new BoxCollider((int)width, (int)height, new Vector2(0.5f, 0.5f), new Transform(position), pathFinder.Entity.Scene);
             }
@@ -80,7 +81,7 @@ namespace ForgottenLight.Pathfinding {
             this.Collided = false;
             this.Collider.Update(gameTime);
             foreach (Entity e2 in Pathfinder.Entity.Scene.Entities) {
-                if (e2 != Pathfinder.Entity && e2 is ICollidable && !(e2 is Player)) {
+                if (e2 != Pathfinder.Entity && e2 is ICollidable && !(e2 is Player || e2 is Ghost)) { // Ignore player and ghosts in pathfinding
                     ICollidable entity2 = (ICollidable)e2;
                     if (entity2.Collidable && Collider.Intersects(((ICollidable)e2).Collider)) {
                         this.Collided = true;
