@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace ForgottenLight.Primitives {
     class Gizmos {
 
-        private bool gizmosEnabled = true;
+        private bool gizmosEnabled = false;
 
         private static Gizmos instance;
         public static Gizmos Instance {
