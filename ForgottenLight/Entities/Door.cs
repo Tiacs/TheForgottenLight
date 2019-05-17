@@ -74,7 +74,6 @@ namespace ForgottenLight.Entities {
             }
 
             if (player.Inventory.ContainsItem(ItemCode.KEY)) {
-                Console.WriteLine("Door opened!");
                 Level.Hud.DialogBox.Enqueue(new UI.DialogMessage("You opened the door!", false));
                 Level.Hud.DialogBox.Enqueue(new UI.DialogMessage("Lets see what is in it!", false));
                 Opened = true;
@@ -84,7 +83,6 @@ namespace ForgottenLight.Entities {
                 return;
             }
 
-            Console.WriteLine("Find the key first!");
             Level.Hud.DialogBox.Enqueue(new UI.DialogMessage("You must find the key first!", true));
         }
 

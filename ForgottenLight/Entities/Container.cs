@@ -39,9 +39,7 @@ namespace ForgottenLight.Entities {
                 Player player = (Player)entity;
 
                 if (Item != null) {
-                    Console.WriteLine("You found '{0}'! {1}", Item.Name, Item.Description);
-
-                    string[] descriptions = Item.Description.Split('\n');
+                    string[] descriptions = Item.Description.Split('\n'); // Split item description at \n and put them into multiple messages
 
                     Level.Hud.DialogBox.Enqueue(new UI.DialogMessage(string.Format("You found {0}!\n{1}", Item.Name, descriptions[0]), false));
                     for(int i = 1; i < descriptions.Length; i++) {
@@ -49,9 +47,8 @@ namespace ForgottenLight.Entities {
                     }
 
                     player.Inventory.AddItem(Item);
-                    this.Item = null;
+                    this.Item = null; // Remove item from container
                 } else {
-                    Console.WriteLine("Storage is empty!");
                     Level.Hud.DialogBox.Enqueue(new UI.DialogMessage("This storage is empty!", true));
                 }
             }

@@ -30,9 +30,7 @@ namespace ForgottenLight.UI {
                 Position = new Vector2(10, 50),
                 Parent = this
             };
-
-            Console.WriteLine(this.logo.Texture.Bounds.Size.ToVector2() * logo.Scale);
-
+            
             this.playButton = new ClickableLabel(MainFont, Scene) {
                 Position = new Vector2(50, this.Height - 140),
                 Text = "Play",

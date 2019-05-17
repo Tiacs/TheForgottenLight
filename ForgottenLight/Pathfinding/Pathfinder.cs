@@ -59,15 +59,13 @@ namespace ForgottenLight.Pathfinding {
         }
 
         public List<Vector2> FindPath(Vector2 start, Vector2 end) {
-            Stopwatch watch = new Stopwatch();
-            watch.Start();
             List<PathNode> nodes = FindPath(FindNearestNode(start), FindNearestNode(end));
-            watch.Stop();
-            //Console.WriteLine("Pathfinding<{0}>: {1}", Entity, watch.ElapsedMilliseconds);
+
             foreach (PathNode node in nodes) {
                 if (node.Parent != null)
                     Gizmos.Instance.DrawGizmo(new LineGizmo(node.Parent.Position, node.Position, 4, Color.Orange));
             }
+
             List<Vector2> path = new List<Vector2>();
             if (nodes.Count <= 0) return path;
             
@@ -174,8 +172,6 @@ namespace ForgottenLight.Pathfinding {
         }
 
         private void UpdateNodes(GameTime gameTime) {
-            Stopwatch watch = new Stopwatch();
-            watch.Start();
             for (int y = 0; y < nodes.GetLength(0); y++) {
                 for (int x = 0; x < nodes.GetLength(1); x++) {
                     nodes[y, x].Parent = null;
@@ -186,8 +182,6 @@ namespace ForgottenLight.Pathfinding {
                     //Gizmos.Instance.DrawGizmo(new LineGizmo(nodes[y, x].Position - Vector2.One, nodes[y, x].Position, 2, nodes[y, x].DebugColor)); // do not draw -> will create too much gizmos
                 }
             }
-            watch.Stop();
-            //Console.WriteLine("updatenodes<{0}>:{1}", Entity, watch.ElapsedMilliseconds);
         }
         
         public static T Clamp<T>(T val, T min, T max) where T : IComparable<T> {
