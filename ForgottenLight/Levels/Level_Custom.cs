@@ -131,6 +131,16 @@ namespace ForgottenLight.Levels {
 
         private Item GetRandomItem() {
             if(HasRandomLoot(limitedItems)) { // As long as limited items remaining, return one of them
+                foreach(Item item in limitedItems) { // search for key and add it first
+                    if(item.ID == ItemCode.KEY && item.CountLimit > 0) {
+                        item.CountLimit--;
+                        if(item.CountLimit == 0) {
+                            limitedItems.Remove(item);
+                        }
+                        return item;
+                    }
+                }
+                // If no key remaining, get other random items
                 return GetRandomItem(limitedItems);
             }
             if(HasRandomLoot(unlimitedItems)) {
