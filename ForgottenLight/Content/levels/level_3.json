@@ -1,16 +1,16 @@
 {
-	"name": "level_2",
-	"nextlevel": "level_3",
+	"name": "level_3",
+	"nextlevel": null,
 	"version": 1,
 	"player": {
-		"x": 85,
-		"y": 375
+		"x": 400,
+		"y": 240
 	},
   "entities": [
     {
       "entitytype": "DOOR",
-      "x": 150,
-      "y": 20
+      "x": 300,
+      "y": 80
     },
     // outter walls
     {
@@ -41,253 +41,183 @@
       "width": 800,
       "height": 25
     },
-    // left room
-    {
-      "entitytype": "WALL", // bottom
-      "x": 150,
-      "y": 400,
-      "width": 200,
-      "height": 20
-    },
-    {
-      "entitytype": "WALL", // left up
-      "x": 150,
-      "y": 250,
-      "width": 20,
-      "height": 75
-    },
-    {
-      "entitytype": "WALL", // left down
-      "x": 150,
-      "y": 370,
-      "width": 20,
-      "height": 50
-    },
-    {
-      "entitytype": "WALL", // right
-      "x": 350,
-      "y": 120,
-      "width": 20,
-      "height": 300
-    },
-    {
-      "entitytype": "WALL",
-      "x": 0,
-      "y": 250,
-      "width": 150,
-      "height": 20
-    },
+    // left seperator
     {
       "entitytype": "WALL", // top
-      "x": 0,
-      "y": 120,
-      "width": 350,
-      "height": 20
-    },
-    // middle wall
-    {
-      "entitytype": "WALL",
-      "x": 425,
-      "y": 120,
-      "width": 20,
-      "height": 360
-    },
-    // RIGHT TOP ROOM
-    {
-      "entitytype": "WALL", // vertical
-      "x": 550,
-      "y": 0,
-      "width": 20,
-      "height": 150
-    },
-    {
-      "entitytype": "WALL", // left
-      "x": 550,
-      "y": 150,
-      "width": 100,
-      "height": 20
-    },
-    {
-      "entitytype": "WALL", // right
-      "x": 700,
-      "y": 150,
-      "width": 100,
-      "height": 20
-    },
-    // BOTTOM ROOM
-    {
-      "entitytype": "WALL", // top
-      "x": 425,
+      "x": 75,
       "y": 275,
-      "width": 275,
+      "width": 220,
       "height": 20
     },
     {
       "entitytype": "WALL", // right
-      "x": 680,
+      "x": 295,
       "y": 275,
       "width": 20,
       "height": 125
     },
+    // right bottom room
     {
-      "entitytype": "WALL", // bot left
+      "entitytype": "WALL",
       "x": 425,
-      "y": 400,
-      "width": 50,
+      "y": 300,
+      "width": 20,
+      "height": 180
+    },
+    {
+      "entitytype": "WALL",
+      "x": 425,
+      "y": 200,
+      "width": 20,
+      "height": 50
+    },
+    {
+      "entitytype": "WALL",
+      "x": 425,
+      "y": 200,
+      "width": 200,
       "height": 20
     },
     {
-      "entitytype": "WALL", // bot right
-      "x": 525,
-      "y": 400,
-      "width": 175,
+      "entitytype": "WALL",
+      "x": 625,
+      "y": 200,
+      "width": 20,
+      "height": 150
+    },
+    {
+      "entitytype": "WALL",
+      "x": 625,
+      "y": 350,
+      "width": 75,
       "height": 20
     },
-    // CONTAINER
+    {
+      "entitytype": "WALL",
+      "x": 700,
+      "y": 350,
+      "width": 20,
+      "height": 40
+    },
+    // top room
+    {
+      "entitytype": "WALL", // left
+      "x": 60,
+      "y": 75,
+      "width": 20,
+      "height": 125
+    },
+    {
+      "entitytype": "WALL", // right
+      "x": 325,
+      "y": 75,
+      "width": 20,
+      "height": 125
+    },
+    {
+      "entitytype": "WALL", // top left
+      "x": 60,
+      "y": 75,
+      "width": 65,
+      "height": 20
+    },
+    {
+      "entitytype": "WALL", // top right
+      "x": 175,
+      "y": 75,
+      "width": 150,
+      "height": 20
+    },
+    {
+      "entitytype": "WALL", // bottom
+      "x": 60,
+      "y": 200,
+      "width": 285,
+      "height": 20
+    },
+    // CONTAINERS
     {
       "entitytype": "BOOKSHELF",
-      "x": 290,
-      "y": 185,
+      "x": 145,
+      "y": 340,
       "randomfill": true
     },
     {
       "entitytype": "BOOKSHELF",
-      "x": 194,
-      "y": 185,
+      "x": 241,
+      "y": 340,
       "randomfill": true
     },
     {
       "entitytype": "TABLE",
-      "x": 85,
-      "y": 185,
+      "x": 80,
+      "y": 425,
       "randomfill": true
     },
     {
-      "entitytype": "BOOKSHELF",
-      "x": 75,
-      "y": 75,
-      "randomfill": true
-    },
-    {
-      "entitytype": "BOOKSHELF",
+      "entitytype": "TABLE",
       "x": 225,
+      "y": 125,
+      "randomfill": true
+    },
+    {
+      "entitytype": "BOOKSHELF",
+      "x": 555,
+      "y": 275,
+      "randomfill": true
+    },
+    {
+      "entitytype": "TABLE",
+      "x": 485,
+      "y": 420,
+      "randomfill": true
+    },
+    {
+      "entitytype": "BOOKSHELF",
+      "x": 725,
       "y": 75,
       "randomfill": true
     },
     {
       "entitytype": "BOOKSHELF",
-      "x": 675,
+      "x": 629,
       "y": 75,
       "randomfill": true
     },
     {
       "entitytype": "BOOKSHELF",
-      "x": 625,
-      "y": 340,
-      "randomfill": true
-    },
-    {
-      "entitytype": "CUPBOARD",
-      "x": 475,
-      "y": 340,
+      "x": 533,
+      "y": 75,
       "randomfill": true
     },
     {
       "entitytype": "BOOKSHELF",
-      "x": 85,
-      "y": 310,
-      "randomfill": true
-    },
-    {
-      "entitytype": "CUPBOARD",
-      "x": 525,
+      "x": 437,
       "y": 75,
       "randomfill": true
     },
-    // GHOSTS
     {
-      "entitytype": "WALLWALKER_GHOST",
-      "x": 200,
-      "y": 225,
-      "path": [
-        {
-          "x": 200,
-          "y": 225
-        },
-        {
-          "x": 500,
-          "y": 225
-        }
-      ]
-    },
-    {
-      "entitytype": "WALLWALKER_GHOST",
-      "x": 500,
-      "y": 350,
-      "path": [
-        {
-          "x": 500,
-          "y": 350
-        },
-        {
-          "x": 200,
-          "y": 350
-        }
-      ]
-    },
-    {
-      "entitytype": "NORMAL_GHOST",
-      "x": 575,
-      "y": 50,
-      "path": [
-        {
-          "x": 575,
-          "y": 50
-        },
-        {
-          "x": 600,
-          "y": 200
-        }
-      ]
-    },
-    {
-      "entitytype": "NORMAL_GHOST",
-      "x": 775,
+      "entitytype": "TABLE",
+      "x": 460,
       "y": 150,
-      "path": [
-        {
-          "x": 750,
-          "y": 50
-        },
-        {
-          "x": 750,
-          "y": 200
-        }
-      ]
+      "randomfill": true
     },
     {
-      "entitytype": "NORMAL_GHOST",
-      "x": 500,
-      "y": 325,
-      "path": [
-        {
-          "x": 500,
-          "y": 325
-        },
-        {
-          "x": 625,
-          "y": 375
-        },
-        {
-          "x": 750,
-          "y": 400
-        }
-      ]
+      "entitytype": "TABLE",
+      "x": 575,
+      "y": 150,
+      "randomfill": true
     },
     {
-      "entitytype": "WALLWALKER_GHOST",
-      "x": 50,
-      "y": 450,
+      "entitytype": "TABLE",
+      "x": 690,
+      "y": 150,
+      "randomfill": true
+    },
+    {
+      "entitytype": "HUNTER_GHOST",
+      "x": 150,
+      "y": 375,
       "path": [
         {
           "x": 50,
@@ -296,6 +226,55 @@
         {
           "x": 475,
           "y": 450
+        }
+      ]
+    },
+    {
+      "entitytype": "NORMAL_GHOST",
+      "x": 437,
+      "y": 100,
+      "path": [
+        {
+          "x": 437,
+          "y": 100
+        },
+        {
+          "x": 750,
+          "y": 100
+        }
+      ]
+    },
+    {
+      "entitytype": "NORMAL_GHOST",
+      "x": 750,
+      "y": 175,
+      "path": [
+        {
+          "x": 750,
+          "y": 175
+        },
+        {
+          "x": 437,
+          "y": 175
+        }
+      ]
+    },
+    {
+      "entitytype": "NORMAL_GHOST",
+      "x": 350,
+      "y": 50,
+      "path": [
+        {
+          "x": 350,
+          "y": 50
+        },
+        {
+          "x": 100,
+          "y": 50
+        },
+        {
+          "x": 100,
+          "y": 400
         }
       ]
     }

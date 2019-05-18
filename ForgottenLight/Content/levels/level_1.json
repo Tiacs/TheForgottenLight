@@ -155,19 +155,19 @@
 		{
 			"entitytype": "BOOKSHELF",
 			"x": 410,
-			"y": 270,
+			"y": 275,
 			"randomfill": true
 		},
 		{
 			"entitytype": "BOOKSHELF",
 			"x": 506,
-			"y": 270,
+			"y": 275,
 			"randomfill": true
 		},
 		{
 			"entitytype": "BOOKSHELF",
 			"x": 602,
-			"y": 270,
+			"y": 275,
 			"randomfill": true
 		},
 		{
@@ -203,7 +203,7 @@
 		{
 			"entitytype": "BOOKSHELF",
 			"x": 300,
-			"y": 90,
+			"y": 75,
 			"randomfill": true
 		},
 		{
@@ -313,52 +313,111 @@
 	],
 	"lights": [
 	],
-	"items": [
-		{
-			"itemcode": 1,
-			"name": "Key",
-			"description": "This key could be useful.",
-			"randomloot": true,
-			"countlimit": 1
-		},
-		{
-			"itemcode": 2,
-			"name": "PotatoGlados",
-			"description": "What is this?",
-			"randomloot": true,
-			"countlimit": 1
-		},
-		{
-			"itemcode": 0,
-			"name": "Boots",
-			"description": "They are not useful",
-			"randomloot": true,
-		},
-		{
-			"itemcode": 0,
-			"name": "10 Euros",
-			"description": "Too bad you left the EU...",
-			"randomloot": true,
-			"countlimit": 1
-		},
-		{
-			"itemcode": 0,
-			"name": "A Blue Rabbit Plushie",
-			"description": "Woogie...\nLily behave!\nWoogie...",
-			"randomloot": true,
-			"countlimit": 1
-		},
-		{
-			"itemcode": 0,
-			"name": "A Volleyball",
-			"description": "As a friend always said: Time for Volleyball",
-			"randomloot": true
-		},
-		{
-			"itemcode": 0,
-			"name": "A Will to Live",
-			"description": "Haha, just kidding!",
-			"randomloot": true
-		}
-	]
+  "items": [
+    {
+      "itemcode": 1,
+      "name": "a Key",
+      "description": "This key looks important...\nIt must be useful for something!\nIf only I could find the right door...",
+      "randomloot": true,
+      "countlimit": 1
+    },
+    {
+      "itemcode": 0,
+      "name": "Boots",
+      "description": "They are not useful.",
+      "randomloot": true
+    },
+    {
+      "itemcode": 0,
+      "name": "a Torch",
+      "description": "If only you could get some fire...",
+      "randomloot": true
+    },
+    {
+      "itemcode": 0,
+      "name": "a Skull",
+      "description": "It's staring at you...",
+      "randomloot": true
+    },
+    {
+      "itemcode": 0,
+      "name": "a Book",
+      "description": "It's written in an unkown language.\nYou can't read it...",
+      "randomloot": true
+    },
+    {
+      "itemcode": 0,
+      "name": "a Bottle of Wine",
+      "description": "This one looks tasty. But...\nYou don't drink anymore!\nYou put the bottle back.",
+      "randomloot": true,
+      "collectable": false
+    },
+    {
+      "itemcode": 0,
+      "name": "a Coin Purse",
+      "description": "Too bad you can't pay the ghosts to leave you alone.",
+      "randomloot": true
+    },
+    {
+      "itemcode": 0,
+      "name": "some Bonemeal",
+      "description": "It seems useleass to you.",
+      "randomloot": true
+    },
+    {
+      "itemcode": 0,
+      "name": "an Amulet",
+      "description": "It looks pretty.",
+      "randmloot": true
+    },
+    {
+      "itemcode": 0,
+      "name": "Clothes",
+      "description": "They look good.\nBut you can't change your clothes in here...",
+      "randomloot": true
+    },
+    {
+      "itemcode": 0,
+      "name": "a Board Game",
+      "description": "It looks very interesting.\nBut it's not time for games!",
+      "randomloot": true
+    },
+    // Easter Eggs
+    {
+      "itemcode": 2,
+      "name": "a Strange Potato",
+      "description": "The potato has a strange device connected to.\nThe potato starts to yell at you.\nYou don't like the potato.\nYou put the potato back.",
+      "randomloot": true,
+      "countlimit": 1,
+      "collectable": false
+    },
+    /*   {
+      "itemcode": 0,
+      "name": "10 Euros",
+      "description": "Too bad you left the EU...",
+      "randomloot": true,
+      "countlimit": 1
+    },
+    {
+      "itemcode": 0,
+      "name": "a Blue Rabbit Plushie",
+      "description": "Woogie...\nLily behave!\nWoogie...",
+      "randomloot": true,
+      "countlimit": 1
+    },
+    {
+      "itemcode": 0,
+      "name": "a Volleyball",
+      "description": "As a friend always said: Time to play Volleyball!",
+      "randomloot": true,
+      "countlimit": 1
+    },*/
+    {
+      "itemcode": 0,
+      "name": "a Will to Live",
+      "description": "Haha, just kidding!",
+      "randomloot": true,
+      "countlimit": 1
+    }
+  ]
 }

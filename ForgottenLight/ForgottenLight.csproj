@@ -161,6 +161,7 @@
     </None>
     <None Include="app.manifest" />
     <None Include="Content\levels\level_1.json" />
+    <None Include="Content\levels\level_3.json" />
     <None Include="Content\levels\level_2.json" />
     <None Include="packages.config" />
   </ItemGroup>
