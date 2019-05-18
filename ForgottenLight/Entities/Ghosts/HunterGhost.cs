@@ -12,7 +12,7 @@ using ForgottenLight.Pathfinding;
 namespace ForgottenLight.Entities.Ghosts {
     class HunterGhost : Ghost {
         
-        public HunterGhost(Vector2 position, ContentManager contentManager, Scene level) : base(position, contentManager, level) {
+        public HunterGhost(Vector2 position, ContentManager contentManager, Scene level) : base(position, contentManager, level, 51) {
 
         }
 

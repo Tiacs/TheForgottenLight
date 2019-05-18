@@ -9,11 +9,11 @@ namespace ForgottenLight.Levels.LevelLoader {
 
         public string Name {
             get; set;
-        }
+        } = "";
 
         public string Description {
             get; set;
-        }
+        } = "";
 
         public bool RandomLoot {
             get; set;

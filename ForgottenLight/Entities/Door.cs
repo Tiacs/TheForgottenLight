@@ -75,7 +75,7 @@ namespace ForgottenLight.Entities {
 
             if (player.Inventory.ContainsItem(ItemCode.KEY)) {
                 Level.Hud.DialogBox.Enqueue(new UI.DialogMessage("You opened the door!", false));
-                Level.Hud.DialogBox.Enqueue(new UI.DialogMessage("Lets see what is in it!", false));
+                Level.Hud.DialogBox.Enqueue(new UI.DialogMessage("Let's see what's inside!", false));
                 Opened = true;
 
                 this.Description = "Press E to get into next level!";

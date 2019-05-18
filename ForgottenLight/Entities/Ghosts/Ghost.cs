@@ -35,7 +35,7 @@ namespace ForgottenLight.Entities.Ghosts {
 
         private int currentPathNode;
         
-        public Ghost(Vector2 position, ContentManager contentManager, Scene level) : base(position, Vector2.One, level, 50) {
+        public Ghost(Vector2 position, ContentManager contentManager, Scene level, int depthIndex=50) : base(position, Vector2.One, level, depthIndex) {
             
             this.LoadContent(contentManager);
             this.Collider = new BoxCollider(18, 20, new Vector2(.5f, 1), Transform, level);
@@ -53,7 +53,7 @@ namespace ForgottenLight.Entities.Ghosts {
 
         }
 
-        public Ghost(float x, float y, ContentManager contentManager, Scene level) : this(new Vector2(x,y), contentManager, level) {
+        public Ghost(float x, float y, ContentManager contentManager, Scene level, int depthIndex = 50) : this(new Vector2(x,y), contentManager, level, depthIndex) {
 
         }
 
