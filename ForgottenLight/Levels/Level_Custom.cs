@@ -27,6 +27,10 @@ namespace ForgottenLight.Levels {
 
         private const string PATH = "Content/levels/{0}.json";
 
+        public bool IsGameWon {
+            get; private set;
+        }
+
         public Level_Custom(string levelName) : base(800, 480) {
 
             this.levelName = levelName;
@@ -52,6 +56,11 @@ namespace ForgottenLight.Levels {
 
         public override void Update(GameTime gameTime, KeyboardState keyboardState, MouseState mouseState) {
             base.Update(gameTime, keyboardState, mouseState);
+
+            // If game won and dialog is over -> go back to main menu
+            if(IsGameWon && !Hud.DialogBox.IsDialogRunning) {
+                LoadScene(new MainMenuScene());
+            }
         }
 
         protected override void CreateWalls() {
@@ -215,8 +224,16 @@ namespace ForgottenLight.Levels {
             base.LoadScene(instance);
         }
 
+        public void OnGameWon() {
+            IsGameWon = true;
+            Hud.DialogBox.Enqueue("You won the game! Congratulations!");
+        }
+
         public override void NextScene() {
-            if (nextLevelName == null) return;
+            if (nextLevelName == null) {
+                OnGameWon();
+                return;
+            }
             this.LoadScene(new Level_Custom(nextLevelName));
         }
     }
