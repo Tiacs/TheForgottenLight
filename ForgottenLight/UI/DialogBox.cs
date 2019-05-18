@@ -73,7 +73,7 @@ namespace ForgottenLight.UI {
             Texture2D textureAtlas = content.Load<Texture2D>("ui/ui_atlas");
 
             this.defaultAnimation = new Animation(textureAtlas, 100, 400, Vector2.Zero, 1, 0, false);
-            this.watingAnimation = new Animation(textureAtlas, 100, 400, new Vector2(0, 100), 4, .2f, true);
+            this.watingAnimation = new Animation(textureAtlas, 100, 400, new Vector2(400, 0), 4, .2f, true);
 
             this.animationPlayer = new AnimationPlayer(Vector2.Zero);
             this.animationPlayer.PlayAnimation(defaultAnimation);

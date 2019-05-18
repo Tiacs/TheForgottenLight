@@ -73,9 +73,6 @@ namespace ForgottenLight.UI {
         }
         
         public override void OnDraw(SpriteBatch spriteBatch, GameTime gameTime) {
-            // Gizmos.Instance.DrawGizmo(new BoxGizmo(Transform.AbsolutePosition, MaxWidth, Height, 1, Color.Gray)); // Draw MaxWdith box
-            //Gizmos.Instance.DrawGizmo(new BoxGizmo(AbsolutePosition, Width, Height, 1, Color.Orange)); // Draw actual text box
-
             spriteBatch.DrawString(Font, FormattedText, AbsolutePosition, Color, 0, Vector2.Zero, Transform.Scale * FONT_SCALE, SpriteEffects.None, 0);
         }
 

@@ -14,6 +14,16 @@ namespace ForgottenLight.UI {
             get; set;
         }
 
+        public Vector2 SpriteOrigin {
+            get; set;
+        }
+
+        public Vector2 SpriteSize {
+            get; set;
+        } = Vector2.Zero;
+
+        protected override Vector2 Bounds => SpriteSize * Scale;
+
         public Image(Scene scene) : base(scene) {
 
         }
@@ -23,7 +33,11 @@ namespace ForgottenLight.UI {
         }
 
         public override void OnDraw(SpriteBatch sprite, GameTime gameTime) {
-            sprite.Draw(Texture, AbsolutePosition, null, Color.White, 0, Vector2.Zero, Scale, SpriteEffects.None, 0);
+            if(SpriteSize == Vector2.Zero) {
+                sprite.Draw(Texture, AbsolutePosition, null, Color.White, 0, Vector2.Zero, Scale, SpriteEffects.None, 0);
+                return;
+            }
+            sprite.Draw(Texture, AbsolutePosition, new Rectangle(SpriteOrigin.ToPoint(), SpriteSize.ToPoint()), Color.White, 0, Vector2.Zero, Scale, SpriteEffects.None, 0);
         }
     }
 }
