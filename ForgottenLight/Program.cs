@@ -10,8 +10,23 @@ namespace ForgottenLight {
         /// </summary>
         [STAThread]
         static void Main() {
-            using (var game = new Game1())
-                game.Run();
+            try
+            {
+                using (var game = new Game1())
+                    game.Run();
+            }
+            catch(Exception e)
+            {
+                WriteToLog(e);
+                throw;
+            }
+        }
+
+        public static void WriteToLog(Exception e) {
+            using (System.IO.StreamWriter file = new System.IO.StreamWriter(@"error.log", false)) {
+                file.WriteLine("An error occured during the execution of TheForgottenLight!");
+                file.WriteLine(e.ToString());
+            }
         }
     }
 }
