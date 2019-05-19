@@ -332,7 +332,7 @@
     {
       "itemcode": 0,
       "name": "a Book",
-      "description": "It's written in an unkown language.\nYou can't read it...",
+      "description": "It's written in a strange language.\nYou can't read it...",
       "randomloot": true
     },
     {
@@ -351,7 +351,7 @@
     {
       "itemcode": 0,
       "name": "some Bonemeal",
-      "description": "It seems useleass to you.",
+      "description": "It seems useless to you.",
       "randomloot": true
     },
     {
