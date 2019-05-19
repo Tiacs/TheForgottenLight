@@ -34,14 +34,12 @@ namespace ForgottenLight {
 
         // Light pos
         private Vector2 mousePos;
-
-        private float t;
         
         private Scene level;
 
         private bool lightningEnabled = true;
 
-        private bool fullScreenEnabled = false;
+        private bool fullScreenEnabled = true;
 
         private const int WINDOWED_WIDTH = 800;
         private const int WINDOWED_HEIGHT = 480;
@@ -61,13 +59,7 @@ namespace ForgottenLight {
             base.Initialize();
 
             this.LoadScene(new MainMenuScene());
-
-            // Content will be loaded after base.Initialize() statement
             
-            // initialize level
-            // this.level = new Level_Test(Content);
-            //this.LoadScene(new Level_Custom("level_1"));
-
             this.SetFullscreen(fullScreenEnabled);
 
         }
@@ -103,9 +95,7 @@ namespace ForgottenLight {
             KeyboardState keyboardState = Keyboard.GetState();
 
             this.mousePos = new Vector2(mouseState.X, mouseState.Y);
-
-            t += gameTime.ElapsedGameTime.Milliseconds * 0.005f;
-
+            
             level.Update(gameTime, keyboardState, mouseState);
 
             base.Update(gameTime);
@@ -116,19 +106,13 @@ namespace ForgottenLight {
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime) {
-            // GraphicsDevice.Clear(Color.CornflowerBlue);
-            
+
             // DRAW LIGHT MAP
             GraphicsDevice.SetRenderTarget(lightningTarget);
             GraphicsDevice.Clear(Color.Black);
 
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive);
-
-            //spriteBatch.Draw(lightTexture, new Rectangle((int)mousePos.X - 200 / 2, (int)mousePos.Y - 200 / 2, 200, 200), Color.White);
-            //spriteBatch.Draw(lightTexture, new Rectangle(50 - 400 / 2, 50 - 400 / 2, 400, 400), Color.White);
-            //spriteBatch.Draw(lightTexture, new Rectangle(400 - 200 / 2, 400 - 200 / 2, 200, 200), Color.White);
-            //spriteBatch.Draw(lightTexture, new Rectangle(700 - 200 / 2, 300 - 200 / 2, 200, 200), Color.White);
-
+            
             level.DrawLights(spriteBatch, gameTime);
 
             spriteBatch.End();
@@ -152,9 +136,6 @@ namespace ForgottenLight {
             lightningEffect.Parameters["lightMask"].SetValue(lightningTarget); // set light mask to shader
             spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, effect: lightningEnabled ? lightningEffect : null);
             
-            // lightningEffect.Parameters["time"].SetValue(t);
-            //lightningEffect.CurrentTechnique.Passes[0].Apply();
-
             spriteBatch.Draw(mainTarget, Vector2.Zero, Color.White);
 
             spriteBatch.End();
