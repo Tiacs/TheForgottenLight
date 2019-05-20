@@ -17,6 +17,7 @@ namespace ForgottenLight {
     class Game1 : Game {
 
         public string Version => "v1.0 Snapshot#1";
+        public static bool Debugging = false;
 
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
@@ -31,9 +32,6 @@ namespace ForgottenLight {
 
         // Effects
         private Effect lightningEffect;
-
-        // Light pos
-        private Vector2 mousePos;
         
         private Scene level;
 
@@ -90,13 +88,8 @@ namespace ForgottenLight {
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime) {
-
-            MouseState mouseState = Mouse.GetState();
-            KeyboardState keyboardState = Keyboard.GetState();
-
-            this.mousePos = new Vector2(mouseState.X, mouseState.Y);
             
-            level.Update(gameTime, keyboardState, mouseState);
+            level.Update(gameTime, Keyboard.GetState(), Mouse.GetState());
 
             base.Update(gameTime);
         }
@@ -189,6 +182,9 @@ namespace ForgottenLight {
         }
 
         private void OnLightningKeyPressed() {
+            if(!Debugging) {
+                return;
+            }
             this.lightningEnabled = !this.lightningEnabled; // toggle
         }
 

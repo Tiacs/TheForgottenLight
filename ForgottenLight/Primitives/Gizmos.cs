@@ -38,6 +38,9 @@ namespace ForgottenLight.Primitives {
         }
 
         private void ToggleGizmosPressed() {
+            if(!Game1.Debugging) {
+                return;
+            }
             this.gizmosEnabled = !gizmosEnabled;
         }
 

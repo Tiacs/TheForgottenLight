@@ -99,10 +99,6 @@ namespace ForgottenLight.Entities {
             base.Update(gameTime, keyboardState, mouseState);
             
             this.UpdateMovement(gameTime, keyboardState);
-
-            if (keyboardState.IsKeyDown(Keys.R)) {
-                this.Transform.Position = new Vector2(100, 100);
-            }
             
             if(animationState != prevAnimationSatet || orientation != prevOrientation) {
                 switch (animationState) {
