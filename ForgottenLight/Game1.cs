@@ -16,7 +16,7 @@ namespace ForgottenLight {
     /// </summary>
     class Game1 : Game {
 
-        public string Version => "v1.0 Snapshot#1";
+        public string Version => "v1.0";
         public static bool Debugging = false;
 
         private GraphicsDeviceManager graphics;
