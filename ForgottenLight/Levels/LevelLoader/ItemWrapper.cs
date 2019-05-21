@@ -1,4 +1,10 @@
-﻿using ForgottenLight.Items;
+﻿/*
+ * Fabian Friedl MMP1
+ * MultiMediaTechnology FH-Salzburg
+ * 2019
+ */
+
+ using ForgottenLight.Items;
 
 namespace ForgottenLight.Levels.LevelLoader {
     class ItemWrapper {

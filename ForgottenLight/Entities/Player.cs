@@ -1,4 +1,10 @@
-﻿using System;
+﻿/*
+ * Fabian Friedl MMP1
+ * MultiMediaTechnology FH-Salzburg
+ * 2019
+ */
+
+using System;
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;

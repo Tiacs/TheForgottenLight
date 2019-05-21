@@ -1,4 +1,10 @@
-﻿using System.Collections.Generic;
+﻿/*
+ * Fabian Friedl MMP1
+ * MultiMediaTechnology FH-Salzburg
+ * 2019
+ */
+
+using System.Collections.Generic;
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;

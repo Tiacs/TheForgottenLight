@@ -1,4 +1,10 @@
-﻿using ForgottenLight.Entities;
+﻿/*
+ * Fabian Friedl MMP1
+ * MultiMediaTechnology FH-Salzburg
+ * 2019
+ */
+
+using ForgottenLight.Entities;
 using ForgottenLight.Levels;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;

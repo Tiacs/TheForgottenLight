@@ -1,4 +1,10 @@
-﻿using Microsoft.Xna.Framework;
+﻿/*
+ * Fabian Friedl MMP1
+ * MultiMediaTechnology FH-Salzburg
+ * 2019
+ */
+
+using Microsoft.Xna.Framework;
 
 namespace ForgottenLight.Primitives {
     struct CustomColor {
