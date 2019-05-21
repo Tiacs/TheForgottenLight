@@ -1,7 +1,5 @@
 # The Forgotten Light
 
-![alt text](https://gitlab.mediacube.at/fhs42572/friedl_fabian_mmp1/raw/master/ForgottenLight/Content/logo.png "The Forgotten Light - Logo")
-
 Weitere Infos und das ausführbare Game: [MMT Portfolio](https://portfolio.multimediatechnology.at/projects/2019-the-forgotten-light)
 
 ## Zusammenfassung
