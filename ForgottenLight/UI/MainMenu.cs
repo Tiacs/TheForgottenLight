@@ -22,7 +22,7 @@ namespace ForgottenLight.UI {
 
         private Image logo, wasdKeys, eKey;
         private ClickableLabel playButton, controlsButton, ExitButton;
-        private Label copyrightLabel, mouseLabel;
+        private Label copyrightLabel, mouseLabel, fhLabel;
 
         public MainMenu(float width, float height, ContentManager content, Scene scene) : base(width, height, content, scene) {
             Initialize(content);
@@ -117,8 +117,16 @@ namespace ForgottenLight.UI {
                 Parent = this
             };
             
-            this.copyrightLabel = new Label(MainFont, Scene) {
+            this.fhLabel = new Label(MainFont, Scene) {
                 Position = new Vector2(10, this.Height - 15),
+                Scale = Vector2.One * 1.2f,
+                Text = "MultiMediaTechnology - FH Salzburg",
+                Color = CustomColor.White,
+                Parent = this
+            };
+
+            this.copyrightLabel = new Label(MainFont, Scene) {
+                Position = new Vector2(10, this.Height - this.fhLabel.Height - 20),
                 Scale = Vector2.One * 1.2f,
                 Text = string.Format("\u00A9 Fabian Friedl 2019 | {0}", Scene.Version), // \u00A9 == (c)
                 Color = CustomColor.White,
