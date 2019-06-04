@@ -4,14 +4,10 @@
  * 2019
  */
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ForgottenLight.Levels;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+
+using ForgottenLight.Levels;
 
 namespace ForgottenLight.UI {
     class Image : UIComponent {

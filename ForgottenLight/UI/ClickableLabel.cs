@@ -4,28 +4,22 @@
  * 2019
  */
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ForgottenLight.Levels;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using ForgottenLight.Levels;
+
 namespace ForgottenLight.UI {
     class ClickableLabel : Label {
-
 
         public delegate void OnClickEvent();
 
         public OnClickEvent OnUse;
 
-        private Color hoverColor, primaryColor;
+        private Color primaryColor;
 
         public Color HoverColor {
-            get => hoverColor;
-            set => hoverColor = value;
+            get; set;
         }
 
         public Color PrimaryColor {

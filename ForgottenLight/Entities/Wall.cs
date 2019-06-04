@@ -4,12 +4,6 @@
  * 2019
  */
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
@@ -52,7 +46,6 @@ namespace ForgottenLight.Entities {
 
         }
         
-
         private void LoadColor(SpriteBatch spriteBatch) {
             color = new Texture2D(spriteBatch.GraphicsDevice, 1, 1);
             color.SetData<Color>(new Color[] { CustomColor.DarkBlue });// fill the texture with white

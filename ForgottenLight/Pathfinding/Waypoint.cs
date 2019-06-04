@@ -5,11 +5,6 @@
  */
 
 using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ForgottenLight.Pathfinding {
     class Waypoint {
@@ -25,7 +20,6 @@ namespace ForgottenLight.Pathfinding {
         public Waypoint(float x, float y) : this(new Vector2(x, y)) {
 
         }
-
-
+        
     }
 }

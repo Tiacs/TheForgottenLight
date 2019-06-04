@@ -5,32 +5,31 @@
  */
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ForgottenLight.Pathfinding {
     class Heap<T> where T : IHeapItem<T> {
 
         private T[] items;
-        private int currentItemCount;
+
+        public int Count {
+            get; private set;
+        }
 
         public Heap(int maxHeapSize) {
             items = new T[maxHeapSize];
         }
 
         public void Add(T item) {
-            item.HeapIndex = currentItemCount;
-            items[currentItemCount] = item;
+            item.HeapIndex = Count;
+            items[Count] = item;
             SortUp(item);
-            currentItemCount++;
+            Count++;
         }
 
         public T RemoveFirst() {
             T firstItem = items[0];
-            currentItemCount--;
-            items[0] = items[currentItemCount];
+            Count--;
+            items[0] = items[Count];
             items[0].HeapIndex = 0;
             SortDown(items[0]);
             return firstItem;
@@ -44,22 +43,16 @@ namespace ForgottenLight.Pathfinding {
             SortUp(item); // do not need to call sort down, because costs will not get lower
         }
 
-        public int Count {
-            get {
-                return currentItemCount;
-            }
-        }
-
         private void SortDown(T item) {
             while (true) {
                 int childIndexLeft = item.HeapIndex * 2 + 1;
                 int childIndexRight = item.HeapIndex * 2 + 2;
                 int swapIndex = 0;
 
-                if (childIndexLeft < currentItemCount) {
+                if (childIndexLeft < Count) {
                     swapIndex = childIndexLeft;
 
-                    if (childIndexRight < currentItemCount) {
+                    if (childIndexRight < Count) {
                         if (items[childIndexLeft].CompareTo(items[childIndexRight]) < 0) {
                             swapIndex = childIndexRight;
                         }

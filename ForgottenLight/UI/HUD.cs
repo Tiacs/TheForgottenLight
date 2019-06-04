@@ -9,7 +9,6 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
-using ForgottenLight.Entities;
 using ForgottenLight.Primitives;
 using ForgottenLight.Levels;
 
@@ -19,9 +18,10 @@ namespace ForgottenLight.UI {
         private Level level;
 
         private Label interactLabel;
-        private DialogBox dialogBox;
 
-        public DialogBox DialogBox => dialogBox;
+        public DialogBox DialogBox {
+            get; private set;
+        }
 
         public HUD(float width, float height, Level level, ContentManager content) : base(width, height, content, level) {
             this.level = level;
@@ -38,7 +38,7 @@ namespace ForgottenLight.UI {
                 Parent = this
             };
 
-            this.dialogBox = new DialogBox(MainFont, content, Scene) {
+            this.DialogBox = new DialogBox(MainFont, content, Scene) {
                 Position = new Vector2(Width / 2, Height - 50),
                 Pivot = new Vector2(.5f, 1),
                 Width = 400,

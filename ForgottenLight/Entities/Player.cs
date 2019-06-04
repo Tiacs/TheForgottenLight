@@ -4,8 +4,6 @@
  * 2019
  */
 
-using System;
-
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
@@ -142,9 +140,6 @@ namespace ForgottenLight.Entities {
             prevOrientation = orientation;
 
             this.Interactable = Entity.GetInteractable(this);
-            if (Interactable != null) { // interactable found
-                // Do something if interactable is present                
-            }
         }
 
         private void UpdateMovement(GameTime gameTime, KeyboardState keyboardState) {

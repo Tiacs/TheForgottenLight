@@ -4,46 +4,48 @@
  * 2019
  */
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 
 namespace ForgottenLight.Animations {
     class Animation {
-        private Texture2D texture;
-        public Texture2D Texture => this.texture;
 
-        private int frameHeight;
-        public int FrameHeight => this.frameHeight;
+        public Texture2D Texture {
+            get; private set;
+        }
 
-        private int frameWidth;
-        public int FrameWidth => this.frameWidth;
+        public int FrameHeight {
+            get; private set;
+        }
 
-        private Vector2 spriteOrigin;
-        public Vector2 SpriteOrigin => this.spriteOrigin;
+        public int FrameWidth {
+            get; private set;
+        }
 
-        private int frameCount;
-        public int FrameCount => this.frameCount;
+        public Vector2 SpriteOrigin {
+            get; private set;
+        }
 
-        private float frameTime;
-        public float FrameTime => this.frameTime;
+        public int FrameCount {
+            get; private set;
+        }
 
-        private bool isLooping;
-        public bool IsLooping => this.isLooping;
+        public float FrameTime {
+            get; private set;
+        }
+
+        public bool IsLooping {
+            get; private set;
+        }
 
         public Animation(Texture2D texture, int frameHeight, int frameWidth, Vector2 spriteOrigin, int frameCount, float frameTime, bool isLooping) {
-            this.texture = texture;
-            this.frameHeight = frameHeight;
-            this.frameWidth = frameWidth;
-            this.spriteOrigin = spriteOrigin;
-            this.frameCount = frameCount;
-            this.frameTime = frameTime;
-            this.isLooping = isLooping;
+            this.Texture = texture;
+            this.FrameHeight = frameHeight;
+            this.FrameWidth = frameWidth;
+            this.SpriteOrigin = spriteOrigin;
+            this.FrameCount = frameCount;
+            this.FrameTime = frameTime;
+            this.IsLooping = isLooping;
         }
 
         public Animation(Texture2D texture, int frameHeight, float frameTime, bool isLooping) : this(texture, frameHeight, texture.Width, Vector2.Zero, texture.Height / frameHeight, frameTime, isLooping) {

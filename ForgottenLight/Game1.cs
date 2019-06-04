@@ -4,25 +4,21 @@
  * 2019
  */
 
-using System;
-using System.Collections.Generic;
-
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
-using ForgottenLight.Entities;
 using ForgottenLight.Events;
 using ForgottenLight.Primitives;
 using ForgottenLight.Levels;
 
 namespace ForgottenLight {
     /// <summary>
-    /// This is the main type for your game.
+    /// This is the main type for the game.
     /// </summary>
     class Game1 : Game {
 
-        public string Version => "v1.0.1";
+        public string Version => "v1.0.2-Snapshot";
         public static bool Debugging = false;
 
         private GraphicsDeviceManager graphics;

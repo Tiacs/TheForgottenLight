@@ -4,17 +4,13 @@
  * 2019
  */
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ForgottenLight.Items;
-using ForgottenLight.Levels;
-using ForgottenLight.Primitives;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+
+using ForgottenLight.Items;
+using ForgottenLight.Levels;
+using ForgottenLight.Primitives;
 
 namespace ForgottenLight.Entities {
     abstract class Container : Entity, IInteractable {
@@ -41,19 +37,17 @@ namespace ForgottenLight.Entities {
         }
 
         public void OnInteract(Entity entity) {
-            if(entity is Player) {
-                Player player = (Player)entity;
-
+            if (entity is Player player) {
                 if (Item != null) {
                     string[] descriptions = Item.Description.Split('\n'); // Split item description at \n and put them into multiple messages
 
                     Level.Hud.DialogBox.Enqueue(new UI.DialogMessage(string.Format("You found {0}!\n{1}", Item.Name, descriptions[0]), false));
-                    for(int i = 1; i < descriptions.Length; i++) {
+                    for (int i = 1; i < descriptions.Length; i++) {
                         Level.Hud.DialogBox.Enqueue(new UI.DialogMessage(descriptions[i]));
                     }
 
                     player.Inventory.AddItem(Item);
-                    if(Item.Colectable) this.Item = null; // Remove item from container if collectable
+                    if (Item.Colectable) this.Item = null; // Remove item from container if collectable
                 } else {
                     Level.Hud.DialogBox.Enqueue(new UI.DialogMessage("This storage is empty!", true));
                 }

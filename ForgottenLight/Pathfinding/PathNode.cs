@@ -5,14 +5,9 @@
  */
 
 using Microsoft.Xna.Framework;
+
 using ForgottenLight.Entities;
-using ForgottenLight.Levels;
 using ForgottenLight.Primitives;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ForgottenLight.Entities.Ghosts;
 
 namespace ForgottenLight.Pathfinding {
@@ -73,9 +68,8 @@ namespace ForgottenLight.Pathfinding {
             this.Y = y;
             this.Pathfinder = pathFinder;
 
-            if(Pathfinder.Entity is ICollidable) {
-                ICollidable entity = (ICollidable)Pathfinder.Entity;
-                this.Collider = new BoxCollider((int) entity.Collider.Width, (int) entity.Collider.Height, new Vector2(0.5f,1f), new Transform(position), pathFinder.Entity.Scene);
+            if (Pathfinder.Entity is ICollidable entity) {
+                this.Collider = new BoxCollider((int)entity.Collider.Width, (int)entity.Collider.Height, new Vector2(0.5f, 1f), new Transform(position), pathFinder.Entity.Scene);
             } else {
                 this.Collider = new BoxCollider((int)width, (int)height, new Vector2(0.5f, 0.5f), new Transform(position), pathFinder.Entity.Scene);
             }

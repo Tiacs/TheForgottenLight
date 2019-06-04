@@ -4,12 +4,6 @@
  * 2019
  */
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -27,14 +21,14 @@ namespace ForgottenLight.Entities {
         public Scene Scene {
             get; private set;
         }
-
-        private int depthIndex;
-        public int DepthIndex => depthIndex;
+        public int DepthIndex {
+            get; private set;
+        }
 
         public Entity(Transform transform, Scene scene, int depthIndex = 0) {
             this.Transform = transform;
             this.Scene = scene;
-            this.depthIndex = depthIndex;
+            this.DepthIndex = depthIndex;
         }
 
         public Entity(Vector2 position, Vector2 scale, Scene scene, int depthIndex = 0) : this(new Transform(position, scale), scene, depthIndex) {
@@ -101,7 +95,6 @@ namespace ForgottenLight.Entities {
                     }
                 }
             }
-
             return null;
         }
 

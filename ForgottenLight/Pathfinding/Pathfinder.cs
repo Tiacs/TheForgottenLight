@@ -7,15 +7,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Diagnostics;
 
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
 
 using ForgottenLight.Entities;
-using ForgottenLight.Levels;
 using ForgottenLight.Primitives;
 
 namespace ForgottenLight.Pathfinding {

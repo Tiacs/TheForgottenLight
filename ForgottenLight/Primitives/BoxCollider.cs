@@ -4,8 +4,6 @@
  * 2019
  */
 
-using System;
-
 using Microsoft.Xna.Framework;
 
 using ForgottenLight.Levels;
@@ -59,11 +57,7 @@ namespace ForgottenLight.Primitives {
         public bool Intersects(BoxCollider boxCollider) {
             return Intersects(this, boxCollider);
         }
-
-        internal void Update(object gameTime) {
-            throw new NotImplementedException();
-        }
-
+        
         public static bool Intersects(BoxCollider b1, BoxCollider b2) {
             return b1.Rectangle.Intersects(b2.Rectangle);
         }
