@@ -26,13 +26,15 @@ namespace ForgottenLight.UI {
         private float blackScreenOpacity;
         
         private Label interactLabel;
-
-        public Image BlackScreen {
-            get; private set;
-        }
+        private Image blackScreen;
+        private Image keyIcon;
 
         public DialogBox DialogBox {
             get; private set;
+        }
+
+        public bool IsKeyFound {
+            get; set;
         }
         
         public HUD(float width, float height, Level level, ContentManager content) : base(width, height, content, level) {
@@ -50,7 +52,7 @@ namespace ForgottenLight.UI {
                 Parent = this
             };
             
-            this.BlackScreen = new Image(Scene) {
+            this.blackScreen = new Image(Scene) {
                 Position = Vector2.Zero,
                 Scale = new Vector2(Width, Height),
                 Color = new Color(0, 0, 0, 0),
@@ -66,11 +68,20 @@ namespace ForgottenLight.UI {
                 Visible = false,
                 Parent = this
             };
+
+            this.keyIcon = new Image(content.Load<Texture2D>("ui/ui_atlas"), Scene) {
+                SpriteOrigin = new Vector2(1842, 0),
+                SpriteSize = new Vector2(28, 12),
+                Position = new Vector2(Width-10, 10),
+                Pivot = new Vector2(1, 0),
+                Visible = false,
+                Parent = this
+            };
         }
 
         public override void OnDraw(SpriteBatch spriteBatch, GameTime gameTime) {
-            if(BlackScreen.Texture == null) {
-                BlackScreen.Texture = LoadBlankColor(spriteBatch);
+            if(blackScreen.Texture == null) {
+                blackScreen.Texture = LoadBlankColor(spriteBatch);
             }
         }
 
@@ -88,6 +99,10 @@ namespace ForgottenLight.UI {
             } else if(isFadingWhite) { // Fading out black on game won
                 this.PerformWhiteFading(gameTime);
             }
+
+            if(Scene.Player.Inventory.ContainsItem(Items.ItemCode.KEY)) {
+                this.keyIcon.Visible = true;
+            }
         }
 
         private void PerformBlackFading(GameTime gameTime) {
@@ -96,7 +111,7 @@ namespace ForgottenLight.UI {
 
             double smooth = Math.Min(Math.Exp(blackScreenOpacity), 255); // make linear to exp fading (looks better)
 
-            this.BlackScreen.Color = new Color(0, 0, 0, (int)smooth);
+            this.blackScreen.Color = new Color(0, 0, 0, (int)smooth);
         }
 
         private void PerformWhiteFading(GameTime gameTime) {
@@ -106,7 +121,7 @@ namespace ForgottenLight.UI {
             double smooth = Math.Min(Math.Exp(blackScreenOpacity), 255) / 255.0;  // make linear to exp fading (looks better)
 
             Color whiteColor = CustomColor.White;
-            this.BlackScreen.Color = new Color((int)(whiteColor.R * smooth), (int)(whiteColor.G * smooth),
+            this.blackScreen.Color = new Color((int)(whiteColor.R * smooth), (int)(whiteColor.G * smooth),
                 (int)(whiteColor.B * smooth), (int)(whiteColor.A * smooth));
         }
 
