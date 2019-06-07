@@ -24,6 +24,10 @@ namespace ForgottenLight.UI {
             get; set;
         } = Vector2.Zero;
 
+        public Color Color {
+            get; set;
+        } = Color.White;
+
         protected override Vector2 Bounds => SpriteSize * Scale;
 
         public Image(Scene scene) : base(scene) {
@@ -36,10 +40,10 @@ namespace ForgottenLight.UI {
 
         public override void OnDraw(SpriteBatch sprite, GameTime gameTime) {
             if(SpriteSize == Vector2.Zero) {
-                sprite.Draw(Texture, AbsolutePosition, null, Color.White, 0, Vector2.Zero, Scale, SpriteEffects.None, 0);
+                sprite.Draw(Texture, AbsolutePosition, null, Color, 0, Vector2.Zero, Scale, SpriteEffects.None, 0);
                 return;
             }
-            sprite.Draw(Texture, AbsolutePosition, new Rectangle(SpriteOrigin.ToPoint(), SpriteSize.ToPoint()), Color.White, 0, Vector2.Zero, Scale, SpriteEffects.None, 0);
+            sprite.Draw(Texture, AbsolutePosition, new Rectangle(SpriteOrigin.ToPoint(), SpriteSize.ToPoint()), Color, 0, Vector2.Zero, Scale, SpriteEffects.None, 0);
         }
     }
 }

@@ -221,8 +221,11 @@ namespace ForgottenLight.Levels {
         }
 
         public void OnGameWon() {
+            this.Hud.FadeOutWhite();
             IsGameWon = true;
-            Hud.DialogBox.Enqueue("You won the game! Congratulations!");
+            Hud.DialogBox.Enqueue("You managed to escape the dungeon!");
+            Hud.DialogBox.Enqueue("Congratulations! You won the game!");
+            Hud.DialogBox.Enqueue("Thank you for playing The Forgotten Light! :)");
         }
 
         public override void NextScene() {

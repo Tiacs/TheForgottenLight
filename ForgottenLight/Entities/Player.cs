@@ -227,8 +227,10 @@ namespace ForgottenLight.Entities {
 
         public void OnCollision(ICollidable collidingEntity) {
             if (collidingEntity is Ghosts.Ghost && !this.IsDead) {
+                this.Level.Hud.FadeOutBlack();
                 this.IsDead = true;
                 Level.Hud.DialogBox.Enqueue("You got caught by the ghosts!");
+                Level.Hud.DialogBox.Enqueue("Maybe you have more luck next time...");
             }
         }
         

@@ -11,18 +11,30 @@ using Microsoft.Xna.Framework.Input;
 
 using ForgottenLight.Primitives;
 using ForgottenLight.Levels;
+using System;
 
 namespace ForgottenLight.UI {
     class HUD : UserInterface {
-        
+
+        private const float DEATH_FADE_SPEED = 10f;
+        private const float WON_FADE_SPEED = 4f;
+
         private Level level;
 
+        private bool isFadingBlack = false;
+        private bool isFadingWhite = false;
+        private float blackScreenOpacity;
+        
         private Label interactLabel;
+
+        public Image BlackScreen {
+            get; private set;
+        }
 
         public DialogBox DialogBox {
             get; private set;
         }
-
+        
         public HUD(float width, float height, Level level, ContentManager content) : base(width, height, content, level) {
             this.level = level;
 
@@ -37,6 +49,14 @@ namespace ForgottenLight.UI {
                 Scale = Vector2.One * 1.2f,
                 Parent = this
             };
+            
+            this.BlackScreen = new Image(Scene) {
+                Position = Vector2.Zero,
+                Scale = new Vector2(Width, Height),
+                Color = new Color(0, 0, 0, 0),
+                Visible = true,
+                Parent = this
+            };
 
             this.DialogBox = new DialogBox(MainFont, content, Scene) {
                 Position = new Vector2(Width / 2, Height - 50),
@@ -46,11 +66,12 @@ namespace ForgottenLight.UI {
                 Visible = false,
                 Parent = this
             };
-            
         }
 
         public override void OnDraw(SpriteBatch spriteBatch, GameTime gameTime) {
-         
+            if(BlackScreen.Texture == null) {
+                BlackScreen.Texture = LoadBlankColor(spriteBatch);
+            }
         }
 
         public override void Update(GameTime gameTime, KeyboardState keyboardState, MouseState mouseState) {
@@ -61,6 +82,49 @@ namespace ForgottenLight.UI {
             } else {
                 interactLabel.Text = "";
             }
+
+            if(isFadingBlack) { // Fading out black on death
+                this.PerformBlackFading(gameTime);
+            } else if(isFadingWhite) { // Fading out black on game won
+                this.PerformWhiteFading(gameTime);
+            }
         }
+
+        private void PerformBlackFading(GameTime gameTime) {
+            this.blackScreenOpacity = MathHelper.Min((float)blackScreenOpacity + DEATH_FADE_SPEED
+                * (float)gameTime.ElapsedGameTime.TotalSeconds, 255f);
+
+            double smooth = Math.Min(Math.Exp(blackScreenOpacity), 255); // make linear to exp fading (looks better)
+
+            this.BlackScreen.Color = new Color(0, 0, 0, (int)smooth);
+        }
+
+        private void PerformWhiteFading(GameTime gameTime) {
+            this.blackScreenOpacity = MathHelper.Min((float)blackScreenOpacity + WON_FADE_SPEED
+                * (float)gameTime.ElapsedGameTime.TotalSeconds, 255f);
+            
+            double smooth = Math.Min(Math.Exp(blackScreenOpacity), 255) / 255.0;  // make linear to exp fading (looks better)
+
+            Color whiteColor = CustomColor.White;
+            this.BlackScreen.Color = new Color((int)(whiteColor.R * smooth), (int)(whiteColor.G * smooth),
+                (int)(whiteColor.B * smooth), (int)(whiteColor.A * smooth));
+        }
+
+        public Texture2D LoadBlankColor(SpriteBatch spriteBatch) {
+            Texture2D t = new Texture2D(spriteBatch.GraphicsDevice, 1, 1);
+            t.SetData<Color>(new Color[] { Color.White }); // fill the texture with white
+            return t;
+        }
+
+        public void FadeOutBlack() {
+            this.isFadingBlack = true;
+            this.blackScreenOpacity = 0;
+        }
+
+        public void FadeOutWhite() {
+            this.isFadingWhite = true;
+            this.blackScreenOpacity = 0;
+        }
+        
     }
 }
