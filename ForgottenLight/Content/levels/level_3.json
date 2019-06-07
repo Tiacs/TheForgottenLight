@@ -286,7 +286,7 @@
     {
       "itemcode": 1,
       "name": "a Key",
-      "description": "This key looks important...\nIt must be useful for something!\nIf only I could find the right door...",
+      "description": "This key looks important...\nIt must be useful for something!\nIf only you could find the right door...",
       "randomloot": true,
       "countlimit": 1
     },
