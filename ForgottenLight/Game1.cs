@@ -23,9 +23,6 @@ namespace ForgottenLight {
 
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
-
-        // Textures
-        private Texture2D lightTexture;
         
         // Render Targets
         private RenderTarget2D mainTarget;
@@ -72,8 +69,6 @@ namespace ForgottenLight {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             
-            this.lightTexture = this.Content.Load<Texture2D>("light");
-
             this.lightningEffect = this.Content.Load<Effect>("lightning");
         }
 

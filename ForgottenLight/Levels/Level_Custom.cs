@@ -18,7 +18,6 @@ using ForgottenLight.Entities;
 using ForgottenLight.Entities.Ghosts;
 using ForgottenLight.Items;
 using ForgottenLight.Levels.LevelLoader;
-using ForgottenLight.UI;
 using System;
 
 namespace ForgottenLight.Levels {
