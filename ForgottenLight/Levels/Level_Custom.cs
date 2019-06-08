@@ -19,6 +19,7 @@ using ForgottenLight.Entities.Ghosts;
 using ForgottenLight.Items;
 using ForgottenLight.Levels.LevelLoader;
 using System;
+using ForgottenLight.Primitives;
 
 namespace ForgottenLight.Levels {
     class Level_Custom : Level {
@@ -29,7 +30,10 @@ namespace ForgottenLight.Levels {
 
         private string levelName;
         private string nextLevelName;
-
+        private string[] openingDialog;
+        private bool openingDialogDone;
+        private Timer openingTimer;
+        
         private const string PATH = "Content/levels/{0}.json";
 
         public bool IsGameWon {
@@ -57,15 +61,34 @@ namespace ForgottenLight.Levels {
             LoadItems(levelWrapper.Items);
             LoadEntities(levelWrapper.Entities);
             LoadLights(levelWrapper.Lights);
+
+            this.openingTimer = new Timer(500);
         }
 
         public override void Update(GameTime gameTime, KeyboardState keyboardState, MouseState mouseState) {
             base.Update(gameTime, keyboardState, mouseState);
+            
+            if (!openingDialogDone) {
+                UpdateOpeningTimer(gameTime);
+            }
 
             // If game won and dialog is over -> go back to main menu
             if(IsGameWon && !Hud.DialogBox.IsDialogRunning) {
                 LoadScene(new MainMenuScene());
             }
+        }
+
+        private void UpdateOpeningTimer(GameTime gameTime) {
+            if (!openingTimer.Done) {
+                openingTimer.Update(gameTime);
+                return;
+            }
+
+            // Start dialog
+            foreach (string message in openingDialog) {
+                Hud.DialogBox.Enqueue(message);
+            }
+            this.openingDialogDone = true;
         }
 
         protected override void CreateWalls() {
@@ -78,6 +101,7 @@ namespace ForgottenLight.Levels {
 
         private void LoadLevelMetadata(LevelWrapper levelWrapper) {
             this.nextLevelName = levelWrapper.NextLevel;
+            this.openingDialog = levelWrapper.OpeningDialog;
         }
 
         private void LoadPlayer(LevelWrapper levelWrapper) {

@@ -6,6 +6,9 @@
 		"x": 275,
 		"y": 350
 	},
+	"openingdialog": [
+		"...", "Where are you?", "You have to find the exit..."
+    ],
 	"entities": [
 		// outter walls
 		{

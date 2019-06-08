@@ -18,6 +18,10 @@ namespace ForgottenLight.Levels.LevelLoader {
         public string NextLevel {
             get; set;
         }
+
+        public string[] OpeningDialog {
+            get; set;
+        } = new string[0];
         
         public PlayerWrapper Player {
             get; set;
