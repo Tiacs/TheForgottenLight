@@ -52,6 +52,15 @@ namespace ForgottenLight.UI {
                 Parent = this
             };
             
+            this.keyIcon = new Image(content.Load<Texture2D>("ui/ui_atlas"), Scene) {
+                SpriteOrigin = new Vector2(1842, 0),
+                SpriteSize = new Vector2(28, 12),
+                Position = new Vector2(Width - 10, 10),
+                Pivot = new Vector2(1, 0),
+                Visible = false,
+                Parent = this
+            };
+
             this.blackScreen = new Image(Scene) {
                 Position = Vector2.Zero,
                 Scale = new Vector2(Width, Height),
@@ -65,15 +74,6 @@ namespace ForgottenLight.UI {
                 Pivot = new Vector2(.5f, 1),
                 Width = 400,
                 Height = 100,
-                Visible = false,
-                Parent = this
-            };
-
-            this.keyIcon = new Image(content.Load<Texture2D>("ui/ui_atlas"), Scene) {
-                SpriteOrigin = new Vector2(1842, 0),
-                SpriteSize = new Vector2(28, 12),
-                Position = new Vector2(Width-10, 10),
-                Pivot = new Vector2(1, 0),
                 Visible = false,
                 Parent = this
             };
