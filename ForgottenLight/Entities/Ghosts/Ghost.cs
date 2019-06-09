@@ -53,10 +53,6 @@ namespace ForgottenLight.Entities.Ghosts {
             this.path = new List<Vector2>();
             this.pathfinder = new Pathfinder(2*16, 2*9, this);
 
-            //this.waypoints.Enqueue(new Waypoint(100, 100));
-            //this.waypoints.Enqueue(new Waypoint(100, 200));
-            //this.waypoints.Enqueue(new Waypoint(100, 800));
-
         }
 
         public Ghost(float x, float y, ContentManager contentManager, Scene level, int depthIndex = 50) : this(new Vector2(x,y), contentManager, level, depthIndex) {
@@ -79,75 +75,79 @@ namespace ForgottenLight.Entities.Ghosts {
             }
 
             /*
-             * 2. If path done; create next it
+             * If path done; create next
              */
             if(path.Count <= 0 && waypoints.Count > 0) {
-                if (!NoClip) {
-                    // this.waypoint = waypoints.Dequeue();
-                    this.pathfinder.Update(gameTime);
-                    this.path = pathfinder.FindPath(this.Transform.AbsolutePosition, this.waypoints.Peek().Position);
-                    if (path.Count == 0) {
-                        this.waypoints.Dequeue(); // remove current waypoint
-                    }
-                } else {
-                    this.path.Clear();
-                    this.path.Add(this.waypoints.Peek().Position);
-                }
-                /*if (this.path.Count == 0) { // if waypoint not reachable -> remove waypoint from list
-                    waypoints.Dequeue();
-                }*/
-
-                currentPathNode = 0;
+                UpdatePath(gameTime);
             }
             
 
             /*
-             * 3. Movement if path is present
+             * Movement if path is present
              */
             if (path.Count > 0 && currentPathNode < path.Count && waypoints.Count > 0) {
-                for (int i = 0; i < path.Count - 1; i++) {
-                    Gizmos.Instance.DrawGizmo(new LineGizmo(path[i], path[i + 1], 4, Color.Red));
-                }
-
-                // Calculate movement
-                Vector2 movement = path[currentPathNode] - Transform.AbsolutePosition;
-                if(movement.Length() > 0)
-                    movement.Normalize();
-                movement *= speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
-
-                // add movement to current position
-                Transform.Position += movement;
-
-                /*
-                 * Current path node reached
-                 */
-                if ((path[currentPathNode] - Transform.AbsolutePosition).Length() <= 1) {
-                    if (!NoClip) {
-                        pathfinder.Update(gameTime);
-                        List<Vector2> newPath = pathfinder.FindPath(path[currentPathNode], waypoints.Peek().Position);
-                        if (newPath.Count > 0) {
-                            path = newPath;
-                            currentPathNode = 1;
-                        } else {
-                            currentPathNode++;
-                        }
-
-                        if (currentPathNode >= path.Count) {
-                            currentPathNode = 1;
-                            path.Clear();
-                            waypoints.Dequeue(); // target reached
-                        }
-                    } else {
-                        this.path.Clear(); // clear path and dequeue current waypoint
-                        this.waypoints.Dequeue();
-                    }
-                }
+                this.UpdateMovement(gameTime);
             }
 
             // final update of collider for future collision checks
             this.Collider.Update(gameTime);
             Entity.IsColliding(this); // Check collission for events
             
+        }
+
+        private void UpdatePath(GameTime gameTime) {
+            if (!NoClip) {
+                this.pathfinder.Update(gameTime);
+                this.path = pathfinder.FindPath(this.Transform.AbsolutePosition, this.waypoints.Peek().Position);
+                if (path.Count == 0) {
+                    this.waypoints.Dequeue(); // remove current waypoint
+                }
+            } else {
+                this.path.Clear();
+                this.path.Add(this.waypoints.Peek().Position);
+            }
+
+            currentPathNode = 0;
+        }
+
+        private void UpdateMovement(GameTime gameTime)
+        {
+            for (int i = 0; i < path.Count - 1; i++) {
+                Gizmos.Instance.DrawGizmo(new LineGizmo(path[i], path[i + 1], 4, Color.Red));
+            }
+
+            // Calculate movement
+            Vector2 movement = path[currentPathNode] - Transform.AbsolutePosition;
+            if (movement.Length() > 0) movement.Normalize();
+            movement *= speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+            // add movement to current position
+            Transform.Position += movement;
+
+            /*
+             * Current path node reached
+             */
+            if ((path[currentPathNode] - Transform.AbsolutePosition).Length() <= 1) {
+                if (!NoClip) {
+                    pathfinder.Update(gameTime);
+                    List<Vector2> newPath = pathfinder.FindPath(path[currentPathNode], waypoints.Peek().Position);
+                    if (newPath.Count > 0) {
+                        path = newPath;
+                        currentPathNode = 1;
+                    } else {
+                        currentPathNode++;
+                    }
+
+                    if (currentPathNode >= path.Count) {
+                        currentPathNode = 1;
+                        path.Clear();
+                        waypoints.Dequeue(); // target reached
+                    }
+                } else {
+                    this.path.Clear(); // clear path and dequeue current waypoint
+                    this.waypoints.Dequeue();
+                }
+            }
         }
 
         public abstract void OnCollision(ICollidable collidingEntity);

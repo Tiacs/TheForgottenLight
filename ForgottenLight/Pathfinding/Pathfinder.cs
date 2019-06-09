@@ -52,7 +52,7 @@ namespace ForgottenLight.Pathfinding {
 
             PathNode nearest = neighbours[0];
             for(int i = 1; i < neighbours.Count; i++) {
-                if(neighbours[i].F >= 0 && (position - neighbours[i].Position).Length() < (position - nearest.Position).Length()) { // TODO: Do not return first positiv cost node; instead compare all surounding nodes and take nearest one (smallest distance)
+                if(neighbours[i].F >= 0 && (position - neighbours[i].Position).Length() < (position - nearest.Position).Length()) {
                     nearest = neighbours[i];                                                                              
                 }
             }
@@ -90,8 +90,6 @@ namespace ForgottenLight.Pathfinding {
             open.Add(start);
             PathNode current;
             while(open.Count > 0) {
-                // TODO: update costs?! 
-                
                 current = open.RemoveFirst();
                 closed.Add(current);
 
@@ -122,7 +120,7 @@ namespace ForgottenLight.Pathfinding {
                 }
             }
             
-            return new List<PathNode>();
+            return new List<PathNode>(); // Return empty list if no path found
         }
 
         private int GetGCosts(PathNode node, PathNode neighbour) {
@@ -180,7 +178,6 @@ namespace ForgottenLight.Pathfinding {
                     nodes[y, x].H = 0;
 
                     nodes[y, x].UpdateCollision(gameTime);
-                    //Gizmos.Instance.DrawGizmo(new LineGizmo(nodes[y, x].Position - Vector2.One, nodes[y, x].Position, 2, nodes[y, x].DebugColor)); // do not draw -> will create too much gizmos
                 }
             }
         }
