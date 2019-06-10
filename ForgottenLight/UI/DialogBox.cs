@@ -37,6 +37,7 @@ namespace ForgottenLight.UI {
         private Timer charDelay = new Timer(25);
         private Timer messageDelay = new Timer(1000);
 
+        private ButtonState prevLeftButtonState;
 
         public Color TextColor {
             get; set;
@@ -73,6 +74,8 @@ namespace ForgottenLight.UI {
             };
 
             Input.Instance.RegisterOnKeyDownEvent(Keys.E, new Input.KeyboardEvent(this.OnNextKey));
+            Input.Instance.RegisterOnKeyDownEvent(Keys.Enter, new Input.KeyboardEvent(this.OnNextKey));
+            Input.Instance.RegisterOnKeyDownEvent(Keys.Space, new Input.KeyboardEvent(this.OnNextKey));
         }
 
         private void LoadContent(ContentManager content) {
@@ -87,7 +90,13 @@ namespace ForgottenLight.UI {
 
         public override void Update(GameTime gameTime, KeyboardState keyboardState, MouseState mouseState) {
             base.Update(gameTime, keyboardState, mouseState);
-            
+
+            // Use mouse button as alternative for next key
+            if(mouseState.LeftButton == ButtonState.Pressed && mouseState.LeftButton != prevLeftButtonState) {
+                this.OnNextKey();
+            }
+            prevLeftButtonState = mouseState.LeftButton;
+
             if (currentMessage == null) { // Change message if done and new message waiting
 
                 if(Messages.Count > 0) {

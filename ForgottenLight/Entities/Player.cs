@@ -54,6 +54,7 @@ namespace ForgottenLight.Entities {
         }
 
         private Input keyboardEventHandler;
+        private ButtonState prevLeftButtonState;
 
         public bool Flipped {
             get; set;
@@ -102,6 +103,11 @@ namespace ForgottenLight.Entities {
         public override void Update(GameTime gameTime, KeyboardState keyboardState, MouseState mouseState) {
             base.Update(gameTime, keyboardState, mouseState);
             
+            if(mouseState.LeftButton == ButtonState.Pressed && prevLeftButtonState != mouseState.LeftButton) {
+                this.InteractKeyDown();
+            }
+            prevLeftButtonState = mouseState.LeftButton;
+
             this.UpdateMovement(gameTime, keyboardState);
             
             if(animationState != prevAnimationSatet || orientation != prevOrientation) {
