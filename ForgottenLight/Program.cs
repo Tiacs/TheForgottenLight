@@ -30,7 +30,7 @@ namespace ForgottenLight {
 
         public static void WriteToLog(Exception e) {
             using (System.IO.StreamWriter file = new System.IO.StreamWriter(@"error.log", false)) {
-                file.WriteLine("An error occured during the execution of TheForgottenLight!");
+                file.WriteLine("An error occurred during the execution of TheForgottenLight!");
                 file.WriteLine(e.ToString());
             }
         }
