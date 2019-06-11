@@ -103,16 +103,16 @@
     {
       "entitytype": "WALL", // left
       "x": 550,
-      "y": 150,
+      "y": 145,
       "width": 100,
-      "height": 20
+      "height": 25
     },
     {
       "entitytype": "WALL", // right
       "x": 700,
-      "y": 150,
+      "y": 145,
       "width": 100,
-      "height": 20
+      "height": 25
     },
     // BOTTOM ROOM
     {
