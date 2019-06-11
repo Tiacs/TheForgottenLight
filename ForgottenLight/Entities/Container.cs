@@ -21,7 +21,7 @@ namespace ForgottenLight.Entities {
 
         public virtual bool Collidable => false;
 
-        public virtual string Description => "press e to open";
+        public virtual string Description => Strings.UI_MESSAGE_OPEN;
 
         private Level Level => (Level)Scene;
 
@@ -41,7 +41,7 @@ namespace ForgottenLight.Entities {
                 if (Item != null) {
                     string[] descriptions = Item.Description.Split('\n'); // Split item description at \n and put them into multiple messages
 
-                    Level.Hud.DialogBox.Enqueue(new UI.DialogMessage(string.Format("You found {0}!\n{1}", Item.Name, descriptions[0]), false));
+                    Level.Hud.DialogBox.Enqueue(new UI.DialogMessage(string.Format(Strings.UI_FOUND_MESSAGE, Item.Name, descriptions[0]), false));
                     for (int i = 1; i < descriptions.Length; i++) {
                         Level.Hud.DialogBox.Enqueue(new UI.DialogMessage(descriptions[i]));
                     }
@@ -49,7 +49,7 @@ namespace ForgottenLight.Entities {
                     player.Inventory.AddItem(Item);
                     if (Item.Colectable) this.Item = null; // Remove item from container if collectable
                 } else {
-                    Level.Hud.DialogBox.Enqueue(new UI.DialogMessage("This storage is empty!", true));
+                    Level.Hud.DialogBox.Enqueue(new UI.DialogMessage(Strings.UI_EMPTY_MESSAGE, true));
                 }
             }
         }

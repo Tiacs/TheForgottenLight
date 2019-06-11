@@ -24,7 +24,7 @@ namespace ForgottenLight.UI {
         }
 
         private void LoadContent(ContentManager content) {
-            this.MainFont = content.Load<SpriteFont>("fonts/Main");
+            this.MainFont = content.Load<SpriteFont>(Strings.CONTENT_FONT_MAIN);
         }
 
     }

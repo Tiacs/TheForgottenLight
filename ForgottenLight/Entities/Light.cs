@@ -21,7 +21,7 @@ namespace ForgottenLight.Entities {
 
         public Light(Vector2 position, ContentManager content, float radius, Scene level) : base(position, level) {
             Transform.Scale = radius * Vector2.One;
-            this.texture = new Animation(content.Load<Texture2D>("light"), 64, 64, Vector2.Zero, 1, 0, false);
+            this.texture = new Animation(content.Load<Texture2D>(Strings.CONTENT_SPRITE_LIGHT), 64, 64, Vector2.Zero, 1, 0, false);
             this.animationPlayer = new AnimationPlayer(new Vector2(.5f, .5f));
             this.animationPlayer.PlayAnimation(texture);
             Transform.GizmosEnabled = true;

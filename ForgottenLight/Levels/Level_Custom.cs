@@ -34,8 +34,6 @@ namespace ForgottenLight.Levels {
         private bool openingDialogDone;
         private Timer openingTimer;
         
-        private const string PATH = "Content/levels/{0}.json";
-
         public bool IsGameWon {
             get; private set;
         }
@@ -55,7 +53,7 @@ namespace ForgottenLight.Levels {
 
             this.random = new Random();
 
-            LevelWrapper levelWrapper = JsonConvert.DeserializeObject<LevelWrapper>(ReadFromJsonFile(string.Format(PATH, levelName)));
+            LevelWrapper levelWrapper = JsonConvert.DeserializeObject<LevelWrapper>(ReadFromJsonFile(string.Format(Strings.CONTENT_LEVEL_PATH, levelName)));
             LoadLevelMetadata(levelWrapper);
             LoadPlayer(levelWrapper);
             LoadItems(levelWrapper.Items);
@@ -234,7 +232,7 @@ namespace ForgottenLight.Levels {
                     return sr.ReadToEnd();
                 }
             } catch (IOException) {
-                throw new IOException("Level json file could not be read!");
+                throw new IOException(Strings.ERROR_LEVEL_READ);
             }
         }
 
@@ -246,9 +244,9 @@ namespace ForgottenLight.Levels {
         public void OnGameWon() {
             this.Hud.FadeOutWhite();
             IsGameWon = true;
-            Hud.DialogBox.Enqueue("You managed to escape the dungeon!");
-            Hud.DialogBox.Enqueue("Congratulations! You won the game!");
-            Hud.DialogBox.Enqueue("Thank you for playing The Forgotten Light! :)");
+            Hud.DialogBox.Enqueue(Strings.UI_WON_MESSAGE1);
+            Hud.DialogBox.Enqueue(Strings.UI_WON_MESSAGE2);
+            Hud.DialogBox.Enqueue(Strings.UI_WON_MESSAGE3);
         }
 
         public override void NextScene() {

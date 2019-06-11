@@ -52,7 +52,7 @@ namespace ForgottenLight.UI {
                 Parent = this
             };
             
-            this.keyIcon = new Image(content.Load<Texture2D>("ui/ui_atlas"), Scene) {
+            this.keyIcon = new Image(content.Load<Texture2D>(Strings.CONTENT_SPRITE_UI_ATLAS), Scene) {
                 SpriteOrigin = new Vector2(1842, 0),
                 SpriteSize = new Vector2(28, 12),
                 Position = new Vector2(Width - 10, 10),

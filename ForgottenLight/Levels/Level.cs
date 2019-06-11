@@ -60,7 +60,7 @@ namespace ForgottenLight.Levels {
         }
 
         protected override void LoadContent(ContentManager contentManager) {
-            this.levelBackgroundTile = contentManager.Load<Texture2D>("sprites/bricks");
+            this.levelBackgroundTile = contentManager.Load<Texture2D>(Strings.CONTENT_SPRITE_BRICKS);
         }
 
         private void DrawBricks(SpriteBatch spriteBatch, GameTime gameTime) {

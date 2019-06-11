@@ -63,6 +63,7 @@
     <Compile Include="Entities\Player.cs" />
     <Compile Include="Items\Inventory.cs" />
     <Compile Include="Items\Item.cs" />
+    <Compile Include="Strings.cs" />
     <Compile Include="UI\ClickableLabel.cs" />
     <Compile Include="Levels\MainMenuScene.cs" />
     <Compile Include="Levels\Scene.cs" />

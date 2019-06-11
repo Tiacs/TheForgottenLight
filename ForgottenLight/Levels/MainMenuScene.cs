@@ -36,7 +36,7 @@ namespace ForgottenLight.Levels {
 
             this.Interface = new MainMenu(Width, Height, contentManager, this);
 
-            Texture2D atlas = contentManager.Load<Texture2D>("sprites/player");
+            Texture2D atlas = contentManager.Load<Texture2D>(Strings.CONTENT_SPRITE_PLAYER);
 
             this.playerAnimation = new Animation(atlas, 38, 22, new Vector2(132, 0), 12, 0.25f, true);
             this.animationPlayer = new AnimationPlayer(new Vector2(.5f, 1));
@@ -56,7 +56,7 @@ namespace ForgottenLight.Levels {
         }
 
         public override void NextScene() {
-            this.LoadScene(new Level_Custom("level_1"));
+            this.LoadScene(new Level_Custom(Strings.CONTENT_LEVEL_FIRST));
         }
         
         public override void Update(GameTime gameTime, KeyboardState keyboardState, MouseState mouseState) {

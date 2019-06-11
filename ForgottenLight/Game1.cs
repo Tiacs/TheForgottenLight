@@ -18,7 +18,7 @@ namespace ForgottenLight {
     /// </summary>
     class Game1 : Game {
 
-        public string Version => "v1.0.2-Snapshot";
+        public string Version => Strings.GAME_VERSION;
         public static bool Debugging = false;
 
         private GraphicsDeviceManager graphics;
@@ -43,7 +43,7 @@ namespace ForgottenLight {
 
         public Game1() {
             graphics = new GraphicsDeviceManager(this);
-            Content.RootDirectory = "Content";
+            Content.RootDirectory = Strings.CONTENT_ROOT_DIRECTORY;
         }
 
         /// <summary>
@@ -69,7 +69,7 @@ namespace ForgottenLight {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             
-            this.lightningEffect = this.Content.Load<Effect>("lightning");
+            this.lightningEffect = this.Content.Load<Effect>(Strings.CONTENT_LIGHTNING_EFFECT);
         }
 
         /// <summary>
@@ -123,7 +123,7 @@ namespace ForgottenLight {
             GraphicsDevice.SetRenderTarget(target);
             GraphicsDevice.Clear(Color.Black);
 
-            lightningEffect.Parameters["lightMask"].SetValue(lightningTarget); // set light mask to shader
+            lightningEffect.Parameters[Strings.SHADER_PARAM_LIGHTMASK].SetValue(lightningTarget); // set light mask to shader
             spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, effect: lightningEnabled ? lightningEffect : null);
             
             spriteBatch.Draw(mainTarget, Vector2.Zero, Color.White);

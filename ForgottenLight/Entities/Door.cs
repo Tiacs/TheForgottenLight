@@ -20,7 +20,7 @@ namespace ForgottenLight.Entities {
         private AnimationPlayer animationPlayer;
         private Animation idleAnimation;
 
-        public string Description { get; private set; } = "Press E to open door";
+        public string Description { get; private set; } = Strings.UI_MESSAGE_OPEN;
 
         public BoxCollider Collider { get; private set; }
 
@@ -45,7 +45,7 @@ namespace ForgottenLight.Entities {
 
         private void LoadContent(ContentManager content) {
 
-            Texture2D atlas = content.Load<Texture2D>("sprites/sprite_atlas");
+            Texture2D atlas = content.Load<Texture2D>(Strings.CONTENT_SPRITE_ATLAS);
 
             idleAnimation = new Animation(atlas, 63, 39, new Vector2(66, 0), 1, 0, false);
 
@@ -76,16 +76,16 @@ namespace ForgottenLight.Entities {
             }
 
             if (player.Inventory.ContainsItem(ItemCode.KEY)) {
-                Level.Hud.DialogBox.Enqueue(new UI.DialogMessage("You opened the door!", false));
-                Level.Hud.DialogBox.Enqueue(new UI.DialogMessage("Let's see what's inside!", false));
+                Level.Hud.DialogBox.Enqueue(new UI.DialogMessage(Strings.UI_DOOR_OPENED1, false));
+                Level.Hud.DialogBox.Enqueue(new UI.DialogMessage(Strings.UI_DOOR_OPENED2, false));
                 Opened = true;
 
-                this.Description = "Press E to get into next level!";
+                this.Description = Strings.UI_DOOR_NEXT_LEVEL;
 
                 return;
             }
 
-            Level.Hud.DialogBox.Enqueue(new UI.DialogMessage("You must find the key first!", true));
+            Level.Hud.DialogBox.Enqueue(new UI.DialogMessage(Strings.UI_DOOR_FIND_KEY, true));
         }
 
         public void OnCollision(ICollidable collidingEntity) {

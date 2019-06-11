@@ -29,8 +29,8 @@ namespace ForgottenLight {
         }
 
         public static void WriteToLog(Exception e) {
-            using (System.IO.StreamWriter file = new System.IO.StreamWriter(@"error.log", false)) {
-                file.WriteLine("An error occurred during the execution of TheForgottenLight!");
+            using (System.IO.StreamWriter file = new System.IO.StreamWriter(Strings.ERROR_LOG_PATH, false)) {
+                file.WriteLine(Strings.ERROR_LOG_MESSAGE);
                 file.WriteLine(e.ToString());
             }
         }

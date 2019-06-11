@@ -82,7 +82,7 @@ namespace ForgottenLight.Entities {
         }
 
         private void LoadContent(ContentManager content) {
-            Texture2D atlas = content.Load<Texture2D>("sprites/player");
+            Texture2D atlas = content.Load<Texture2D>(Strings.CONTENT_SPRITE_PLAYER);
 
             // Load animations
             this.idleFrontAnimation = new Animation(atlas, 38, 22, Vector2.Zero, 12, 0.1f, true);
@@ -235,8 +235,8 @@ namespace ForgottenLight.Entities {
             if (collidingEntity is Ghosts.Ghost && !this.IsDead) {
                 this.Level.Hud.FadeOutBlack();
                 this.IsDead = true;
-                Level.Hud.DialogBox.Enqueue("You got caught by the ghosts!");
-                Level.Hud.DialogBox.Enqueue("Maybe you have more luck next time...");
+                Level.Hud.DialogBox.Enqueue(Strings.UI_DEATH_MESSAGE1);
+                Level.Hud.DialogBox.Enqueue(Strings.UI_DEATH_MESSAGE2);
             }
         }
         

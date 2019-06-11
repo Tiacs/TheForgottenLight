@@ -31,8 +31,8 @@ namespace ForgottenLight.Levels {
 
 
             Item item = new Item {
-                Name = "Key",
-                Description = "This Key could be useful for something.",
+                Name = Strings.TEST_KEY_NAME,
+                Description = Strings.TEST_KEY_DESCRIPTION,
                 ID = ItemCode.KEY
             };
             

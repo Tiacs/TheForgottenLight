@@ -20,7 +20,7 @@ namespace ForgottenLight.Entities {
         private Animation idleAnimation;
         private AnimationPlayer animationPlayer;
 
-        public override string Description => "press e to open";
+        public override string Description => Strings.UI_MESSAGE_OPEN;
 
         public override bool Collidable => true;
 
@@ -35,7 +35,7 @@ namespace ForgottenLight.Entities {
         }
 
         private void LoadContent(ContentManager content) {
-            Texture2D atlas = content.Load<Texture2D>("sprites/sprite_atlas");
+            Texture2D atlas = content.Load<Texture2D>(Strings.CONTENT_SPRITE_ATLAS);
 
             idleAnimation = new Animation(atlas, 54, 96, new Vector2(0, 105), 1, 0, false);
             animationPlayer = new AnimationPlayer(new Vector2(.5f, 1));
