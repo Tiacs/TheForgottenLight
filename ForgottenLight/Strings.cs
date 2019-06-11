@@ -2,7 +2,7 @@
 namespace ForgottenLight {
     class Strings {
 
-        public static readonly string GAME_VERSION = "v1.0.2-Snapshot";
+        public static readonly string GAME_VERSION = "v1.1.0";
 
         public static readonly string CONTENT_ROOT_DIRECTORY = "Content";
 
